@@ -1,0 +1,27 @@
+{strip}{literal}{"type": "FeatureCollection",
+    "features": 
+	[
+	{/literal}
+		{assign var=cpt value=1}
+		{assign var=gps_data value=$tracked_objects->get_gps_data()}
+		{assign var=first value=1}
+        {foreach $gps_data as $data}
+{literal} {
+            "geometry": {
+                "type": "Point",
+				"coordinates": {/literal}[{$data->get_longitude()},{$data->get_latitude()}]	
+{literal}   },
+            "type": "Feature",
+            "properties": {
+{/literal}
+                "first":{if $cpt==1}1{else}0{/if},
+				"{traduction::t('Nom')}": "{$tracked_objects->get_nom()}",
+				"{traduction::t('Date')}": "{$data->get_dateheure()}",
+				"{traduction::t('Altitude')}": "{$data->get_altitude()}",
+				"{traduction::t('Temperature')}": "{$data->get_temperature()}"
+{literal}           
+			}
+        }{/literal}{if $cpt < count($gps_data)},{/if}{assign var=cpt value=$cpt+1}
+		{/foreach}
+	]
+}{/strip}

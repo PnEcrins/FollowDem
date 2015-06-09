@@ -1,0 +1,30 @@
+{strip}{literal}{"type": "FeatureCollection",
+    "features": 
+	[
+	{/literal}
+{literal}
+        {
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [{/literal}
+				{assign var=cpt value=1}
+				{assign var=gps_data value=$tracked_objects->get_gps_data()}
+				{foreach $gps_data as $data}
+					[{$data->get_longitude()},
+					{$data->get_latitude()}]
+					{if $cpt < count($gps_data)},{/if}
+					{assign var=cpt value=$cpt+1}
+				{/foreach}]	
+{literal}   },
+            "type": "Feature",
+            "properties": {
+{/literal}
+                "nom": "{$tracked_objects->get_nom()}"
+{literal}   },{/literal}
+            
+			"id": {$tracked_objects->get_id()}
+{literal} 
+		}
+	]
+}{/literal}
+{/strip}

@@ -1,0 +1,46 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="{config::get('url')}">{$titre_application}</a>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a id="infos" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-camera-retro icon-large" style="color: #FFF"></i>&nbsp;&nbsp;{traduction::t('Informations')} <b class="caret"></b></a>
+				 <ul class="dropdown-menu">
+					 <li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/bouquetinsalpes.html" data-target="#modalepage"><i class="icon-eye-open icon-large" style="color: #CEDC00"></i>&nbsp;&nbsp;{traduction::t('Bouquetin des Alpes')}</a></li>
+					   <li class="divider"></li>
+					 <li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/bouquetins.html" data-target="#modalepage"><i class="icon-eye-open icon-large" style="color: #CEDC00"></i>&nbsp;&nbsp;{traduction::t('Capture Bouquetins')}</a></li>
+					   <li class="divider"></li>
+					 <li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/faune.html" data-target="#modalepage"><i class="icon-eye-open icon-large" style="color: #CEDC00"></i>&nbsp;&nbsp;{traduction::t('Faune sauvage')}</a></li>
+					  <li class="divider"></li>
+					 <li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/diego.html" data-target="#modalepage"><i class="icon-location-arrow icon-large" style="color: #CEDC00"></i>&nbsp;&nbsp;{traduction::t('Diego')}</a></li>
+					 <!--  Bloc Actualités (récupérant un flux depuis le site WEB) masqué
+					  <li class="divider"></li>
+					 <li><a data-toggle="modal" href="/controler/get_info" data-target="#modalepage"><i class="icon-list icon-large" style="color: #CEDC00"></i>&nbsp;&nbsp;{traduction::t('Actualites')}</a></li>
+					-->
+				</ul>
+			</li>
+			<li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/parc.html" data-target="#modalepage"><i class="icon-leaf icon-large icon-rotate-180" style="color: #FFF"></i>&nbsp;&nbsp;{traduction::t('Parc national des Ecrins')}</a></li>
+			<li class="dropdown">
+				<a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-map-marker icon-large" style="color: #FFF"></i>&nbsp;&nbsp;{traduction::t('Outils')}<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#" onclick="map.setView(latlng,{config::get('leaflet_zoom_initial')}); return false;"><i class="icon-fullscreen icon-large"  style="color:#CEDC00"></i>&nbsp;&nbsp;{traduction::t('Réinitialiser la vue')}</a></li>
+					<li class="divider"></li>
+					<li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/legende.html" data-target="#modalepage"><i class="icon-picture icon-large"  style="color:#CEDC00"></i>&nbsp;&nbsp;{traduction::t('Légendes de la carte')}</a></li>
+					<li class="divider"></li>
+					<li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/aide.html" data-target="#modalepage"><i class="icon-question icon-large" style="color:#CEDC00"></i>&nbsp;&nbsp;{traduction::t('Aide')}</a></li>
+					<li class="divider"></li>
+					<li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/informations.html" data-target="#modalepage"><i class="icon-user icon-large"  style="color:#CEDC00"></i>&nbsp;&nbsp;{traduction::t('Informations / Mentions légales')}</a></li>
+				</ul>
+			</li>
+			<li><a data-toggle="modal" href="/{traduction::get_langue()}/pages/contact.html" data-target="#modalepage"><i class="icon-comments icon-large" style="color: #FFF"></i>&nbsp;&nbsp;{traduction::t('Contacts')}</a></li>
+
+			
+		</ul>
+	</div><!--/.navbar-collapse -->
+</div>

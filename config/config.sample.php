@@ -1,0 +1,466 @@
+<?php
+/**
+*	Fichier de configuration
+*	@author Fabien Selles
+*	@copyright Parc National des Écrins
+*	
+*/
+
+/**
+*	Tableau de config
+*	Voir index ci-apres
+*
+*	@var	array
+*/	
+$config = array();
+
+/*** Application */
+
+/**
+	*	Url de base de l'application
+	*
+	*	@var	string
+	*/
+	$config['url'] = 'http://mon-domaine.com';
+
+
+/**
+	*	Titre affichée en entête de la page
+	*
+	*	@var	string
+	*/
+	$config['titre_application'] = 'FollowDem';
+
+
+
+/*** Langues / locale / Encodage / Date ***/
+
+	/**
+	*	Langue disponible pour l'application
+	*
+	*	@var	array
+	*/
+	$config['langue_dispo'] = array('fr_FR'=>'fr');
+	
+	/**
+	*	Langue par defaut
+	*
+	*	@var	string
+	*/
+	$config['langue_defaut'] = 'fr';
+	
+	/**
+	*	Fuseau Horaire de l'application
+	*
+	*	@var	string
+	*/
+	$config['fuseau'] = 'Europe/Paris';
+	
+	/**
+	*	Encodage
+	*
+	*	@var	string
+	*/
+	$config['encodage'] = 'UTF-8';
+	
+	/**
+	*	Format d'encodage de la date en sortie
+	*	voir http://fr2.php.net/strftime
+	*	@var	string
+	*/
+	$config['datesortie'] = '%a %e %b %Y - %H:%M';
+	
+	/**
+	*	Nombre de jour accordée à une donnée pour être valable - Si un objet à une donnée inférieure (donc non mis à jour) il ne sera pas remonté.
+	*	@var	integer
+	*/
+	$config['date_data_valide'] = 150; /*Les données sont valides si elles ne sont pas plus anciennes que 150 jours*/
+	
+	/**
+	*	Periode minimum d'observation. Correspond à l'observation par defaut lors du choix d'un objet.
+	*	@var	integer
+	*/
+	$config['periode_min'] = 15; 
+	
+	
+	/**
+	*	Période maximum d'observation possible
+	*	@var	integer
+	*/
+	$config['periode_max'] = 360; /*360 Jours*/
+	
+	/**
+	*	Période possible pour l'observation. Si vide l'observation sera possible de 1 à periode_max par incrément de 1
+	*	Sinon de 1 à periode_max en passant uniquement par les valeurs définie. respectez une cohérence entre les données periode_defaut, periode_max et periode_valeurs
+	*	@var	array
+	*/
+	$config['periode_valeurs'] = array(3,15,30,60,90,120,150,180,210,240,270,300,330,360);
+	
+
+/*** File System ***/
+	/**
+	*	Séparateur dossier
+	*
+	*	@var	string
+	*/
+	$config['system_separateur'] = '/';
+	
+	$config['rep_appli'] = '/var/www/followdem';
+	
+/*** CSV Import de données ***/
+	/**
+	*	CSV séparateur
+	*
+	*	@var	string
+	*/
+	$config['csv_separateur'] = ',';
+
+	/**
+	*	CSV enclosure
+	*
+	*	@var	string
+	*/
+	$config['csv_enclosure'] = '"';
+
+	/**
+	*	CSV nom du fichier
+	*
+	*	@var	string
+	*/
+	$config['csv_name'] = 'tracked_objects.csv';
+	
+	/**
+	*	CSV repertoire
+	*
+	*	@var	string
+	*/
+	$config['csv_repertoire'] = 'csv';
+	
+	
+	/**
+	*	CSV Colonne correspondance avec donnees objet traqué
+	*	index à compléter : id - nom - date - heure - latitude - longitude - temperature - nb_satellites - altitude
+	*
+	*	heure à -1 si l'heure est contenu avec la date !
+	*	@var	array
+	*/
+	//$config['csv_colonne'] = array('id'=>1,'nom'=>0,'date'=>2,'heure'=>3,'latitude'=>7,'longitude'=>8,'temperature'=>9,'nb_satellites'=>14,'altitude'=>15);
+	
+	$config['csv_colonne'] = array('id'=>0,'nom'=>1,'date'=>2,'heure'=>3,'latitude'=>5,'longitude'=>6,'temperature'=>11,'nb_satellites'=>7,'altitude'=>9);
+	
+	//$config['csv_colonne'] = array('id'=>0,'date'=>1,'heure'=>3,'TTF'=>3, 'latitude'=>7,'longitude'=>8,'temperature'=>9,'nb_satellites'=>14,'altitude'=>15);
+
+	//ID Date	Time	TTF	Lat	Long	SAT´s	2D/3D	Alt	H-DOP	Temp	X	Y
+	
+	
+	/**
+	*	csv_nom_tracked_objects
+	*	HACK PNE : nécessaire car les noms des objets n'est pas renseigné dans l'import par email.
+	*	Un email est transmis quand on ne trouve pas de correspondance. Voir csv_email_error_nom.
+	*	@var array
+	*
+	*/
+	$config['csv_nom_tracked_objects'] = array(); //Exemple : 'T5HS-4188'=>'Bouqui'
+	
+	
+	/**
+	*	csv_email_error_nom
+	*	Email(s) où sont transmis les infos pour la correspondance des noms.
+	*	Un email est transmis quand on ne trouve pas de correspondance. Voir csv_nom_tracked_objects.
+	*	@var array
+	*
+	*/
+	$config['csv_email_error_nom'] = array('monPrenom'=>'exemple@domaine.com');
+	
+	/**
+	*	csv_email_error
+	*	Si on transmet ou non un email d'erreur lors de l'import 
+	*	@var boolean
+	*
+	*/
+	$config['csv_email_error'] = false;
+	
+	/**
+	*	CSV Proprietes - Proprietes complémentaire a récupérer dans le CSV - Utilisable ensuite dans les gabarits d'affichage !
+	* 	Voir aussi configuration de "recupe_couleur_name_tracked_objects"
+	*
+	*	@var	array
+	*/
+	$config['csv_colonne_objects_features'] = array();
+	
+		
+	/**
+	*	CSV Date format
+	* 	Format de la date - Voir : http://fr2.php.net/manual/fr/datetime.createfromformat.php
+	*
+	*	@var	string
+	*/
+	$config['csv_date_format'] = 'Y-m-d';
+	
+	/**
+	*	CSV Heure format - Même si heure comprise avec la date
+	* 	Format de la date - Voir : http://fr2.php.net/manual/fr/datetime.createfromformat.php
+	*
+	*	@var	string
+	*/
+	$config['csv_heure_format'] = 'H:i:s';
+	
+	/**
+	*	CSV Restriction  d'import - Condition pour restreindre l'import de certaine données
+	*	index tableau = colonne csv - Valeur = condition à appliquer
+	*	@var	array
+	*/
+	$config['csv_condition'] = array(array(5,'>0'),array(6,'>0'),array(9,'>1000'),array(9,'<4102'));
+	$config['csv_condition_type'] = array(5=>'numeric',6=>'numeric',9=>'numeric');
+/*** FIN CSV ***/
+
+
+/**
+*	DB paramètres
+*
+*	@var	string
+*/
+	$config['db_host'] 		= 	'localhost';
+	$config['db_name'] 		= 	'dbname';
+	$config['db_user'] 		= 	'dbuser';
+	$config['db_password'] 	= 	'monpassachanger';
+	$config['db_prefixe'] 	= 	'';
+	$config['db_type'] 		= 	'mysql';
+	$config['db_encodage']  = 	'UTF8';
+
+/*** FIN DB paramètres ***/
+
+/**
+*	Email paramètres
+*	Envoi d'email par cette paserelle si nécessaire !
+*	@var	string
+*/
+	$config['email_smtp'] 			= 	'smtp.domaine.com';
+	$config['email_user'] 			= 	'exemple@domaine.com';
+	$config['email_password'] 		= 	'monpassachanger';
+	$config['email_port'] 			= 	465;
+	$config['email_SMTPAuth'] 		= 	true; //true - false
+	$config['email_SMTPSecure'] 	= 	'ssl'; //ssl - tls
+	$config['email_Charset'] 		= 	'UTF-8';
+	$config['email_From'] 			= 	'exemple@domaine.com';
+	$config['email_FromName'] 		= 	'FollowDem';
+
+/*** FIN DB paramètres ***/
+
+
+/*** Smarty paramètres ***/
+	/**
+	*	Smarty Debug
+	*
+	*	@var	bool
+	*/
+	$config['smarty_debugging'] 		= 	false;
+	
+	/**
+	*	Smarty Debug
+	*
+	*	@var	bool
+	*/
+	$config['smarty_caching'] 			= 	true;
+	
+	/**
+	*	Smarty Debug
+	*
+	*	@var	integer
+	*/
+	$config['smarty_cache_lifetime'] 	=	120; 	
+
+/*** FIN Smarty paramètres ***/
+
+
+/*** Leaflet paramètres des fonds de cartes et des pictos 
+Pour tout autre paramètres, utiliser bottom.js dans js/
+*/
+
+	/**
+	*	leaflet_fonds_carte
+	*	Paramètres des fonds de carte - Google géré à part. Voir gmap plus bas
+	*	Penser à remplacer la valeur de maCleIgn dans 'url'.
+	*	
+	*	@var	array
+	*/
+
+	$config['leaflet_fonds_carte'] = array(
+		"IGNCARTE"=>array(
+			'name'=>'Carte IGN',
+			'url'=>'http://gpp3-wxs.ign.fr/maCleIgn/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+			'attribution'=>'IGN',
+			'maxZoom'=>17,
+			'subdomains'=>''
+		),
+		"IGNPHOTO"=>array(
+			'name'=>'Photo aérienne IGN',
+			'url'=>'http://gpp3-wxs.ign.fr/maCleIgn/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+			'attribution'=>'IGN',
+			'maxZoom'=>19,
+			'subdomains'=>''
+		),
+		"IGNCARTEDET"=>array(
+			'name'=>'Carte détaillée IGN',
+			'url'=>'http://gpp3-wxs.ign.fr/maCleIgn/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+			'attribution'=>'IGN',
+			'maxZoom'=>17,
+			'subdomains'=>''
+		),
+		"OSM"=>array(
+			'name'=>'OpenStreetMap',
+			'url'=>'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+			'attribution'=>'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.',
+			'maxZoom'=>19,
+			'subdomains'=>array("otile1", "otile2", "otile3", "otile4")
+		)
+	);
+	
+	/**
+	*	leaflet_fonds_carte_defaut
+	*	Fond de carte par dafaut - GoogleLayer pour googleMap
+	*
+	*	@var	array
+	*/
+	
+	// $config['leaflet_fonds_carte_defaut'] = "IGNCARTE";
+	$config['leaflet_fonds_carte_defaut'] = "OSM";
+	
+	/**
+	*	leaflet_pictos
+	*	pictogramme utilisés dans Leaflet
+	*
+	*	@var	array
+	*/	
+	$config['leaflet_pictos'] = array('position'=>
+		array(
+			'iconUrl'=>'images/marker-icon.png',
+			'iconRetinaUrl'=>'images/marker-icon-2x',
+			'iconSize'=>array(25, 41),
+			'iconAnchor'=>array(13, 20),
+			'popupAnchor'=>array(0, 0),
+			'shadowUrl'=>'images/marker-shadow.png',
+			'shadowRetinaUrl'=>'images/marker-shadow.png',
+			'shadowSize'=>array(41, 41),
+			'shadowAnchor'=>array(13, 20)
+		)
+	);
+	
+	/**
+	*	leaflet_centrage_initiale
+	*	Position de centrage initial de leaflet. Tableau contenant des chaines de caractères.
+	*
+	*	@var	array
+	*/	
+	$config['leaflet_centrage_initiale'] = array('44.845159','6.310043');
+	
+	/**
+	*	leaflet_zoom_initial
+	*	Zoom initial sur la carte
+	*
+	*	@var	array
+	*/	
+	$config['leaflet_zoom_initial'] = 11;
+	
+	/**
+	*	leaflet_zoom_max
+	*	Zoom maximum pour la carte. Surcharge le ZoomMax des layers - Obligatoire pour le zoom automatique sur les parcours.
+	*
+	*	@var	array
+	*/	
+	$config['leaflet_zoom_max'] = 17;
+	
+	/**
+	*	leaflet_position_zoom
+	*	pictogramme utilisés dans Leaflet
+	*
+	*	@var	array
+	*/	
+	$config['leaflet_position_zoom'] = 'topright';
+	
+	/**
+	*	leaflet_gmap 
+	*	Chargement des fond de carte GoogleMAP
+	*	Chargement de l'API google et du plugin LeafLet Gmap
+	*
+	*	@var	boolean
+	*/	
+	$config['leaflet_gmap'] = false;
+	
+	/**
+	*	lefleat_style_trace 
+	*	Style par defaut des tracés
+	*
+	*	@var	array
+	*/	
+	$config['lefleat_style_trace'] = array('color'=>"#000","fillColor"=>"#FFF","Opacity"=>1,"fillOpacity"=>1,"weight"=>3);
+	
+	/**
+	*	lefleat_style_direction
+	*	Style par defaut pour les flèches de direction
+	*
+	*	@var	array
+	*/	
+	$config['lefleat_style_direction'] = array('color'=>"#7F2B7F","Opacity"=>1,"weight"=>3);
+	
+	/**
+	*	lefleat_repeat_direction
+	*	Ajouter une flèche sur un travé tous les x pixels
+	*
+	*	@var	array
+	*/	
+	$config['lefleat_repeat_direction'] = '50';
+
+	
+	/**
+	*	lefleat_style_point_defaut
+	*	Style par defaut des derniers points
+	*
+	*	@var	array
+	*/	
+	$config['lefleat_style_point_defaut'] = array('color'=>"#A60000","fillColor"=>"#f03","Opacity"=>1,"fillOpacity"=>0.9,"weight"=>5);
+	
+	/**
+	*	lefleat_style_point_surcharge
+	*	Surcharge les styles du point par défaut avec les propriétés contenu dans la BDD - Vide pas de surcharge !
+	*
+	*	@var	array
+	*/	
+	$config['lefleat_style_point_surcharge'] = array('color'=>"couleurD","fillColor"=>"couleurG","Opacity"=>1,"fillOpacity"=>0.9,"weight"=>5);
+	
+	
+/** FIN Leaflet paramètres des fonds de cartes et des pictos*/
+
+	/**
+	*	recupe_couleur_name_tracked_objects
+	*	Récupère des propriété de couleur dans le noms de l'objet.
+	*	Ceci est un HACK spécifique à l'appli bouquetin pour extraire des données du nom du bouquetin. 
+	*	Déclenche tracked_objects->get_couleur_name()
+	* 	Deprecié !
+	*
+	*	@var	boolean
+	*/	
+	$config['recupe_couleur_name_tracked_objects'] = true;
+	
+	/*Code couleur éventuellement associé  Fonctionnement BETA... préférer des code couleur dans la base prop !*/
+	$config['recupe_couleur_code'] = array('rouge'=>'#A60000','jaune'=>'#FFBF00','bleu'=>'#052F6D','noir'=>"#000000");
+
+
+
+/**
+*	Mode débogue
+*	True : Affichage des messages erreur et exception complet 
+*
+*	@var	boolean
+*/	
+$config['debug']=true;
+
+/**
+*	Mode log
+*	True : Log toutes les actions sur la bdd - ajout-modif-suppr
+*
+*	@var	boolean
+*/	
+$config['log']=false;
+
+?>
