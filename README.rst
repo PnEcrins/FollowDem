@@ -1,8 +1,9 @@
 FollowDem
 =========
 
-Application web permettant de suivre sur une carte tout objets/animaux dont la localisation GPS évolue dans le temps.
-Utilisé pour le suivi GPS des bouquetins du Parc national des Ecrins : `<http://bouquetins.ecrins-parcnatonal.fr>`_
+Application web cartographique permettant de suivre le déplacement d'objets équipés d'un GPS. 
+
+Utilisée pour le suivi GPS des bouquetins du Parc national des Ecrins : `<http://bouquetins.ecrins-parcnatonal.fr>`_
 
 Technologies
 ------------
@@ -26,6 +27,8 @@ Consulter la documentation :  `<http://followdem.rtfd.org>`_
 
 Auteurs
 -------
+
+Parc national des Ecrins
 
 - Fabien Selles
 - Thibault Romanin
