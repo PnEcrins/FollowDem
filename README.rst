@@ -14,8 +14,10 @@ Technologies
 - Langages : PHP, HTML, JS, CSS
 - BDD : MySQL / PDO
 - Serveur : Debian ou Ubuntu
-- Framework carto : Leaflet
-- Framework CSS : Bootstrap
+- Framework carto : `Leaflet <http://leafletjs.com>`_
+- Framework CSS : `Bootstrap <http://getbootstrap.com>`_
+- Template : `Bootleaf <https://github.com/bmcbride/bootleaf>`_
+- Gestion des templates et du cache : `Smarty <http://www.smarty.net>`_
 - Fonds rasters : Geoportail, OpenStreetMap, Google Maps, WMS
 
 Présentation
@@ -42,7 +44,7 @@ License
 -------
 
 * OpenSource - BSD
-* Copyright (c) 2014 - Parc National des Écrins
+* Copyright (c) 2015 - Parc National des Écrins
 
 
 .. image:: http://pnecrins.github.io/GeoNature/img/logo-pne.jpg
