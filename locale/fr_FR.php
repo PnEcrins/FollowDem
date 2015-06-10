@@ -36,8 +36,8 @@ $lang['Contacts'] = 'Contacts';
 
 /* Textes interface */
 $lang['Texte indroduction'] = "<strong>FollowDem</strong> est une application web cartographique permettant de suivre le déplacement d'objets équipés d'un GPS. Cette application est utilisée par le Parc National des Ecrins pour <a href='http://bouquetins.ecrins-parcnational.fr/'>bouquetins</a>.<br / ><br / >
-<strong>Suivez le déplacement de ces objets.</strong>";
-$lang['Entete liste tracked_objects'] = '<strong>Cliquez sur le nom d\'un bouquetin pour voir son parcours</strong> <br /> Pour les';
+<strong>Suivez le déplacement de ces objets traqués.</strong>";
+$lang['Entete liste tracked_objects'] = '<strong>Cliquez sur le nom d\'un objet traqué pour voir son parcours</strong> <br /> Pour les';
 $lang['Slide derniers jours'] = 'derniers jours.';
 $lang['Entete selection periode'] = '<strong>Sélectionnez la période de déplacement à afficher</strong>';
 $lang['Fermer'] = 'Fermer';

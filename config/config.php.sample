@@ -31,8 +31,14 @@ $config = array();
 	*/
 	$config['titre_application'] = 'FollowDem';
 
+/**
+	*	Lien vers le formulaire de contact
+	*
+	*	@var string
+	*/
+	$config['emailContact'] = 'http://www.ecrins-parcnational.fr/nous-contacter';
 
-
+	
 /*** Langues / locale / Encodage / Date ***/
 
 	/**
