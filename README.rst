@@ -6,6 +6,7 @@ Application web cartographique permettant de suivre le déplacement d'objets éq
 Utilisée pour le suivi GPS des bouquetins du Parc national des Ecrins : `<http://bouquetins.ecrins-parcnatonal.fr>`_
 
 .. image :: docs/img/screenshot-bouquetins-pne.jpg
+    :target: http://bouquetins.ecrins-parcnational.fr
 
 Technologies
 ------------
