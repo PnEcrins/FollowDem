@@ -8,7 +8,7 @@
 
 
 
-$lang['titre'] = 'Bouquetins des Écrins';
+$lang['titre'] = 'FollowDem';
 
 
 
@@ -20,13 +20,13 @@ $lang['Traces'] = 'Tracés';
 $lang['Derniers points'] = 'Derniers points';
 
 /*Menu Pages et Actions*/
-$lang['Bouquetin des Alpes'] = 'Le bouquetin des Alpes';
-$lang['Faune sauvage'] = 'Respect de la faune sauvage';
-$lang['Informations'] = 'Informations/ En savoir plus';
-$lang['Capture Bouquetins'] = 'Le programme d\'étude télémétrique des bouquetins';
-$lang['Diego'] = 'Diego, le bouquetin voyageur';
-$lang['Actualites'] = 'Toutes les actualités';
-$lang['Parc national des Ecrins'] = 'Parc national des Ecrins';
+$lang['Informations'] = 'Item 1';
+$lang['Bouquetin des Alpes'] = 'Sous-item 1';
+$lang['Capture Bouquetins'] = 'Sous-item 2';
+$lang['Faune sauvage'] = 'Sous-item 3';
+$lang['Diego'] = 'Sous-item 4';
+$lang['Actualites'] = 'Toutes les actualités'; // pas utilisé
+$lang['Parc national des Ecrins'] = 'Item 2';
 $lang['Outils'] = 'Outils';
 $lang['Réinitialiser la vue'] = 'Réinitialiser la vue';
 $lang['Légendes de la carte'] = 'Légendes de la carte';
@@ -35,9 +35,8 @@ $lang['Informations / Mentions légales'] = 'Informations / Mentions légales';
 $lang['Contacts'] = 'Contacts';
 
 /* Textes interface */
-$lang['Texte indroduction'] = "<strong>Le Parc national des Ecrins</strong> a entrepris un suivi par localisation GPS de la population des bouquetins des Alpes sur son territoire, 
-grâce au soutien financier de l'Europe (FEDER) et des régions Rhône-Alpes et Provence Alpes Côte d'Azur.<br / ><br / >
-<strong>Suivez avec nous le déplacement et la vie de ces habitants des montagnes hors du commun.</strong>";
+$lang['Texte indroduction'] = "<strong>FollowDem</strong> est une application web cartographique permettant de suivre le déplacement d'objets équipés d'un GPS. Cette application est utilisée par le Parc National des Ecrins pour <a href='http://bouquetins.ecrins-parcnational.fr/'>bouquetins</a>.<br / ><br / >
+<strong>Suivez le déplacement de ces objets.</strong>";
 $lang['Entete liste tracked_objects'] = '<strong>Cliquez sur le nom d\'un bouquetin pour voir son parcours</strong> <br /> Pour les';
 $lang['Slide derniers jours'] = 'derniers jours.';
 $lang['Entete selection periode'] = '<strong>Sélectionnez la période de déplacement à afficher</strong>';
@@ -50,6 +49,6 @@ $lang['Temperature'] = 'Température (°C)';
 
 /*Message erreur*/
 $lang['error_10'] = 'Une erreur de cohérence est apparue dans la base de données';
-
+$lang['Page non trouvee'] = '<center><br /><br /><h1><strong>ERREUR 404</strong></h1><br />Nous avons le regret de vous informer que la page demandée n\'a pas été trouvée.</center>';
 $lang['error_ajax'] = 'Une erreur est survenue pendant le chargement des données.<br />Veuillez essayer de nouveau.<br />
 Si le problème persiste merci de nous contacter à partir de notre site Internet : <a href="http://www.ecrins-parcnational.fr">www.ecrins-parcnational.fr</a>';
