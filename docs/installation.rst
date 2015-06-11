@@ -7,8 +7,28 @@ APPLICATION
 Création de la base de données MYSQL
 ====================================
 
-    TODO
-   
+Sur phpMyAdmin.
+	Aller dans l’onglet Importer depuis la page d’accueil de phpMyAdmin
+	Cliquez sur “Choisissez un fichier” et sélectionner le fichier data/FollowDem_DataBase.sql qui est le script de création des tables.
+	Ensuite sélectionnez “utf-8” comme Jeu de caractères du fichier, autorisez l’importation partielle, sélectionnez le “SQL” comme Format.
+	Enfin, cliquez sur “Exécuter”
+
+	Votre base de données est maintenant opérationnelle.
+	Si vous voulez, vous pouvez importer un jeu d’essai en effectuant les mêmes étapes que ci-dessus, mais en sélectionnant le fichier data/FollowDem_DataSet.sql.
+
+Sur un serveur.
+	::
+
+		cd /home/followdem/monprojet/data
+		mysql -unomUtilisateur -pmotDePasse
+		use nomDeLaBase;
+		source FollowDem_DataBase.sql;
+		
+	Idem que sur phpMyAdmin, si vous souhaitez ajouter un jeu d’essai, saisissez en plus la commande suivante :
+	::
+	
+		source FollowDem_DataSet.sql;
+
 Installation du répertoire de l'application
 ===========================================
 
