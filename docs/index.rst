@@ -5,14 +5,14 @@ Bienvenue dans la doc de FollowDem
 Sommaire
 ========
 
-.. server::
+server::
 	:target: https://github.com/PnEcrins/FollowDem/blob/develop/docs/server.rst
 	
-.. installation::
+installation::
 	:target: https://github.com/PnEcrins/FollowDem/blob/develop/docs/installation.rst
 	
-.. auteurs::
+auteurs::
 	:target: https://github.com/PnEcrins/FollowDem/blob/develop/docs/auteurs.rst
 	
-.. changelog::
+changelog::
 	:target: https://github.com/PnEcrins/FollowDem/blob/develop/docs/changelog.rst
