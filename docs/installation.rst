@@ -7,7 +7,7 @@ APPLICATION
 Création de la base de données MYSQL
 ====================================
 
-Sur phpMyAdmin.
+** *Sur phpMyAdmin.* **
 
 	Allez dans l’onglet "Importer" depuis la page d’accueil de phpMyAdmin.
 	
