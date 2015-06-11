@@ -4,7 +4,7 @@
 <script src="js/bottom.js"></script>
 
 {* Tacking statistiques *}
-if (isset(config::get('tracking_stats')) && config::get('tracking_stats') != '')
-  echo config::get('tracking_stats');
+{if(isset(config::get('tracking_stats')) && config::get('tracking_stats') != '')}
+  {config::get('tracking_stats')}
   
   
