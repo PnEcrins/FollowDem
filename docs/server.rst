@@ -94,6 +94,7 @@ Installation et configuration de MYSQL
 Dans le fichier my.cnf, modifier les lignes de la façon suivante :
 	
   ::
+  
 		language = /usr/share/mysql/french
 		key_buffer = 32M
 		query_cache_limit = 2M
@@ -114,20 +115,24 @@ Recharger ensuite le serveur
 * Création d'un utilisateur MYSQL
 
   ::
+  
 		CREATE USER "nom_utilisateur"@"localhost";
 		SET password FOR "nom_utilisateur"@"localhost" = password('mot_de_passe');
 
 * Création d'une base de donnéees MYSQL
 
   ::
+  
 		CREATE DATABASE nom_de_la_base;
 	
 Pour se placer dans la base, tapez dans MYSQL :
   ::
+  
 		USE nom_de_la_base;	
 		
 * Attribution des droits à l'utilisateur MYSQL
 
   ::
+  
 		GRANT ALL ON nom_de_la_base.* TO "nom_utilisateur"@"localhost";
 	
