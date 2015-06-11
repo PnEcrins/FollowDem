@@ -53,8 +53,8 @@ Installation pour Ubuntu.
 
     L'utilisateur ``followdem`` est à remplacer par le nom de votre utilisateur linux si vous en avez choisi un différent.
 
-.
-Assignez le rôle d'administrateur à l'utilisateur ``followdem`` :
+
+* Assignez le rôle d'administrateur à l'utilisateur ``followdem`` :
 
 
   ::
