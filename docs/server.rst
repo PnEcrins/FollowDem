@@ -6,7 +6,7 @@ SERVEUR
     
 
 
-Pré-requuis
+Pré-requis
 ===========
 
 vous devez disposer d'un serveur ou d'un hébergement avec mysql, php5.4 et apache. Le mod_rewrite doit être activé
@@ -20,11 +20,11 @@ Si vous disposez d'un hébergement, le serveur doit être prêt à l'utilisation.
 Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
 
 
-* disposer d'un utilisateur linux que vous pouvez nommé par exemple ``follodem``. Le répertoire de cet utilisateur ``follodem`` doit être dans ``/home/follodem``
+* disposer d'un utilisateur linux que vous pouvez nommé par exemple ``followdem``. Le répertoire de cet utilisateur ``followdem`` doit être dans ``/home/followdem``
 
     :: 
     
-        sudo adduser --home /home/follodem follodem
+        sudo adduser --home /home/followdem followdem
 
 
 * récupérer le zip de l'application sur le Github du projet
@@ -34,9 +34,9 @@ Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
         cd /tmp
         wget https://github.com/PnEcrins/FollowDem/archive/master.zip
         unzip master.zip
-        mkdir -p /home/follodem/monprojet
-        cp master/* /home/follodem/monprojet
-        cd /home/follodem
+        mkdir -p /home/followdem/monprojet
+        cp master/* /home/followdem/monprojet
+        cd /home/followdem
 
         
 Installation et configuration du serveur
@@ -52,16 +52,16 @@ Installation pour ubuntu.
 
 :notes:
 
-    Durant toute la procédure d'installation, travailler avec l'utilisateur ``follodem``. Ne changer d'utilisateur que lorsque la documentation le spécifie.
+    Durant toute la procédure d'installation, travailler avec l'utilisateur ``followdem``. Ne changer d'utilisateur que lorsque la documentation le spécifie.
 
 .
 
   ::
    
     su - 
-    usermod -g www-data follodem
-    usermod -a -G root follodem
-    adduser follodem sudo
+    usermod -g www-data followdem
+    usermod -a -G root followdem
+    adduser followdem sudo
     exit
     
     Fermer la console et la réouvrir pour que les modifications soient prises en compte
@@ -83,20 +83,21 @@ Installation et configuration de MYSQL
     
         sudo apt-get update
 
-* Installation de PostreSQL/PostGIS 
+* Configuration MYSQL
 
-    ::
-    
-        TODO
-        
-* configuration MYSQL
-
-    ::
+  ::
     
         TODO
 
 * Création d'un utilisateur MYSQL
 
-    ::
+  ::
     
         TODO   
+
+* Création d'une base de donnéees MYSQL
+
+  ::
+	
+		TODO
+		
