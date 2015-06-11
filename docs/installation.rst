@@ -11,6 +11,7 @@ Sur phpMyAdmin.
 	::
 		
 
+
 	Allez dans l’onglet "Importer" depuis la page d’accueil de phpMyAdmin.
 
 	Cliquez sur “Choisissez un fichier” et sélectionner le fichier ``data/FollowDem_DataBase.sql`` qui est le script de création des tables.
@@ -23,6 +24,7 @@ Sur phpMyAdmin.
 	Si vous voulez, vous pouvez importer un jeu d’essai en effectuant les mêmes étapes que ci-dessus, mais en sélectionnant le fichier ``data/FollowDem_DataSet.sql``.
 
 Sur un serveur.
+
 	::
 
 		cd /home/followdem/monprojet/data
@@ -31,6 +33,7 @@ Sur un serveur.
 		source FollowDem_DataBase.sql;
 		
 	Idem que sur phpMyAdmin, si vous souhaitez ajouter un jeu d’essai, saisissez en plus la commande suivante :
+	
 	::
 	
 		source FollowDem_DataSet.sql;
@@ -43,6 +46,7 @@ Installation du répertoire de l'application
 * Extraire le contenu dans un répertoire au nom de votre projet à la racine du répertoire de publication web d'apache.
 
 Sur un serveur.
+
     ::
     
         cd /tmp
@@ -53,7 +57,7 @@ Sur un serveur.
         rm master.zip
         cd /home/followdem
         
-
+	
 Configuration de l'application
 ==============================
     
