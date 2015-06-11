@@ -31,10 +31,10 @@ Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
   ::
     
         cd /tmp
-        wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
-        unzip vX.Y.Z.zip
-        mkdir -p /home/followdem/monprojet
-        cp master/* /home/followdem/monprojet
+        sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
+        sudo unzip vX.Y.Z.zip
+        sudo mkdir -p /home/followdem/monprojet
+        sudo cp master/* /home/followdem/monprojet
         cd /home/followdem
 
         
@@ -54,15 +54,14 @@ Installation pour Ubuntu.
     L'utilisateur ``followdem`` est à remplacer par le nom de votre utilisateur linux si vous en avez choisi un différent.
 
 .
-Donnez les droits d'administrateur à l'utilisateur ``followdem`` :
+Assignez le rôle d'administrateur à l'utilisateur ``followdem`` :
 
 
   ::
    
-     su - 
-     usermod -g www-data followdem
-     usermod -a -G root followdem
-     adduser followdem sudo
+     sudo usermod -g www-data followdem
+     sudo usermod -a -G root followdem
+     sudo adduser followdem sudo
      exit
     
     Fermer la console et la réouvrir pour que les modifications soient prises en compte
