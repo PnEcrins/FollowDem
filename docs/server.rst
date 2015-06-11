@@ -106,29 +106,7 @@ Dans le fichier my.cnf, modifier les lignes de la façon suivante :
 		default-collation = utf8_general_ci
 		default-character-set = utf8
 
-\Rechargez ensuite le serveur\
-
-`Rechargez ensuite le serveur`
-
-*Rechargez ensuite le serveur*
-
-_Rechargez ensuite le serveur_
-
-{Rechargez ensuite le serveur}
-
-[Rechargez ensuite le serveur]
-
-(Rechargez ensuite le serveur)
-
-#Rechargez ensuite le serveur#
-
-+Rechargez ensuite le serveur+
-
--Rechargez ensuite le serveur-
-
-.Rechargez ensuite le serveur.
-
-!Rechargez ensuite le serveur!
+* Rechargez ensuite le serveur
 
   ::
 
@@ -147,7 +125,7 @@ _Rechargez ensuite le serveur_
   
 		CREATE DATABASE nom_de_la_base;
 	
-\Pour se placer dans la base, tapez dans MYSQL :
+* Pour se placer dans la base, tapez dans MYSQL :
 
   ::
   
