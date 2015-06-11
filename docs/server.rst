@@ -48,13 +48,13 @@ Installation pour ubuntu.
 
     Cette documentation concerne une installation sur Ubuntu 12.04 LTS. Elle devrait être valide sur Debian ou une version plus récente d'Ubuntu. Pour tout autre environemment les commandes sont à adapter.
 
-\.
+::
 
 :notes:
 
     Durant toute la procédure d'installation, travailler avec l'utilisateur ``followdem``. Ne changer d'utilisateur que lorsque la documentation le spécifie.
 
-\.
+::
 
   ::
    
