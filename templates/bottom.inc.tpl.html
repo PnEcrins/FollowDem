@@ -3,8 +3,7 @@
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="js/bottom.js"></script>
 
-/** Tacking statistiques **/
-$tacking_code = isset(config::get('tracking_stats'))?config::get('tracking_stats'):'';
+{* Tacking statistiques *}
 if (isset(config::get('tracking_stats')) && config::get('tracking_stats') != '')
   echo config::get('tracking_stats');
   
