@@ -106,12 +106,12 @@ Dans le fichier my.cnf, modifier les lignes de la façon suivante :
 		default-collation = utf8_general_ci
 		default-character-set = utf8
 
-Recharger ensuite le serveur
+Rechargez ensuite le serveur
 
   ::
-  
-		/etc/init.d/mysql reload
 
+		/etc/init.d/mysql reload
+		
 * Création d'un utilisateur MYSQL
 
   ::
@@ -126,6 +126,7 @@ Recharger ensuite le serveur
 		CREATE DATABASE nom_de_la_base;
 	
 Pour se placer dans la base, tapez dans MYSQL :
+
   ::
   
 		USE nom_de_la_base;	
