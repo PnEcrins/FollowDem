@@ -1,13 +1,14 @@
 ===========
 APPLICATION
 ===========
-
+.. image:: http://geotrek.fr/images/logo-pne.png
+    :target: http://www.ecrins-parcnational.fr
+    
 Création de la base de données MYSQL
 ====================================
 
     TODO
-
-    
+   
 Installation du répertoire de l'application
 ===========================================
 
@@ -29,8 +30,19 @@ Sur un serveur.
 
 Configuration de l'application
 ==============================
+    
+    Copier et renommer le fichier ``carto.php.sample`` en ``carto.php``
+    
+    Copier et renommer le fichier ``config.php.sample`` en ``config.php``
+    
+    ::
+    
+        cd /home/followdem/monprojet/config
+        cp carto.php.sample carto.php
+        cp config.php.sample config.php
+        cd ..
 
-    TODO
+    Editer ces fichiers et mettre à jour les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
     
     
 Clé IGN
