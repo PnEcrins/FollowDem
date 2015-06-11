@@ -114,7 +114,6 @@ Installation et configuration de MYSQL
     
         CREATE USER "nom_utilisateur"@"localhost";
 		SET password FOR "nom_utilisateur"@"localhost" = password('mot_de_passe');
-		GRANT ALL ON nom_base.* TO "nom_utilisateur"@"localhost";
 
 * Création d'une base de donnéees MYSQL
 
@@ -122,9 +121,14 @@ Installation et configuration de MYSQL
 	
 		CREATE DATABASE nom_de_la_base;
 		
+	Pour se placer dans la base, tapez dans MYSQL :
+  ::
+  
+		USE nom_de_la_base;	
+		
 * Attribution des droits à l'utilisateur MYSQL
 
   ::
 	
-		TODO
+		GRANT ALL ON nom_de_la_base.* TO "nom_utilisateur"@"localhost";
 		
