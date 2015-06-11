@@ -10,8 +10,9 @@ Création de la base de données MYSQL
 Sur phpMyAdmin.
 	::
 		
+
 	Allez dans l’onglet "Importer" depuis la page d’accueil de phpMyAdmin.
-	
+
 	Cliquez sur “Choisissez un fichier” et sélectionner le fichier ``data/FollowDem_DataBase.sql`` qui est le script de création des tables.
 	
 	Ensuite sélectionnez “utf-8” comme Jeu de caractères du fichier, autorisez l’importation partielle, sélectionnez le “SQL” comme Format.
