@@ -110,7 +110,7 @@ Rechargez ensuite le serveur
 
   ::
 
-		/etc/init.d/mysql reload
+	  /etc/init.d/mysql reload
 		
 * Création d'un utilisateur MYSQL
 
@@ -129,7 +129,8 @@ Pour se placer dans la base, tapez dans MYSQL :
 
   ::
   
-		USE nom_de_la_base;	
+	  USE nom_de_la_base;	
+		
 		
 * Attribution des droits à l'utilisateur MYSQL
 
