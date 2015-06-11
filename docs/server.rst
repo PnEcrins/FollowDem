@@ -9,7 +9,7 @@ SERVEUR
 Pré-requis
 ===========
 
-vous devez disposer d'un serveur ou d'un hébergement avec mysql, php5.4 et apache. Le mod_rewrite doit être activé
+Vous devez disposer d'un serveur ou d'un hébergement avec mysql, php5.4 et apache. Le mod_rewrite doit être activé
 
 Si vous avez la main sur le serveur, cette documentation peut vous aider à sa mise en place.
 
