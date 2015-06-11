@@ -437,6 +437,15 @@ Pour tout autre paramètres, utiliser bottom.js dans js/
 	
 /** FIN Leaflet paramètres des fonds de cartes et des pictos*/
 
+/** 
+	Statistiques - code tracking
+	Code complet de traking stats GAp ou Piwik ou autre 
+	@var	string
+**/
+    $config['tracking_stats'] = '';
+        
+
+
 	/**
 	*	recupe_couleur_name_tracked_objects
 	*	Récupère des propriété de couleur dans le noms de l'objet.
