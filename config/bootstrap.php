@@ -1,21 +1,21 @@
 <?php
 /**
-*	Bootstrap - Paramètrage initiale des actions PHP objet - Erreur, autoload, route...etc
+*	Bootstrap - ParamÃ¨trage initiale des actions PHP objet - Erreur, autoload, route...etc
 *	@author Fabien Selles
 *	@date 2013-07-25
-*	@copyright Parc national des Écrins
+*	@copyright Parc national des Ã‰crins
 *	
 */
 
 include_once('config.php');
 
-/*Définition de la langue*/
+/*DÃ©finition de la langue*/
 traduction::set_langue();
 
-/*Définition des locales*/
+/*DÃ©finition des locales*/
 setlocale(LC_ALL,$_SESSION['langueISO'].'.'.config::get('encodage'));
 
-/*Définition de l'encodage*/
+/*DÃ©finition de l'encodage*/
 header('Content-Type: text/html; charset='.config::get('encodage'));
 ini_set('default_charset', config::get('encodage'));
 
@@ -37,6 +37,7 @@ function erreur_handler($code, $msg, $file, $line)
 {
     throw new Exception($msg, $code);
 }
+//Pourquoi les erreur vers exceptions sont commentÃ©es ?
 //set_error_handler('erreur_handler');
 
 
@@ -48,7 +49,7 @@ function __autoload($classe)
 	$to_load = $config['rep_appli'].'classes'.$config['system_separateur'].strtolower($classe).'.class.php'; /*Version nom.class.php */
 	if (is_readable($to_load)) 
 	{
-		/* Classes à la racine */
+		/* Classes Ã  la racine */
 		include_once $to_load;
 	}
 	elseif(strncmp(strtolower($classe), 'smarty_internal_', 16)===0)
@@ -63,7 +64,7 @@ function __autoload($classe)
 	}
 	else
 	{
-		/* Classes dans un sous répertoire classe */
+		/* Classes dans un sous rÃ©pertoire classe */
 		$to_load = $config['rep_appli'].'classes'.$config['system_separateur'].$classe.$config['system_separateur'].$classe.'.class.php';
 		if (is_readable($to_load)) 
 			include_once $to_load;

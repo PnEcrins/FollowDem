@@ -2,3 +2,9 @@
 <script type="text/javascript" src="js/simple-slider.min.js"></script>
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="js/bottom.js"></script>
+
+{* Tracking statistiques *}
+{if isset(config::get('tracking_stats') && config::get('tracking_stats') != '')}
+  {config::get('tracking_stats')}
+{/if}
+  
