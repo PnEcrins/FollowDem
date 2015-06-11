@@ -85,14 +85,14 @@ Installation et configuration de MYSQL
 
 * Configuration MYSQL
 
-  ::
-    
-        apt-get install mysql-server mysql-client libmysqlclient15-dev mysql-common
+	::
+		apt-get install mysql-server mysql-client libmysqlclient15-dev mysql-common
 		sudo mysqladmin -u root password Nouveau_mot_de_passe -p ""
 		sudo vi /etc/mysql/my.cnf
 
 	Dans le fichier my.cnf, modifier les lignes de la façon suivante :
-  ::
+	
+	::
 		language = /usr/share/mysql/french
 		key_buffer = 32M
 		query_cache_limit = 2M
@@ -105,30 +105,27 @@ Installation et configuration de MYSQL
 		default-character-set = utf8
 	
 	Recharger ensuite le serveur
-  ::
+	
+	::
 		/etc/init.d/mysql reload
 
 * Création d'un utilisateur MYSQL
 
-  ::
-    
+	::
         CREATE USER "nom_utilisateur"@"localhost";
 		SET password FOR "nom_utilisateur"@"localhost" = password('mot_de_passe');
 
 * Création d'une base de donnéees MYSQL
 
-  ::
-	
+	::
 		CREATE DATABASE nom_de_la_base;
 		
 	Pour se placer dans la base, tapez dans MYSQL :
-  ::
-  
-		USE nom_de_la_base;	
+	::
+  		USE nom_de_la_base;	
 		
 * Attribution des droits à l'utilisateur MYSQL
 
-  ::
-	
+	::
 		GRANT ALL ON nom_de_la_base.* TO "nom_utilisateur"@"localhost";
 		
