@@ -6,34 +6,33 @@ SERVEUR
     
 
 
-Pré-requis
+PrÃ©-requis
 ===========
 
-Vous devez disposer d'un serveur ou d'un hébergement avec mysql, php5.4 et apache. Le mod_rewrite doit être activé
+Vous devez disposer d'un serveur ou d'un hÃ©bergement mutualisÃ© avec MySQL, PHP 5.4 et Apache2. Le mod_rewrite doit Ãªtre activÃ©
 
-Si vous avez la main sur le serveur, cette documentation peut vous aider à sa mise en place.
+Si vous avez la main sur le serveur, cette documentation vous aidera Ã  sa mise en place.
 
-Si vous disposez d'un hébergement, le serveur doit être prêt à l'utilisation.
+Si vous disposez d'un hÃ©bergement mutualisÃ©, le serveur doit Ãªtre prÃªt Ã  l'utilisation (avec MySQL, PHP 5.4 et Apache2), passez alors directement Ã   :ref:`la rubrique INSTALLATION <installation-section>`.
 
 * Ressources minimales du serveur :
 
 Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
 
-
-* disposer d'un utilisateur linux que vous pouvez nommé par exemple ``followdem``. Le répertoire de cet utilisateur ``followdem`` doit être dans ``/home/followdem``
+* Disposer d'un utilisateur linux (nommÃ© ``followdem`` dans cette exemple et dont le rÃ©pertoire est ainsi dans ``/home/followdem/``
 
   :: 
     
         sudo adduser --home /home/followdem followdem
 
 
-* récupérer le zip de l'application sur le Github du projet
+* RÃ©cupÃ©rer le zip de l'application sur le Github du projet (`X.Y.Z Ã  remplacer par le numÃ©ro de version souhaitÃ© <https://github.com/mPnEcrins/FollowDem/releases>`_) et dÃ©zippez le dans le rÃ©pertoire de l'utilisateur linux : 
 
   ::
     
         cd /tmp
-        wget https://github.com/PnEcrins/FollowDem/archive/master.zip
-        unzip master.zip
+        wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
+        unzip vX.Y.Z.zip
         mkdir -p /home/followdem/monprojet
         cp master/* /home/followdem/monprojet
         cd /home/followdem
@@ -42,19 +41,21 @@ Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
 Installation et configuration du serveur
 ========================================
 
-Installation pour ubuntu.
+Installation pour Ubuntu.
 
 :notes:
 
-    Cette documentation concerne une installation sur Ubuntu 12.04 LTS. Elle devrait être valide sur Debian ou une version plus récente d'Ubuntu. Pour tout autre environemment les commandes sont à adapter.
+    Cette documentation concerne une installation sur Ubuntu 12.04 LTS. Elle devrait Ãªtre valide sur Debian ou une version plus rÃ©cente d'Ubuntu. Pour tout autre environemment les commandes sont Ã  adapter.
 
 .
 
 :notes:
 
-    Durant toute la procédure d'installation, travailler avec l'utilisateur ``followdem``. Ne changer d'utilisateur que lorsque la documentation le spécifie.
+    L'utilisateur ``followdem`` est Ã  remplacer par le nom de votre utilisateur linux si vous en avez choisi un diffÃ©rent.
 
 .
+Donnez les droits d'administrateur Ã  l'utilisateur ``followdem`` :
+
 
   ::
    
@@ -64,9 +65,9 @@ Installation pour ubuntu.
      adduser followdem sudo
      exit
     
-    Fermer la console et la réouvrir pour que les modifications soient prises en compte
+    Fermer la console et la rÃ©ouvrir pour que les modifications soient prises en compte
     
-* Activer le mod_rewrite et redémarrer apache
+* Activer le mod_rewrite et redÃ©marrer Apache :
 
   ::  
         
@@ -77,21 +78,26 @@ Installation pour ubuntu.
 Installation et configuration de MYSQL
 ==========================================
 
-* Mise à jour des sources
+* Mise Ã  jour des sources :
 
   ::  
     
         sudo apt-get update
 
-* Configuration MYSQL
+* Installation de MySQL et crÃ©ation de l'utilisateur ``root`` avec le mot Ã  passe Ã  remplacer :
 
   ::
   
 		apt-get install mysql-server mysql-client libmysqlclient15-dev mysql-common
 		sudo mysqladmin -u root password Nouveau_mot_de_passe -p ""
+		
+* Ouvrir le fichier de configuration de MySQL pour le modifier :
+
+  ::
+
 		sudo vi /etc/mysql/my.cnf
 
-Dans le fichier my.cnf, modifier les lignes de la façon suivante :
+Dans le fichier ``my.cnf``, modifier les lignes de la faÃ§on suivante :
 	
   ::
   
@@ -106,33 +112,33 @@ Dans le fichier my.cnf, modifier les lignes de la façon suivante :
 		default-collation = utf8_general_ci
 		default-character-set = utf8
 
-* Rechargez ensuite le serveur
+* Rechargez ensuite le serveur :
 
   ::
 
 	  /etc/init.d/mysql reload
 		
-* Création d'un utilisateur MYSQL
+* CrÃ©ation d'un utilisateur MySQL (nom et mot de passe Ã  replacer par vos valeurs) :
 
   ::
   
 		CREATE USER "nom_utilisateur"@"localhost";
 		SET password FOR "nom_utilisateur"@"localhost" = password('mot_de_passe');
 
-* Création d'une base de donnéees MYSQL
+* CrÃ©ation d'une base de donnÃ©ees MySQL (nom Ã  remplacer) :
 
   ::
   
 		CREATE DATABASE nom_de_la_base;
 	
-* Pour se placer dans la base, tapez dans MYSQL :
+* Pour se placer dans la base, tapez dans MySQL :
 
   ::
   
 	  USE nom_de_la_base;	
 		
 		
-* Attribution des droits à l'utilisateur MYSQL
+* Attribution des droits Ã  l'utilisateur MySQL :
 
   ::
   
