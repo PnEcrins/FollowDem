@@ -50,5 +50,7 @@ $lang['Temperature'] = 'Température (°C)';
 /*Message erreur*/
 $lang['error_10'] = 'Une erreur de cohérence est apparue dans la base de données';
 $lang['Page non trouvee'] = '<center><br /><br /><h1><strong>ERREUR 404</strong></h1><br />Nous avons le regret de vous informer que la page demandée n\'a pas été trouvée.</center>';
+//$lang['error_data'] = 'La période sélectionnée est inférieure à la position du Bouquetins la plus récente.<br />
+//Veuillez réessayer ultérieurement.';
 $lang['error_ajax'] = 'Une erreur est survenue pendant le chargement des données.<br />Veuillez essayer de nouveau.<br />
 Si le problème persiste merci de nous contacter à partir de notre site Internet : <a href="http://www.ecrins-parcnational.fr">www.ecrins-parcnational.fr</a>';
