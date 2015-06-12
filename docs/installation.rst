@@ -88,10 +88,25 @@ Editer les fichiers ``carto.php`` et ``config.php`` pour définir les paramètre
 FONDS CARTOGRAPHIQUES
 =====================
 
-3 types de fonds carto peuvent être utilisés dans l'application : 
-- Fonds IGN en utilisant l'API du Geoportail
-- Fonds OpenStreetMap
-- Fonds Google Maps
+3 types de fonds cartographiques peuvent être utilisés dans l'application :
+ 
+- Fonds IGN en utilisant l'API du Geoportail.
+
+- Fonds OpenStreetMap.
+
+- Fonds Google Maps.
+
+* Allez à la ligne 323 du fichier *config.php*
+
+Vous avez la possibilité d'ajouter un fond cartographique en respectant la nomenclature utilisée au dessus.
+
+Vous pouvez aussi choisir quel fond vous souhaitez utiliser par défaut, en modifiant la ligne suivante :
+
+::
+	
+		$config['leaflet_fonds_carte_defaut'] = "OSM";
+
+Vous avez aussi la possibilité d'attacher les fonds de cartes Google avec le paramètre ligne 393.
 
 Fonds IGN Geoportail
 --------------------
