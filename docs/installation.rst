@@ -4,68 +4,121 @@ APPLICATION
 .. image:: http://geotrek.fr/images/logo-pne.png
     :target: http://www.ecrins-parcnational.fr
     
-Cr�ation de la base de donn�es MYSQL
-====================================
+Création des tables de la base de données MySQL
+===============================================
 
-    TODO
-   
-Installation du r�pertoire de l'application
+Sur phpMyAdmin
+--------------
+
+Se placer dans la BDD de FollowDem puis dans l’onglet "Importer" de phpMyAdmin.
+
+Cliquez sur “Choisissez un fichier” et sélectionner le fichier ``data/FollowDem_DataBase.sql`` qui est le script de création des tables.
+	
+Ensuite sélectionnez ``utf-8`` comme Jeu de caractères du fichier, autorisez l’importation partielle, sélectionnez ``SQL`` comme Format.
+	
+Enfin, cliquez sur ``Exécuter``
+
+Votre base de données est maintenant opérationnelle et sans données.
+	
+Vous pouvez aussi importer un jeu de données exemple en effectuant les mêmes étapes que ci-dessus, mais en sélectionnant le fichier ``data/FollowDem_DataSet.sql``.
+
+Sur un serveur
+--------------
+
+Se placer dans le répertoire ``data`` de l'application (en remplacant ``followdem`` par le nom de votre utilisateur Linux et ``monprojet`` par le répertoire où vous avez placer l'application FollowDem) :
+
+::
+
+	cd /home/followdem/monprojet/data
+
+Créer la BDD MySQL (en remplacant par vos valeurs d'utilisateur MySQL et de nom de BDD) :
+	
+::
+
+	mysql -unomUtilisateur -pmotDePasse
+	use nomDeLaBase;
+	source FollowDem_DataBase.sql;
+		
+Comme sur phpMyAdmin, si vous souhaitez ajouter le jeu de données d'exemple, saisissez en plus la commande suivante :
+
+::
+	
+	source FollowDem_DataSet.sql;
+
+Installation du répertoire de l'application
 ===========================================
 
-* R�cup�rez le zip de l'application sur le Github du projet FollowDem : https://github.com/PnEcrins/FollowDem/archive/master.zip
+* Récupérez le zip de l'application sur le Github du projet FollowDem : https://github.com/PnEcrins/FollowDem/archive/master.zip
 
-* Extraire le contenu dans un r�pertoire au nom de votre projet � la racine du r�pertoire de publication web d'apache.
+* Extraire le contenu dans un répertoire au nom de votre projet à la racine du répertoire de publication web d'Apache.
 
-Sur un serveur.
-    ::
+Sur un serveur
+--------------
+
+* Récupérer le zip de l'application sur le Github du projet (`X.Y.Z à remplacer par le numéro de version souhaité <https://github.com/mPnEcrins/FollowDem/releases>`_) et dézippez le dans le répertoire de l'utilisateur linux : 
+
+  ::
     
         cd /tmp
-        wget https://github.com/PnEcrins/FollowDem/archive/master.zip
-        unzip master.zip
-        mkdir -p /home/followdem/monprojet
-        cp master/* /home/followdem/monprojet
-        rm master.zip
+        sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
+        sudo unzip vX.Y.Z.zip
+        sudo mkdir -p /home/followdem/monprojet
+        sudo cp master/* /home/followdem/monprojet
         cd /home/followdem
-        
 
 Configuration de l'application
 ==============================
     
-    Copier et renommer le fichier ``carto.php.sample`` en ``carto.php``
-    
-    Copier et renommer le fichier ``config.php.sample`` en ``config.php``
-    
-    ::
-    
+Copier et renommer le fichier d'exemple de configuration de la carto ``carto.php.sample`` en ``carto.php``
+
+::
+
         cd /home/followdem/monprojet/config
         cp carto.php.sample carto.php
+
+Copier et renommer le fichier d'exemple de configuration de l'application ``config.php.sample`` en ``config.php``
+    
+::
+
         cp config.php.sample config.php
         cd ..
 
-    Editer ces fichiers et mettre � jour les param�tres de connexion � votre base de donn�es, ainsi que tous les param�tres utiles � une personnalisation de votre application.
+Editer les fichiers ``carto.php`` et ``config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
     
-    
-Cl� IGN
-=======
-Commander une cl� IGN de type : Licence g�oservices IGN pour usage grand public - gratuite
+FONDS CARTOGRAPHIQUES
+=====================
+
+3 types de fonds carto peuvent être utilisés dans l'application : 
+- Fonds IGN en utilisant l'API du Geoportail
+- Fonds OpenStreetMap
+- Fonds Google Maps
+
+Fonds IGN Geoportail
+--------------------
+
+Commencer par commander une clé IGN.
+Si vous êtes un établissement public, vous disposez de la licence géoservices IGN pour usage grand public - gratuite
+
 Avec les couches suivantes : 
 
-* WMTS-G�oportail - Cartes IGN
+* WMTS-Géoportail - Cartes IGN
+* WMTS-Géoportail - Scan IGN
+* WMTS-Géoportail - Orthophoto IGN
 
 Pour cela, il faut que vous disposiez d'un compte IGN pro. (http://professionnels.ign.fr)
-Une fois connect� au site: 
+Une fois connecté au site: 
 
 * aller dans nouvelle commande
 
-* choisir G�oservices IGN : Pour le web dans la rubrique "LES G�OSERVICES EN LIGNE"
+* choisir Géoservices IGN : Pour le web dans la rubrique "LES GÉOSERVICES EN LIGNE"
 
 * cocher l'option "Pour un site internet grand public"
 
-* cocher l'option "Licence g�oservices IGN pour usage grand public - gratuite"
+* cocher l'option "Licence géoservices IGN pour usage grand public - gratuite"
 
-* saisir votre url. Attention, l'adresse doit �tre pr�c�d�e de http://
+* saisir votre url. Attention, l'adresse doit être précédée de http://
 
-* Finisser votre commande en selectionnant les couches d'int�ret et en acceptant les diff�rentes licences.
+* Finisser votre commande en selectionnant les couches d'intéret et en acceptant les différentes licences.
 
 
-Une fois que votre commande est pr�te saisissez la valeur de la cl� IGN re�ue dans le fichier config/config.php : remplacer dans l'url la chaine 'maCleIgn' dans la partie 'leaflet_fonds_carte' "IGNCARTE"=>
+Une fois que votre commande est prète saisissez la valeur de la clé IGN reçue dans le fichier config/config.php : remplacer dans l'url la chaine 'maCleIgn' dans la partie 'leaflet_fonds_carte' "IGNCARTE"=>

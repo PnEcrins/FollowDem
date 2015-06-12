@@ -6,67 +6,67 @@ SERVEUR
     
 
 
-PrÈ-requuis
+Pr√©-requis
 ===========
 
-vous devez disposer d'un serveur ou d'un hÈbergement avec mysql, php5.4 et apache. Le mod_rewrite doit Ítre activÈ
+Vous devez disposer d'un serveur ou d'un h√©bergement mutualis√© avec MySQL, PHP 5.4 et Apache2. Le mod_rewrite doit √™tre activ√©
 
-Si vous avez la main sur le serveur, cette documentation peut vous aider ‡ sa mise en place.
+Si vous avez la main sur le serveur, cette documentation vous aidera √† sa mise en place.
 
-Si vous disposez d'un hÈbergement, le serveur doit Ítre prÍt ‡ l'utilisation.
+Si vous disposez d'un h√©bergement mutualis√©, le serveur doit √™tre pr√™t √† l'utilisation (avec MySQL, PHP 5.4 et Apache2), passez alors directement √†  :ref:`la rubrique INSTALLATION <installation-section>`.
 
 * Ressources minimales du serveur :
 
 Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
 
+* Disposer d'un utilisateur linux (nomm√© ``followdem`` dans cette exemple et dont le r√©pertoire est ainsi dans ``/home/followdem/``
 
-* disposer d'un utilisateur linux que vous pouvez nommÈ par exemple ``follodem``. Le rÈpertoire de cet utilisateur ``follodem`` doit Ítre dans ``/home/follodem``
-
-    :: 
+  :: 
     
-        sudo adduser --home /home/follodem follodem
+        sudo adduser --home /home/followdem followdem
 
 
-* rÈcupÈrer le zip de l'application sur le Github du projet
+* R√©cup√©rer le zip de l'application sur le Github du projet (`X.Y.Z √† remplacer par le num√©ro de version souhait√© <https://github.com/mPnEcrins/FollowDem/releases>`_) et d√©zippez le dans le r√©pertoire de l'utilisateur linux : 
 
-    ::
+  ::
     
         cd /tmp
-        wget https://github.com/PnEcrins/FollowDem/archive/master.zip
-        unzip master.zip
-        mkdir -p /home/follodem/monprojet
-        cp master/* /home/follodem/monprojet
-        cd /home/follodem
+        sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
+        sudo unzip vX.Y.Z.zip
+        sudo mkdir -p /home/followdem/monprojet
+        sudo cp master/* /home/followdem/monprojet
+        cd /home/followdem
 
         
 Installation et configuration du serveur
 ========================================
 
-Installation pour ubuntu.
+Installation pour Ubuntu.
 
 :notes:
 
-    Cette documentation concerne une installation sur Ubuntu 12.04 LTS. Elle devrait Ítre valide sur Debian ou une version plus rÈcente d'Ubuntu. Pour tout autre environemment les commandes sont ‡ adapter.
+    Cette documentation concerne une installation sur Ubuntu 12.04 LTS. Elle devrait √™tre valide sur Debian ou une version plus r√©cente d'Ubuntu. Pour tout autre environemment les commandes sont √† adapter.
 
 .
 
 :notes:
 
-    Durant toute la procÈdure d'installation, travailler avec l'utilisateur ``follodem``. Ne changer d'utilisateur que lorsque la documentation le spÈcifie.
+    L'utilisateur ``followdem`` est √† remplacer par le nom de votre utilisateur linux si vous en avez choisi un diff√©rent.
 
-.
+
+* Assignez le r√¥le d'administrateur √† l'utilisateur ``followdem`` :
+
 
   ::
    
-    su - 
-    usermod -g www-data follodem
-    usermod -a -G root follodem
-    adduser follodem sudo
-    exit
+     sudo usermod -g www-data followdem
+     sudo usermod -a -G root followdem
+     sudo adduser followdem sudo
+     exit
     
-    Fermer la console et la rÈouvrir pour que les modifications soient prises en compte
+    Fermer la console et la r√©ouvrir pour que les modifications soient prises en compte
     
-* Activer le mod_rewrite et redÈmarrer apache
+* Activer le mod_rewrite et red√©marrer Apache :
 
   ::  
         
@@ -77,26 +77,69 @@ Installation pour ubuntu.
 Installation et configuration de MYSQL
 ==========================================
 
-* Mise ‡ jour des sources
+* Mise √† jour des sources :
 
   ::  
     
         sudo apt-get update
 
-* Installation de PostreSQL/PostGIS 
+* Installation de MySQL et cr√©ation de l'utilisateur ``root`` avec le mot √† passe √† remplacer :
 
-    ::
-    
-        TODO
-        
-* configuration MYSQL
+  ::
+  
+		apt-get install mysql-server mysql-client libmysqlclient15-dev mysql-common
+		sudo mysqladmin -u root password Nouveau_mot_de_passe -p ""
+		
+* Ouvrir le fichier de configuration de MySQL pour le modifier :
 
-    ::
-    
-        TODO
+  ::
 
-* CrÈation d'un utilisateur MYSQL
+		sudo vi /etc/mysql/my.cnf
 
-    ::
-    
-        TODO   
+Dans le fichier ``my.cnf``, modifier les lignes de la fa√ßon suivante :
+	
+  ::
+  
+		language = /usr/share/mysql/french
+		key_buffer = 32M
+		query_cache_limit = 2M
+		#log_bin = /var/log/mysql/mysql-bin.log
+		#expire_logs_days = 10
+		log_slow_queries = /var/log/mysql/mysql-slow.log
+		long_query_time = 2
+		default-character-set = utf8
+		default-collation = utf8_general_ci
+		default-character-set = utf8
+
+* Rechargez ensuite le serveur :
+
+  ::
+
+	  /etc/init.d/mysql reload
+		
+* Cr√©ation d'un utilisateur MySQL (nom et mot de passe √† replacer par vos valeurs) :
+
+  ::
+  
+		CREATE USER "nom_utilisateur"@"localhost";
+		SET password FOR "nom_utilisateur"@"localhost" = password('mot_de_passe');
+
+* Cr√©ation d'une base de donn√©ees MySQL (nom √† remplacer) :
+
+  ::
+  
+		CREATE DATABASE nom_de_la_base;
+	
+* Pour se placer dans la base, tapez dans MySQL :
+
+  ::
+  
+	  USE nom_de_la_base;	
+		
+		
+* Attribution des droits √† l'utilisateur MySQL :
+
+  ::
+  
+		GRANT ALL ON nom_de_la_base.* TO "nom_utilisateur"@"localhost";
+	
