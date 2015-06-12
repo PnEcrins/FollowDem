@@ -102,9 +102,9 @@ Vous avez la possibilité d'ajouter un fond cartographique en respectant la nome
 
 Vous pouvez aussi choisir quel fond vous souhaitez utiliser par défaut, en modifiant la ligne suivante :
 
-	::
-			$config['leaflet_fonds_carte_defaut'] = "OSM";
-
+::
+	
+		$config['leaflet_fonds_carte_defaut'] = "OSM";
 
 Vous avez aussi la possibilité d'attacher les fonds de cartes Google avec le paramètre ligne 393.
 
