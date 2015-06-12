@@ -4,7 +4,6 @@
 <script src="js/bottom.js"></script>
 
 {* Tracking statistiques *}
-{if isset(config::get('tracking_stats') && config::get('tracking_stats') != '')}
+{if config::get('active_tracking_stats')}
   {config::get('tracking_stats')}
 {/if}
-  
