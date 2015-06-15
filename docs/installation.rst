@@ -111,7 +111,7 @@ Vous avez aussi la possibilité d'attacher les fonds de cartes Google avec le pa
 Fonds IGN Geoportail
 --------------------
 
-Commencer par commander une clé IGN.
+Commencez par commander une clé IGN.
 Si vous êtes un établissement public, vous disposez de la licence géoservices IGN pour usage grand public - gratuite
 
 Avec les couches suivantes : 
