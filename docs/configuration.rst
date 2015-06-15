@@ -12,19 +12,33 @@ Ensuite, les satellites envoient les données en pièce jointe sur une boîte mail,
 Et enfin, l'application effectue un traitement qui consiste à récupérer ces fichiers txt puis les transformer en fichiers csv.
 
 Le fichier csv est constitué de plusieurs colonnes
+
 * Id de l'objet.
+
 * Nom de l'objet.
+
 * Date de l'envoi des données au satellite.
+
 * Heure de l'envoi des données au satellite.
+
 * TTF (pas utilisé)
+
 * Latitude.
+
 * Longitude.
+
 * Nombre de satellites.
+
 * 3D ou 2D. (si c'est on 3D on a l'altitude)
+
 * Altitude de l'objet.
+
 * H-DOP. (permet de connaître la fiabilité de la position)
+
 * Température.
+
 * X (pas utilisé)
+
 * Y (pas utilisé)
 
 
