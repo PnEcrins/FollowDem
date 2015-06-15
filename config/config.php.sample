@@ -36,7 +36,7 @@ $config = array();
 	*
 	*	@var string
 	*/
-	$config['emailContact'] = 'http://www.ecrins-parcnational.fr/nous-contacter';
+	$config['emailContact'] = 'http://mon-domaine.com/nous-contacter';
 
 	
 /*** Langues / locale / Encodage / Date ***/
@@ -111,7 +111,12 @@ $config = array();
 	*/
 	$config['system_separateur'] = '/';
 	
-	$config['rep_appli'] = '/var/www/followdem';
+	/**
+	*	Répertoire de l'application
+	*
+	*	@var string
+	*/
+	$config['rep_appli'] = '/home/user/www/';
 	
 /*** CSV Import de données ***/
 	/**
@@ -218,6 +223,17 @@ $config = array();
 	*/
 	$config['csv_condition'] = array(array(5,'>0'),array(6,'>0'),array(9,'>1000'),array(9,'<4102'));
 	$config['csv_condition_type'] = array(5=>'numeric',6=>'numeric',9=>'numeric');
+	
+	/**
+	*	Paramètres de configuration pour se connecter à la boîte mail pour l'import des pièces jointes
+	*
+	*	@var string
+	*/
+	$config['domaine_import_imap_csv'] = 'serveur.mon-domaine.com';
+	$config['id_authentification_import_imap_csv'] = 'exemple@domaine.com';
+	$config['mdp_authentification_import_imap_csv'] = 'monpassachanger';
+	
+	
 /*** FIN CSV ***/
 
 
@@ -410,7 +426,7 @@ Pour tout autre paramètres, utiliser bottom.js dans js/
 	
 	/**
 	*	lefleat_repeat_direction
-	*	Ajouter une flèche sur un travé tous les x pixels
+	*	Ajouter une flèche sur un tracé tous les x pixels
 	*
 	*	@var	array
 	*/	
@@ -458,8 +474,6 @@ Pour tout autre paramètres, utiliser bottom.js dans js/
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
 </script>";
-
-
 	
 	/**
 	*	recupe_couleur_name_tracked_objects

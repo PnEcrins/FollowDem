@@ -6,7 +6,7 @@
 *	@copyright Parc national des Écrins
 *	
 */
-
+ini_set('display_errors',1);
 include_once('config.php');
 
 /*Définition de la langue*/
