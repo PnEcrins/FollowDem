@@ -63,7 +63,7 @@ Sur un serveur
         sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
         sudo unzip vX.Y.Z.zip
         sudo mkdir -p /home/followdem/monprojet
-        sudo cp master/* /home/followdem/monprojet
+        sudo cp FollowDem-master/* /home/followdem/monprojet
         cd /home/followdem
 
 Configuration de l'application
@@ -85,7 +85,7 @@ Copier et renommer le fichier d'exemple de configuration de l'application ``conf
 
 Editer les fichiers ``carto.php`` et ``config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
     
-FONDS CARTOGRAPHIQUES
+Fonds cartographiques
 =====================
 
 3 types de fonds cartographiques peuvent être utilisés dans l'application :
@@ -111,7 +111,7 @@ Vous avez aussi la possibilité d'attacher les fonds de cartes Google avec le pa
 Fonds IGN Geoportail
 --------------------
 
-Commencer par commander une clé IGN.
+Commencez par commander une clé IGN.
 Si vous êtes un établissement public, vous disposez de la licence géoservices IGN pour usage grand public - gratuite
 
 Avec les couches suivantes : 
@@ -137,3 +137,14 @@ Une fois connecté au site:
 
 
 Une fois que votre commande est prète saisissez la valeur de la clé IGN reçue dans le fichier config/config.php : remplacer dans l'url la chaine 'maCleIgn' dans la partie 'leaflet_fonds_carte' "IGNCARTE"=>
+
+
+Cache serveur
+=============
+
+Smarty s'occupe de sauvegarder le cache sur le serveur et garde ce cache pendant deux heures.
+
+Le cache est sauvegardé dans deux dossiers différents ``/templates_c`` et ``/cache``.
+
+Lorsque vous effectuez des modifications dans l'application, il se peut que les changements ne se soient pas enregistrés dans les dossiers de cache.
+Pour voir ces modifications appliquées, il vous faudra vider les dossiers ``/templates_c`` et ``/cache``.
