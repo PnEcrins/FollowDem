@@ -229,7 +229,7 @@ $config = array();
 	*
 	*	@var string
 	*/
-	$config['domaine_import_imap_csv'] = 'mail.mon-domaine.com';
+	$config['domaine_import_imap_csv'] = 'serveur.mon-domaine.com';
 	$config['id_authentification_import_imap_csv'] = 'exemple@domaine.com';
 	$config['mdp_authentification_import_imap_csv'] = 'monpassachanger';
 	

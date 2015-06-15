@@ -207,8 +207,8 @@ class controler
 		echo $line.'###'.date('d/m/Y H:i').'##################################';
 		$line = "\r\n\t".'> ';
 		echo $line.'Connexion à la boîte email';
-		$imap = new imap('serveur.mon-domaine.com',993);
-		$imap->setAuthentication('exemple@mon-domaine.com','monpassachanger');
+		$imap = new imap(config::get('domaine_import_imap_csv'),993);
+		$imap->setAuthentication(config::get('id_authentification_import_imap_csv'),config::get('mdp_authentification_import_imap_csv'));
 		$imap->setMailBox('INBOX');
 		
 		$tmp_rep = 'tmp'.config::get('system_separateur').'csv'.config::get('system_separateur');
