@@ -36,7 +36,7 @@ $config = array();
 	*
 	*	@var string
 	*/
-	$config['emailContact'] = 'http://www.ecrins-parcnational.fr/nous-contacter';
+	$config['emailContact'] = 'http://mon-domaine.com/nous-contacter';
 
 	
 /*** Langues / locale / Encodage / Date ***/
@@ -111,6 +111,11 @@ $config = array();
 	*/
 	$config['system_separateur'] = '/';
 	
+	/**
+	*	Répertoire de l'application
+	*
+	*	@var string
+	*/
 	$config['rep_appli'] = '/var/www/followdem';
 	
 /*** CSV Import de données ***/
@@ -410,7 +415,7 @@ Pour tout autre paramètres, utiliser bottom.js dans js/
 	
 	/**
 	*	lefleat_repeat_direction
-	*	Ajouter une flèche sur un travé tous les x pixels
+	*	Ajouter une flèche sur un tracé tous les x pixels
 	*
 	*	@var	array
 	*/	
@@ -458,8 +463,6 @@ Pour tout autre paramètres, utiliser bottom.js dans js/
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
 </script>";
-
-
 	
 	/**
 	*	recupe_couleur_name_tracked_objects
