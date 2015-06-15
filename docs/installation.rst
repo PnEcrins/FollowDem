@@ -63,7 +63,7 @@ Sur un serveur
         sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
         sudo unzip vX.Y.Z.zip
         sudo mkdir -p /home/followdem/monprojet
-        sudo cp master/* /home/followdem/monprojet
+        sudo cp FollowDem-master/* /home/followdem/monprojet
         cd /home/followdem
 
 Configuration de l'application
