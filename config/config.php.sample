@@ -116,7 +116,7 @@ $config = array();
 	*
 	*	@var string
 	*/
-	$config['rep_appli'] = '/var/www/followdem';
+	$config['rep_appli'] = '/home/user/www/';
 	
 /*** CSV Import de données ***/
 	/**
