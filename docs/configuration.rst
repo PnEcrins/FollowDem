@@ -6,10 +6,15 @@ Principe de l'application
 =========================
 
 L'application utilise des données transmises par des objets équipés d'un GPS.
+
 Le traitement de ces données s'effectue en plusieurs étapes.
+
 Tout d'abord, les GPS envoient leurs positions aux satellites.
+
 Ensuite, les satellites envoient les données en pièce jointe sur une boîte mail, ces fichiers sont des fichiers txt.
+
 Et enfin, l'application effectue un traitement qui consiste à récupérer ces fichiers txt puis les transformer en fichiers csv.
+
 
 Le fichier csv est constitué de plusieurs colonnes
 
