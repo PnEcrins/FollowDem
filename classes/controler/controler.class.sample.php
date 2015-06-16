@@ -276,7 +276,7 @@ class controler
 								//Récupération du nom
 								$name = (config::get('csv_nom_tracked_objects',$id)!='')?config::get('csv_nom_tracked_objects',$id):$results->nom;
 								
-								echo $line.'Données concordantes trouvées pour le tracked_objects :'.$name;
+								echo $line.'Données concordantes trouvées pour l'objet traqué :'.$name;
 								/*on lit toutes les lignes sauf les 3 premières*/
 								while (($buffer = fgets($fs, 4096)) !== false) 
 								{
@@ -302,7 +302,7 @@ class controler
 								{
 									
 									echo $line.'Envoi email pour informer de la non récupération du non, non concordance des données';
-									//On envoi un email pour informé de l'ajout nécessaire de l'id/nom
+									//On envoi un email pour informer de l'ajout nécessaire de l'id/nom
 									$corps = "<html><head><meta http-equiv= \"content-type\" content=\"text/html; charset=UTF-8\"></head><body><h3>Notification application FollowDem</h3>
 									<p>Un nouvel identifiant (".$id.") a été reconnu lors de l'import automatique.</p>
 									<p>Il est nécessaire de renseigner son nom dans le fichier de configuration (config/config.php - 'csv_nom_tracked_objects') pour finaliser l'import de donnée.</p>
@@ -311,7 +311,7 @@ class controler
 									<p><strong>Si ces données ne doivent pas être importée, il suffit de supprimer manuellement les fichiers portant l'identifiant (".$id." - ex : T5HS-".$id."_YYYY-MM-DD-NUM) dans le répertoire \"tmp/csv/\" de l'application.</strong>
 									<p><small>At work !</small></p></body></html>";
 									$to = config::get('csv_email_error_nom');
-									if (!API::send_email($to,'Nom de tracked_objects à rajouter',$corps))
+									if (!API::send_email($to,'Nom d'objet traqué à rajouter',$corps))
 										echo $line."\t".'Erreur envoi email';
 									else
 									{
@@ -335,8 +335,6 @@ class controler
 				}
 				else
 					echo $line."Rien à importer !";
-				
-				//ho $csv;
 			}
 
 	}

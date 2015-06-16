@@ -67,13 +67,13 @@ class tracked_objects
 		
 		/*if(is_array($objects_features) && count($objects_features) > 0)
 		{
-			foreach($objects_features as $objects_features)
+			foreach($objects_features as $object_feature)
 			{
 				$i = count($this->objects_features);
-				$tmp_prop = new objects_features;
+				$tmp_prop = new object_feature;
 				$tmp_prop->set_id_tracked_objects($this->id);
-				$tmp_prop->set_nom_prop($objects_features['nom_prop']);
-				$tmp_prop->set_valeur_prop($objects_features['valeur_prop']);
+				$tmp_prop->set_nom_prop($object_feature['nom_prop']);
+				$tmp_prop->set_valeur_prop($object_feature['valeur_prop']);
 				$this->objects_features[$i]	= $tmp_prop
 			}
 		}*/
@@ -86,7 +86,7 @@ class tracked_objects
 			foreach($gps_data as $data)
 			{
 				$i = count($this->gps_data);
-				$this->gps_data[$i]= new gps_data;
+				$this->gps_data[$i]= new data;
 				$this->gps_data[$i]->set_id_tracked_objects($this->id);
 				$this->gps_data[$i]->set_dateheure($data['dateheure']);
 				$this->gps_data[$i]->set_latitude($data['latitude']);
@@ -138,7 +138,7 @@ class tracked_objects
 	
 	
 	/*renvoi tableau d'objet propriété */
-	public function get_objects_features($objects_features)
+	public function get_objects_features($object_feature)
 	{
 		return $this->objects_features;
 	}
@@ -465,14 +465,14 @@ class tracked_objects
 					}
 					
 					/*Affectation des données*/
-					$data 	= new gps_data();
-					$data		->set_id_tracked_objects($tmp_tracked_objects->get_id());
-					$data		->set_dateheure($obj_date->format('Y-m-d H:i:s'));
-					$data		->set_latitude($data[config::get('csv_colonne','latitude')]);
-					$data		->set_longitude($data[config::get('csv_colonne','longitude')]);
-					$data		->set_temperature($data[config::get('csv_colonne','temperature')]);
-					$data		->set_nb_satellites($data[config::get('csv_colonne','nb_satellites')]);
-					$data		->set_altitude($data[config::get('csv_colonne','altitude')]);
+					$gps_data 	= new gps_data();
+					$gps_data		->set_id_tracked_objects($tmp_tracked_objects->get_id());
+					$gps_data		->set_dateheure($obj_date->format('Y-m-d H:i:s'));
+					$gps_data		->set_latitude($data[config::get('csv_colonne','latitude')]);
+					$gps_data		->set_longitude($data[config::get('csv_colonne','longitude')]);
+					$gps_data		->set_temperature($data[config::get('csv_colonne','temperature')]);
+					$gps_data		->set_nb_satellites($data[config::get('csv_colonne','nb_satellites')]);
+					$gps_data		->set_altitude($data[config::get('csv_colonne','altitude')]);
 					$tmp_tracked_objects	->set_gps_data(array($data));
 					
 					
