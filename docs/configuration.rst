@@ -5,28 +5,30 @@ CONFIGURATION
 Principe de l'application
 =========================
 
-L'application utilise des données transmises par des objets équipés d'un GPS.
+L'application utilise des donnÃ©es transmises par des objets Ã©quipÃ©s d'un GPS.
 
-Le traitement de ces données s'effectue en plusieurs étapes.
+Le traitement de ces donnÃ©es s'effectue en plusieurs Ã©tapes.
 
 Tout d'abord, les GPS envoient leurs positions aux satellites.
 
-Ensuite, les satellites envoient les données en pièce jointe sur une boîte mail, ces fichiers sont des fichiers txt.
+Ensuite, les satellites envoient les donnÃ©es en piÃ¨ce jointe sur une boÃ®te mail, ces fichiers sont des fichiers txt.
 
-Et enfin, l'application effectue un traitement qui consiste à récupérer ces fichiers txt puis les transformer en fichiers csv.
+L'application a la possibilitÃ© de traiter les donnÃ©es de deux maniÃ¨res :
 
+- On peut renseigner les donnÃ©es dans le fichier ``tracked_objects.csv`` en respectant la forme ci-dessous.
+- On peut rÃ©cupÃ©rer les fichiers txt dans les piÃ¨ces jointes des emails sur la boÃ®te spÃ©cifique. Par la suite, ils sont traitÃ©s selon la correspondance dÃ©finie dans le fichier ``config.php`` puis transformÃ©s en CSV standard de l'application.
 
-Le fichier csv est constitué de plusieurs colonnes
+Le fichier csv est constituÃ© de plusieurs colonnes
 
 * Id de l'objet.
 
 * Nom de l'objet.
 
-* Date de l'envoi des données au satellite.
+* Date de l'envoi des donnÃ©es au satellite.
 
-* Heure de l'envoi des données au satellite.
+* Heure de l'envoi des donnÃ©es au satellite.
 
-* TTF (pas utilisé)
+* TTF (pas utilisÃ©)
 
 * Latitude.
 
@@ -38,14 +40,15 @@ Le fichier csv est constitué de plusieurs colonnes
 
 * Altitude de l'objet.
 
-* H-DOP. (permet de connaître la fiabilité de la position)
+* H-DOP. (permet de connaÃ®tre la fiabilitÃ© de la position)
 
-* Température.
+* TempÃ©rature.
 
-* X (pas utilisé)
+* X (pas utilisÃ©)
 
-* Y (pas utilisé)
+* Y (pas utilisÃ©)
 
+L'import des donnÃ©es se fait avec une tÃ¢che CRON, mais on peut lancer un script qui s'occupe d'importer les donnÃ©es directement.
 
 Configurer l'application
 ========================
@@ -55,7 +58,7 @@ Modifier nom de domaine de l'application
 ::
 	$config['url'] = 'http://mon-domaine.com';
 	
-Changer le titre de l'entête sur l'application
+Changer le titre de l'entÃªte sur l'application
 ::
 	$config['titre_application'] = 'FollowDem';
 
@@ -63,11 +66,11 @@ Modifier l'url vers un formulaire de contact
 ::
 	$config['emailContact'] = 'http://mon-domaine.com/nous-contacter';
 	
-Proposer plusieurs langues disponible (complétez le array en suivant la logique ci-dessous)
+Proposer plusieurs langues disponible (complÃ©tez le array en suivant la logique ci-dessous)
 ::
 	$config['langue_dispo'] = array('fr_FR'=>'fr','us_US'=>'us');
 
-Définir une langue par défaut
+DÃ©finir une langue par dÃ©faut
 ::
 	$config['langue_defaut'] = 'fr';
 
@@ -75,7 +78,7 @@ Choisir un fuseau horaire
 ::
 	$config['fuseau'] = 'Europe/Paris';
 
-Modifier l'encodage par défaut
+Modifier l'encodage par dÃ©faut
 ::
 	$config['encodage'] = 'UTF-8';
 
@@ -83,35 +86,35 @@ Changer l'encodage de la date de sortie
 ::
 	$config['datesortie'] = '%a %e %b %Y - %H:%M';
 
-Définir la date minimale de non mise-à-jour des données (les données sont valides si elles ne sont pas plus anciennes que la valeur donnée)
+DÃ©finir la date minimale de non mise-Ã -jour des donnÃ©es (les donnÃ©es sont valides si elles ne sont pas plus anciennes que la valeur donnÃ©e)
 ::
 	$config['date_data_valide'] = 150;
 
-Changer la période minimale de suivi d'un objet
+Changer la pÃ©riode minimale de suivi d'un objet
 ::
 	$config['periode_min'] = 15; 
 
-Changer la période maximale de suivi d'un objet
+Changer la pÃ©riode maximale de suivi d'un objet
 ::
 	$config['periode_max'] = 360;
 	
-Modifier les périodes possibles pour le suivi d'un objet
+Modifier les pÃ©riodes possibles pour le suivi d'un objet
 ::
 	$config['periode_valeurs'] = array(3,15,30,60,90,120,150,180,210,240,270,300,330,360);
 
-Sélectionner un séparateur pour le chemin du répertoire de l'application
+SÃ©lectionner un sÃ©parateur pour le chemin du rÃ©pertoire de l'application
 ::
 	$config['system_separateur'] = '/';
 
-Modifier le répertoire de l'application
+Modifier le rÃ©pertoire de l'application
 ::
 	$config['rep_appli'] = '/var/www/followdem';
 	
-Définir le séparateur dans les fichiers csv
+DÃ©finir le sÃ©parateur dans les fichiers csv
 ::
 	$config['csv_separateur'] = ',';
 
-Définir le paramètre d'exclusion de caractères spéciaux
+DÃ©finir le paramÃ¨tre d'exclusion de caractÃ¨res spÃ©ciaux
 ::
 	$config['csv_enclosure'] = '"';
 
@@ -119,27 +122,27 @@ Modifier le nom du fichier csv de l'application
 ::
 	$config['csv_name'] = 'tracked_objects.csv';
 
-Modifier le répertoire qui contient le fichier csv
+Modifier le rÃ©pertoire qui contient le fichier csv
 ::
 	$config['csv_repertoire'] = 'csv';
 
-Définir les colonnes du fichier csv que vous voulez utiliser
+DÃ©finir les colonnes du fichier csv que vous voulez utiliser
 ::
 	$config['csv_colonne'] = array('id'=>0,'nom'=>1,'date'=>2,'heure'=>3,'latitude'=>5,'longitude'=>6,'temperature'=>11,'nb_satellites'=>7,'altitude'=>9);
 
-Affecter l'Id d'un objet à un nom d'objet
+Affecter l'Id d'un objet Ã  un nom d'objet
 ::
 	$config['csv_nom_tracked_objects'] = array();
 
-Changer l'email de réception des erreurs de traitement des fichiers csv
+Changer l'email de rÃ©ception des erreurs de traitement des fichiers csv
 ::
 	$config['csv_email_error_nom'] = array('monPrenom'=>'exemple@domaine.com');
 
-Choisir si la transmission d'email d'erreur lors de l'import est autorisée
+Choisir si la transmission d'email d'erreur lors de l'import est autorisÃ©e
 ::
 	$config['csv_email_error'] = false;
 
-Récupérer des propriétés supplémentaires dans le csv
+RÃ©cupÃ©rer des propriÃ©tÃ©s supplÃ©mentaires dans le csv
 ::
 	$config['csv_colonne_objects_features'] = array();
 
@@ -151,12 +154,12 @@ Modifier le format de l'heure du fichier csv
 ::
 	$config['csv_heure_format'] = 'H:i:s';	
 	
-Changer la restriction d'import de certaines données dans le fichier csv
+Changer la restriction d'import de certaines donnÃ©es dans le fichier csv
 ::
 	$config['csv_condition'] = array(array(5,'>0'),array(6,'>0'),array(9,'>1000'),array(9,'<4102'));
 	$config['csv_condition_type'] = array(5=>'numeric',6=>'numeric',9=>'numeric');
 
-Modifier les paramètres de la base de données
+Modifier les paramÃ¨tres de la base de donnÃ©es
 ::
 	$config['db_host'] 		= 	'localhost';
 	$config['db_name'] 		= 	'dbname';
@@ -166,7 +169,7 @@ Modifier les paramètres de la base de données
 	$config['db_type'] 		= 	'mysql';
 	$config['db_encodage']  = 	'UTF8';
 	
-Modifier les paramètres d'envoi d'email
+Modifier les paramÃ¨tres d'envoi d'email
 ::
 	$config['email_smtp'] 			= 	'smtp.domaine.com';
 	$config['email_user'] 			= 	'exemple@domaine.com';
@@ -178,19 +181,19 @@ Modifier les paramètres d'envoi d'email
 	$config['email_From'] 			= 	'exemple@domaine.com';
 	$config['email_FromName'] 		= 	'FollowDem';
 	
-Choisir si le debug dans Smarty est autorisé
+Choisir si le debug dans Smarty est autorisÃ©
 ::
 	$config['smarty_debugging'] = false;
 	
-Choisir si le cache serveur dans Smarty est autorisé
+Choisir si le cache serveur dans Smarty est autorisÃ©
 ::
 	$config['smarty_caching'] = true;
 
-Définir la durée de vie du cache serveur Smarty
+DÃ©finir la durÃ©e de vie du cache serveur Smarty
 ::
 	$config['smarty_cache_lifetime'] = 120;
 
-Paramétrer les fonds de cartes utilisés par l'application, si vous utilisez les fonds de cartes IGN, pensez à remplacer la valeur de maCleIgn dans 'url'
+ParamÃ©trer les fonds de cartes utilisÃ©s par l'application, si vous utilisez les fonds de cartes IGN, pensez Ã  remplacer la valeur de maCleIgn dans 'url'
 ::
 	$config['leaflet_fonds_carte'] = array(
 			"IGNCARTE"=>array(
@@ -201,14 +204,14 @@ Paramétrer les fonds de cartes utilisés par l'application, si vous utilisez les 
 				'subdomains'=>''
 			),
 			"IGNPHOTO"=>array(
-				'name'=>'Photo aérienne IGN',
+				'name'=>'Photo aÃ©rienne IGN',
 				'url'=>'http://gpp3-wxs.ign.fr/maCleIgn/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
 				'attribution'=>'IGN',
 				'maxZoom'=>19,
 				'subdomains'=>''
 			),
 			"IGNCARTEDET"=>array(
-				'name'=>'Carte détaillée IGN',
+				'name'=>'Carte dÃ©taillÃ©e IGN',
 				'url'=>'http://gpp3-wxs.ign.fr/maCleIgn/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
 				'attribution'=>'IGN',
 				'maxZoom'=>17,
@@ -223,11 +226,11 @@ Paramétrer les fonds de cartes utilisés par l'application, si vous utilisez les 
 			)
 		);
 
-Choisir le fond de carte par défaut sur l'application
+Choisir le fond de carte par dÃ©faut sur l'application
 ::
 	$config['leaflet_fonds_carte_defaut'] = "OSM";
 
-Changer les pictogrammes utilisés par Leaflet
+Changer les pictogrammes utilisÃ©s par Leaflet
 ::
 	$config['leaflet_pictos'] = array('position'=>
 		array(
@@ -255,35 +258,35 @@ Modifier le zoom maximal sur la carte
 ::
 	$config['leaflet_zoom_max'] = 17;
 
-Changer la position des icônes de zoom sur la carte
+Changer la position des icÃ´nes de zoom sur la carte
 ::
 	$config['leaflet_position_zoom'] = 'topright';
 
-Choisir si le fond Google Maps sur la carte est autorisé
+Choisir si le fond Google Maps sur la carte est autorisÃ©
 ::
 	$config['leaflet_gmap'] = false;
 
-Choisir un style par défaut pour les tracés
+Choisir un style par dÃ©faut pour les tracÃ©s
 ::
 	$config['lefleat_style_trace'] = array('color'=>"#000","fillColor"=>"#FFF","Opacity"=>1,"fillOpacity"=>1,"weight"=>3);
 	
-Choisir un style par défaut pour les flèches de direction
+Choisir un style par dÃ©faut pour les flÃ¨ches de direction
 ::
 	$config['lefleat_style_direction'] = array('color'=>"#7F2B7F","Opacity"=>1,"weight"=>3);
 
-Modifier la distance d'affichage des flèches directionnelles sur les tracés
+Modifier la distance d'affichage des flÃ¨ches directionnelles sur les tracÃ©s
 ::
 	$config['lefleat_repeat_direction'] = '50';
 	
-Choisir un style par défaut des derniers points de suivi des objets
+Choisir un style par dÃ©faut des derniers points de suivi des objets
 ::
 	$config['lefleat_style_point_defaut'] = array('color'=>"#A60000","fillColor"=>"#f03","Opacity"=>1,"fillOpacity"=>0.9,"weight"=>5);
 
-Modifier le style des derniers points en fonction des paramètres contenus dans la base de données
+Modifier le style des derniers points en fonction des paramÃ¨tres contenus dans la base de donnÃ©es
 ::
 	$config['lefleat_style_point_surcharge'] = array('color'=>"couleurD","fillColor"=>"couleurG","Opacity"=>1,"fillOpacity"=>0.9,"weight"=>5);
 
-Paramétrer le suivi statistique de l'application	
+ParamÃ©trer le suivi statistique de l'application	
 ::
 	$config['active_tracking_stats'] = 'true';
 	$config['tracking_stats'] = "
@@ -300,14 +303,14 @@ Paramétrer le suivi statistique de l'application
 		})();
 	</script>";
 	
-Choisir si la récupération de la couleur dans le nom de l'objet est autorisée
+Choisir si la rÃ©cupÃ©ration de la couleur dans le nom de l'objet est autorisÃ©e
 ::
 	$config['recupe_couleur_name_tracked_objects'] = true;
 
-Choisir si l'affichage des messages d'erreurs et des exceptions est autorisé
+Choisir si l'affichage des messages d'erreurs et des exceptions est autorisÃ©
 ::	
 	$config['debug']=true;	
 
-Choisir si l'enregistrement des logs dans la base de données est autorisé
+Choisir si l'enregistrement des logs dans la base de donnÃ©es est autorisÃ©
 ::
 	$config['log']=false;
