@@ -1,13 +1,12 @@
 <?php
 /**
-*	Classe propriete - Permet l'interaction avec les données et le traitement des données
+*	Classe propriete - Permet l'intéraction avec les données et le traitement des données
 *	@author Fabien Selles
 *	@date 2013-07-25
 *	@copyright Parc national des Écrins
 *	
 */
-//@include_once tracked_objects.class.php
-//extends tracked_objects
+
 
 class objects_features
 {
@@ -56,7 +55,7 @@ class objects_features
 	}
 
 	/**
-	* 	Sauvegarde une propriete
+	* 	Sauvegarde une propriété
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -70,7 +69,7 @@ class objects_features
 	
 	
 	/**
-	* 	Charge une propriete
+	* 	Charge une propriété
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -90,8 +89,8 @@ class objects_features
 	}
 	
 	/**
-	* 	Vérifie si une propriete existe
-	*	S'il existe possibilité d'Update $update = true! si différence
+	* 	Vérifie si une propriété existe
+	*	S'il existe possibilité d'Update, $update = true
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -112,7 +111,7 @@ class objects_features
 	}
 	
 	/**
-	* 	Insert une propriete
+	* 	Insert une propriété
 	*
 	* 	@access  private
 	* 	@return  
@@ -128,7 +127,7 @@ class objects_features
 	}
 	
 	/**
-	* 	Update une propriete
+	* 	Update une propriété
 	*
 	* 	@access  private
 	* 	@return  
@@ -142,7 +141,7 @@ class objects_features
 		trace::add("update objects_features id_tracked_objects=".$this->get_id_tracked_objects().'--'.$this->get_nom_prop().'--'.$this->get_valeur_prop());
 	}
 	/**
-	* 	Delete une propriete
+	* 	Delete une propriété
 	*
 	* 	@access  private
 	* 	@return  
@@ -159,7 +158,7 @@ class objects_features
 	
 	
 	/**
-	* 	Charge toutes les objects_features ou les propriétés de l'objet si $id_objet - Retourne un tableau d'objets propriétés
+	* 	Charge toutes les objects_features ou les propriétés de l'objet si $id_objet retourne un tableau d'objets et de propriétés
 	*
 	* 	@access  static
 	* 	@return  array
@@ -178,7 +177,7 @@ class objects_features
 		}
 		else
 		{
-			//echo "\r\n".'Prop avec ID :'.$id_tracked_objects;
+
 			$rqs = $db->prepare('SELECT id_tracked_objects, nom_prop FROM '.config::get('db_prefixe').'objects_features where id_tracked_objects = ?  ORDER BY '.$order);			
 			$rqs->execute(array($id_tracked_objects));
 		}

@@ -1,13 +1,12 @@
 <?php
 /**
-*	Classe donnee - Permet l'interaction avec les données et le traitement des données
+*	Classe gps_data - Permet l'intéraction avec les données et le traitement des données
 *	@author Fabien Selles
 *	@date 2013-07-25
-*	@copyright Parc national des Écrins
+*	@copyright Parc National des Écrins
 *	
 */
-//@include_once tracked_objects.class.php
-//extends tracked_objects
+
 
 class gps_data
 {
@@ -108,7 +107,7 @@ class gps_data
 	}
 
 	/**
-	* 	Sauvegarde une propriete
+	* 	Sauvegarde une propriété
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -122,7 +121,7 @@ class gps_data
 	
 	
 	/**
-	* 	Charge une propriete
+	* 	Charge une propriété
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -147,8 +146,8 @@ class gps_data
 	}
 	
 	/**
-	* 	Vérifie si une donnee existe
-	*	Pas d'update - Une propriété saisie est ignorée - La methode update est concervée par convension
+	* 	Vérifie si une donnée existe
+	*	Pas d'update - Une propriété saisie est ignorée - La methode update est conservée par convention
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -168,7 +167,7 @@ class gps_data
 	}
 	
 	/**
-	* 	Insert une donnee
+	* 	Insert une donnée
 	*
 	* 	@access  private
 	* 	@return  
@@ -190,8 +189,8 @@ class gps_data
 	}
 	
 	/**
-	* 	Update une donnee
-	*	Concervée par convension - Normalement pas d'Update sur les données insérées.
+	* 	Update une donnée
+	*	Conservée par convention - Normalement pas d'Update sur les données insérées.
 	* 	@access  private
 	* 	@return  
 	*/
@@ -200,7 +199,7 @@ class gps_data
 		$db=db::get();
 		$rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'gps_data SET id_tracked_objects=?,dateheure=?,latitude=?,longitude=?,temperature=?,nb_satellite=?,altitude=? WHERE id=?');
 		$rqu->execute(array($this->get_id_tracked_objects(),$this->get_dateheure_bdd(),$this->get_latitude(),$this->get_longitude(),$this->get_temperature(),$this->get_nb_satellites(),$this->get_altitude(),$this->get_id()));
-		//$rqu->execute(array($this->get_id_tracked_objects(),$this->get_dateheure_bdd(),$this->get_latitude(),$this->get_longitude(),$this->get_temperature(),$this->get_nb_satellites(),$this->get_altitude(),$this->get_id()));
+		
 		if ($rqu->rowCount() === 0){
 			trace::add("ERREUR update gps_data id=".$this->get_id().'--'.$this->get_id_tracked_objects());
 		}
@@ -209,7 +208,7 @@ class gps_data
 		}
 	}
 	/**
-	* 	Delete une propriete
+	* 	Delete une propriété
 	*
 	* 	@access  private
 	* 	@return  
@@ -229,8 +228,8 @@ class gps_data
 	
 	
 	/**
-	* 	Charge toutes les donnee de l'objet si $id_tracked_objects - Retourne un tableau d'objets propriétés
-	*	Attention si $id_tracked_objects=0 - Chargement et requête peut-être long !
+	* 	Charge toutes les données de l'objet si $id_tracked_objects retourne un tableau d'objets et de propriétés
+	*	Attention si $id_tracked_objects = 0 - Chargements et requêtes peuvent être longs !
 	* 	@access  static
 	* 	@return  array
 	* 	@param	id_tracked_objects, order
@@ -258,8 +257,8 @@ class gps_data
 	}
 	
 	/**
-	* 	Charge toutes les donnee entre 2 dates ou la dernières dates
-	*	Attention si $id_tracked_objects=0 - Chargement et requête peut-être long !
+	* 	Charge toutes les données entre 2 dates ou la dernière date
+	*	Attention si $id_tracked_objects = 0 - Chargements et requêtes peuvent être longs !
 	* 	@access  static
 	* 	@return  array
 	* 	@param	id_tracked_objects, date_deb, date_fin, last_donnee (dernières données seulement), order, $count_only(compte seulement si des données existent)
@@ -300,8 +299,7 @@ class gps_data
 			$prepare = array_merge($prepare,$prepare);
 		}
 		
-		/*echo '<pre> SQL = SELECT id FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order;
-		echo print_r($prepare,true).'</pre>';*/
+
 		
 		if($count_only === true)
 			$rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
@@ -310,16 +308,7 @@ class gps_data
 
 		$rqs->execute($prepare);
 		
-		/*if($id_tracked_objects==0)
-		{
-			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data ORDER BY '.$order);
-			$rqs->execute();
-		}
-		else
-		{
-			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'objects_features where id_tracked_objects = ? ORDER BY '.$order);			
-			$rqs->execute(array($id_tracked_objects));
-		}*/
+
 
 		if($count_only === true)
 		{
@@ -333,7 +322,7 @@ class gps_data
 			while($result = $rqs->fetchObject())
 				$tmp_gps_data[] = new gps_data($result->id);
 			
-			//echo "<br />Nombre de donnée :".count($tmp_gps_data);
+
 			if(count($tmp_gps_data) > 0)
 				return $tmp_gps_data;
 			else

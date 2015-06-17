@@ -1,8 +1,8 @@
 <?php
 /**
 *	Classe controller - Controller principal
-* 	Classe qui appel les données en fonction des actions et construits les retour vers smarty en HTML
-*	Controller basique pour le traitement de l'affichage des données. S'appuie sur la classe API pour la récupération des données
+* 	Classe qui appelle les données en fonction des actions et qui construit les retours vers smarty en HTML
+*	Controleur basique pour le traitement de l'affichage des données. S'appuie sur la classe API pour la récupération des données
 *	@author Fabien Selles
 *	@copyright Parc National des écrins
 *	
@@ -32,7 +32,7 @@ class controler
 		elseif (isset($_POST) && count($_POST) >0)
 			$this->params = $_POST;
 		
-		//echo 'Caching smarty :"'.($this->smarty->caching)?'Ok':'No';
+
 		
 		$this->$action();
 		
@@ -49,15 +49,15 @@ class controler
 	*/
 	protected function last_trace($template="index")
 	{
-		/*Paramètre de la page*/
+		/*Paramètres de la page*/
 		$this->smarty->assign("titre_application",config::get('titre_application'));
 		$this->smarty->assign("leaflet_gmap",config::get('leaflet_gmap'));
 		
 		
-		/*Charge tous les objet actifs et leur dernière donnée*/
+		/*Charge tous les objets actifs et leur dernière donnée*/
 		$objets = tracked_objects::load_all('nom');
 		
-		//print_r($objets);
+
 		
 		/* Initialise le contenu carto lefleat en positionnant les dernières traces */
 		$content = api::leaflet_ini($objets);
@@ -93,7 +93,7 @@ class controler
 	}
 	
 	/**
-	* 	Renvoi des données GeoJson (LineString) pour un parcours sur un temps donnés - Appel AJAX !
+	* 	Renvoie des données GeoJson (LineString) pour un parcours sur un temps donné - Appelle AJAX !
 	*
 	* 	@access  protected
 	* 	@return  
@@ -122,7 +122,7 @@ class controler
 			
 			$d = new DateTime();
 			$d->sub(new DateInterval('P'.$periode.'D'));
-			//echo $d->format('Y-m-d H:m:s');
+
 			$tracked_objects->load_gps_data_date($d->format('Y-m-d H:m:s'),date('Y-m-d H:m:s'));
 			
 			$this->smarty->assign("tracked_objects",$tracked_objects);
@@ -134,7 +134,7 @@ class controler
 	}
 	
 	/**
-	* 	get_page - Renvoi le contenu d'une template correspondante
+	* 	get_page - Renvoie le contenu d'un template correspondant
 	*
 	* 	@access  protected
 	* 	@return  
@@ -226,7 +226,7 @@ class controler
 					$attachements = $message->getAttachments();
 					if($attachements !== false)
 					{
-						//echo $line.'<pre>'.print_r($attachements,true).'</pre>';
+
 						echo $line.'Fichier de données trouvé et enregistré :'.print_r($attachements,true);
 						foreach($attachements as $attachement)
 							$attachement->saveToDirectory(config::get('rep_appli').$tmp_rep);
@@ -240,7 +240,7 @@ class controler
 				}
 			}
 			echo $line.'Boîte email vidangée !';
-			$imap->expunge(); //on supprime les emails traités
+			$imap->expunge(); //On supprime les emails traités
 		}	
 			
 			
@@ -260,7 +260,7 @@ class controler
 							echo $line.'Traitement du fichier :'.$rep.$file;
 							$fs = fopen($rep.$file,'r');
 							$tmp_id = explode('_',$file);
-							$tmp_id = explode('-',$tmp_id[0]); //on extrait uniquement les nombres pour l'identifiant !
+							$tmp_id = explode('-',$tmp_id[0]); //On extrait uniquement les nombres pour l'identifiant !
 							$id = $tmp_id[1];
 							$cpt = 1;
 							
@@ -271,12 +271,12 @@ class controler
 							
 							if (config::get('csv_nom_tracked_objects',$id) != '' || $results->nb == 1)
 							{
-								//on a l'identifiant on traite le contenu du fichier
+								//On a l'identifiant, on traite le contenu du fichier
 								
 								//Récupération du nom
 								$name = (config::get('csv_nom_tracked_objects',$id)!='')?config::get('csv_nom_tracked_objects',$id):$results->nom;
 								
-								echo $line.'Données concordantes trouvées pour l'objet traqué :'.$name;
+								echo $line.'Données concordantes trouvées pour l\'objet traqué :'.$name;
 								/*on lit toutes les lignes sauf les 3 premières*/
 								while (($buffer = fgets($fs, 4096)) !== false) 
 								{
@@ -301,7 +301,7 @@ class controler
 								if(!isset($send_email_info[$id]) && config::get('csv_email_error'))
 								{
 									
-									echo $line.'Envoi email pour informer de la non récupération du non, non concordance des données';
+									echo $line.'Envoie email pour informer de la non récupération du non, non concordance des données';
 									//On envoi un email pour informer de l'ajout nécessaire de l'id/nom
 									$corps = "<html><head><meta http-equiv= \"content-type\" content=\"text/html; charset=UTF-8\"></head><body><h3>Notification application FollowDem</h3>
 									<p>Un nouvel identifiant (".$id.") a été reconnu lors de l'import automatique.</p>
@@ -311,7 +311,7 @@ class controler
 									<p><strong>Si ces données ne doivent pas être importée, il suffit de supprimer manuellement les fichiers portant l'identifiant (".$id." - ex : T5HS-".$id."_YYYY-MM-DD-NUM) dans le répertoire \"tmp/csv/\" de l'application.</strong>
 									<p><small>At work !</small></p></body></html>";
 									$to = config::get('csv_email_error_nom');
-									if (!API::send_email($to,'Nom d'objet traqué à rajouter',$corps))
+									if (!API::send_email($to,'Nom d\'objet traqué à rajouter',$corps))
 										echo $line."\t".'Erreur envoi email';
 									else
 									{

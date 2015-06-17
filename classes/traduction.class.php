@@ -14,7 +14,7 @@ class traduction
 	
 	static function t($text='',$return = 0)
 	{
-		/*Chargement de la langue et des textes si non present*/
+		/* Chargement de la langue et des textes si non présents */
 		traduction::set_langue();
 		$texte_sent = 'Traduction a faire :'.$text;
 		if(count(static::$textes) == 0)

@@ -1,9 +1,9 @@
 <?php
 
 /**
-*	Classe trace (logs) - log toutes les actions écriture/update/suppression de la bdd
+*	Classe trace (logs) - logue toutes les actions (écriture/update/suppression) de la BDD
 *	@author Fabien Selles
-*	@copyright Parc national des Écrins
+*	@copyright Parc National des Écrins
 *	
 */
 
