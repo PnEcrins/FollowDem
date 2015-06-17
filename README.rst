@@ -23,7 +23,30 @@ Technologies
 Présentation
 ------------
 
-Principe général : ...
+**Principe général** : 
+
+L'application permet de suivre la position et le délacement de plusieurs objets équipés d'un GPS. 
+
+Les objets ont chacun un identifiant. Ils transmettent tous leur position GPS à un satellite à intervalles réguliers. 
+
+Il faut ensuite récupérer ces positions GPS des objets pour les intégrer dans la base de données MySQL. Pour cela un fichier TXT par position et par objet est envoyé à une boite email.
+
+Une tâche (``import_imap_csv`` dans le fichier ``/classes/controler/controler.class.php``) permet de : 
+
+- Se connecter à cette boite email et d'en extraire les fichiers TXT en pièce-jointe des emails
+- Copier ces fichiers TXT dans le répertoire ``tmp/csv``
+- Supprimer les emails une fois les fichiers TXT copiés sur le serveur
+- Importer les nouvelles positions des différents objets (si ceux-ci existent dans la BDD avec un identifiant commun) dans un fichier CSV (``/csv/tracked_objects.csv``)
+- Supprimer les fichiers TXT temporaires une fois qu'ils ont été traités
+- Importer les nouvelles positions dans la BDD MySQL depuis le fichier ``/csv/tracked_objects.csv``
+- Vider le fichier ``/csv/tracked_objects.csv``
+
+Cette tache peut être lancée manuellement ou par un CRON lancé autmatiquement à intervalle régulier.
+
+D'autres manières de remplir ce CSV pourraient être envisagées : 
+
+- Remplir directement le fichier CSV automatiquement ou à la main
+- Importer les fichiers TXT dans le répertoire ``tmp/csv`` sans passer par une connection à une boite email.
 
 Installation
 ------------
