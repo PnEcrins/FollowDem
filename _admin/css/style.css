@@ -1,0 +1,19 @@
+#navbar-title
+{
+	font-weight: bold;
+	font-size: 18px;
+	color: #FFF;
+	white-space: nowrap;
+}
+#navbar-title:hover
+{
+	color: #999;
+}
+.couleurBlanche 
+{
+	color: #FFF;
+}
+#decale
+{
+	padding-top: 50px;
+}
