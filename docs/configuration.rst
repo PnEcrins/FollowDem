@@ -5,55 +5,77 @@ CONFIGURATION
 Principe de l'application
 =========================
 
-L'application utilise des données transmises par des objets équipés d'un GPS.
+**Principe général** : 
 
-Le traitement de ces données s'effectue en plusieurs étapes.
+L'application permet de suivre la position et le délacement de plusieurs objets équipés d'un GPS. 
 
-Tout d'abord, les GPS envoient leurs positions aux satellites.
+Les objets ont chacun un identifiant. Ils transmettent tous leur position GPS à un satellite à intervalles réguliers. 
 
-Ensuite, les satellites envoient les données en pièce jointe sur une boîte mail, ces fichiers sont des fichiers txt.
+Il faut ensuite récupérer ces positions GPS des objets pour les intégrer dans la base de données MySQL. Pour cela un fichier TXT par position et par objet est envoyé à une boite email. 
 
-L'application a la possibilité de traiter les données de deux manières :
+Le fichier TXT (nommé ``T5HS-4183_2014-07-31_185705.txt`` où ``4183`` est l'identifiant de l'objet et les chiffres suivants sont la date et l'heure) est construit de la sorte :
 
-- On peut renseigner les données dans le fichier ``tracked_objects.csv`` en respectant la forme ci-dessous.
-- On peut récupérer les fichiers txt dans les pièces jointes des emails sur la boîte spécifique. Par la suite, ils sont traités selon la correspondance définie dans le fichier ``config.php`` puis transformés en CSV standard de l'application.
+::
 
-Le fichier csv est constitué de plusieurs colonnes
+    2014-07-31	20:57:05+0	44.989867	6.022400	(-)0
+    
+    Date	Time	TTF	Lat	Long	SAT´s	2D/3D	Alt	H-DOP	Temp	X	Y	
+    2014-07-31	18:57:00	100	44.9901367	 6.0225950	6	3D	  2547	3.5	 14	 46	 29
 
-* Id de l'objet.
+Dans cet exemple, le fichier contient :
 
-* Nom de l'objet.
+- la date et l'heure du relevé GPS
+- le TTF (Time To First Fix, temps mis pour obtenir la position GPS de l'objet)
+- la latitude et longitude en WGS84
+- le nombre de satellites qui ont permis de définir la position
+- si la position a été fournie en 2D ou en 3D
+- l'altitude de la position
+- le H-DOP (Dilution Of Precision, coefficient de précision de la position)
+- la température (fournie par le GPS)
+- X et Y (non utilisées)
 
-* Date de l'envoi des données au satellite.
+Une tâche (``import_imap_csv`` dans le fichier ``/classes/controler/controler.class.php``) permet de : 
 
-* Heure de l'envoi des données au satellite.
+- Se connecter à cette boite email et d'en extraire les fichiers TXT en pièce-jointe des emails
+- Copier ces fichiers TXT dans le répertoire ``tmp/csv``
+- Supprimer les emails une fois les fichiers TXT copiés sur le serveur
+- Importer les nouvelles positions des différents objets (si ceux-ci existent dans la BDD avec un identifiant commun) dans un fichier CSV (``/csv/tracked_objects.csv``)
+- Supprimer les fichiers TXT temporaires une fois qu'ils ont été traités
+- Importer les nouvelles positions dans la BDD MySQL depuis le fichier ``/csv/tracked_objects.csv``
+- Vider le fichier ``/csv/tracked_objects.csv``
 
-* TTF (pas utilisé)
+Cette tache peut être lancée manuellement (``url/controler/import_imap_csv``) ou par un CRON lancé autmatiquement à intervalle régulier.
 
-* Latitude.
+D'autres manières de remplir ce CSV pourraient être envisagées : 
 
-* Longitude.
+- Remplir directement le fichier CSV automatiquement ou à la main
+- Importer les fichiers TXT dans le répertoire ``tmp/csv`` sans passer par une connection à une boite email.
 
-* Nombre de satellites.
+Le fichier CSV est constitué de plusieurs colonnes :
 
-* 3D ou 2D. (si c'est on 3D on a l'altitude)
+- Id de l'objet.
+- Nom de l'objet.
+- Date de l'envoi des données au satellite.
+- Heure de l'envoi des données au satellite.
+- TTF (pas utilisé)
+- Latitude.
+- Longitude.
+- Nombre de satellites.
+- 3D ou 2D. (si c'est on 3D on a l'altitude)
+- Altitude de l'objet.
+- H-DOP. (permet de connaître la fiabilité de la position)
+- Température.
+- X (pas utilisé)
+- Y (pas utilisé)
 
-* Altitude de l'objet.
-
-* H-DOP. (permet de connaître la fiabilité de la position)
-
-* Température.
-
-* X (pas utilisé)
-
-* Y (pas utilisé)
-
-L'import des données se fait avec une tâche CRON, mais on peut lancer un script qui s'occupe d'importer les données directement.
+Les colonnes et leur ordre dans le CSV sont configurables dans le paramètre ``$config['csv_colonne']`` du fichier ``/config/config.php``
+Il est possible de définir des seuils de valeur pour lesquelles on ne souhaite pas intégrer les positions dans la BDD (Nombre de satellites trop faible, H-DOP trop élevé, latitude, longitude ou altitude incohérentes,...) avec le paramètre ``$config['csv_condition']`` dans le fichier ``/config/config.php``.
 
 Configurer l'application
 ========================
 
-Rendez vous dans le fichier ``config.php``, c'est ce fichier qui est la base de la configuration de l'application.
+Rendez vous dans le fichier ``/config/config.php``, c'est ce fichier qui est la base de la configuration de l'application.
+
 Modifier nom de domaine de l'application
 ::
 	$config['url'] = 'http://mon-domaine.com';
@@ -62,7 +84,7 @@ Changer le titre de l'entête sur l'application
 ::
 	$config['titre_application'] = 'FollowDem';
 
-Modifier l'url vers un formulaire de contact
+Modifier l'URL vers un formulaire de contact
 ::
 	$config['emailContact'] = 'http://mon-domaine.com/nous-contacter';
 	
@@ -286,13 +308,13 @@ Modifier le style des derniers points en fonction des paramètres contenus dans 
 ::
 	$config['lefleat_style_point_surcharge'] = array('color'=>"couleurD","fillColor"=>"couleurG","Opacity"=>1,"fillOpacity"=>0.9,"weight"=>5);
 
-Paramétrer le suivi statistique de l'application	
+Paramétrer le suivi statistique de l'application (Google Analytics dans cet exemple avec ID à remplacer par le votre)	
 ::
 	$config['active_tracking_stats'] = 'true';
 	$config['tracking_stats'] = "
 	<script type='text/javascript'>
 		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-7988554-6']);
+		_gaq.push(['_setAccount', 'ID_GOOGLE_ANALYTICS_A_MODIFIER']);
 		_gaq.push(['_trackPageview']);
 		(function() {
 			var ga = document.createElement('script');
