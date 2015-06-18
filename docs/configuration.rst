@@ -234,8 +234,6 @@ Définir la durée de vie du cache serveur Smarty
 Paramétrer les fonds de carte utilisés par l'application. 
 
 Si vous utilisez les fonds de cartes IGN, pensez à remplacer la valeur de ``maCleIgn`` dans ``url``.
-
-Renseignez aussi cette cle IGN dans le paramètre ``cleIgn`` du fichier ``/config/carto.php``
 ::
 	$config['leaflet_fonds_carte'] = array(
 			"IGNCARTE"=>array(
