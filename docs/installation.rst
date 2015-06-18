@@ -72,21 +72,15 @@ En ligne de commande
 Configuration de l'application
 ==============================
     
-Copier et renommer le fichier d'exemple de configuration de la carto ``carto.php.sample`` en ``carto.php``
-
-::
-
-        cd /home/followdem/monprojet/config
-        cp carto.php.sample carto.php
-
 Copier et renommer le fichier d'exemple de configuration de l'application ``config.php.sample`` en ``config.php``
     
 ::
 
+        cd /home/followdem/monprojet/config
         cp config.php.sample config.php
         cd ..
 
-Editer les fichiers ``carto.php`` et ``config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
+Editer le fichier ``config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
 
 Voir la rubrique CONFIGURATION pour le détail des paramètres.
     
