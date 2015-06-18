@@ -63,8 +63,8 @@ Installation pour Ubuntu.
      sudo usermod -a -G root followdem
      sudo adduser followdem sudo
      exit
-    
-    Fermer la console et la réouvrir pour que les modifications soient prises en compte
+  
+Fermer la console et la réouvrir pour que les modifications soient prises en compte.
     
 * Activer le mod_rewrite et redémarrer Apache :
 
