@@ -82,10 +82,10 @@ class api
 			{
 				if(count($tracked_objects->get_gps_data()) > 0)
 				{
-					foreach($tracked_objects->get_gps_data() as $donnee)
+					foreach($tracked_objects->get_gps_data() as $gps_data)
 					{
 						//$leaflet_ini .= 'new L.LatLng('.$donnee->get_latitude().','.$donnee->get_longitude().');';
-						$leaflet_ini .= 'var circle'.$donnee->get_id().' = L.circle(['.$donnee->get_latitude().','','.$donnee->get_longitude().'], 40, {
+						$leaflet_ini .= 'var circle'.$donnee->get_id().' = L.circle(['.$gps_data->get_latitude().','','.$donnee->get_longitude().'], 40, {
 								color: \'red\',
 								fillColor: \'#f03\',
 								fillOpacity: 0.5

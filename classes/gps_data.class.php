@@ -261,7 +261,7 @@ class gps_data
 	*	Attention si $id_tracked_objects = 0 - Chargements et requêtes peuvent être longs !
 	* 	@access  static
 	* 	@return  array
-	* 	@param	id_tracked_objects, date_deb, date_fin, last_donnee (dernières données seulement), order, $count_only(compte seulement si des données existent)
+	* 	@param	id_tracked_objects, date_deb, date_fin, last_gps_data (dernières données seulement), order, $count_only(compte seulement si des données existent)
 	*/
 	
 	static function load_all_by_date($id_tracked_objects=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='dateheure')

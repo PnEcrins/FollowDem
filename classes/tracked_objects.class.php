@@ -68,6 +68,7 @@ class tracked_objects
 	}
 	public function set_gps_data($gps_data='')
 	{
+
 		$this->gps_data = $gps_data;
 
 	}
@@ -445,7 +446,7 @@ class tracked_objects
 					$gps_data		->set_temperature($data[config::get('csv_colonne','temperature')]);
 					$gps_data		->set_nb_satellites($data[config::get('csv_colonne','nb_satellites')]);
 					$gps_data		->set_altitude($data[config::get('csv_colonne','altitude')]);
-					$tmp_tracked_objects	->set_gps_data(array($data));
+					$tmp_tracked_objects	->set_gps_data(array($gps_data));
 					
 					
 					
