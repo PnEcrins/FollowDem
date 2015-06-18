@@ -48,12 +48,15 @@ Comme sur phpMyAdmin, si vous souhaitez ajouter le jeu de données d'exemple, sa
 Installation du répertoire de l'application
 ===========================================
 
+Avec un logiciel FTP ou SSH (WinSCP, Filezilla...)
+--------------------------------------------------
+
 * Récupérez le ZIP de la version souhaitée de l'application sur le Github du projet FollowDem (https://github.com/PnEcrins/FollowDem/releases)
 
-* Extraire le contenu dans un répertoire au nom de votre projet à la racine du répertoire de publication web d'Apache.
+* Extraire le contenu dans un répertoire au nom de votre projet à la racine du répertoire de publication web d'Apache du serveur.
 
-Sur un serveur
---------------
+En ligne de commande
+--------------------
 
 * Récupérer le zip de l'application sur le Github du projet (`X.Y.Z à remplacer par le numéro de version souhaité <https://github.com/PnEcrins/FollowDem/releases>`_) et dézippez le dans le répertoire de l'utilisateur linux : 
 
