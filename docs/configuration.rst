@@ -60,7 +60,7 @@ Les résultats de la tache lancée automatiquement toutes les heures seront écr
 D'autres manières de remplir ce CSV pourraient être envisagées : 
 
 - Remplir directement le fichier CSV automatiquement ou à la main
-- Importer les fichiers TXT dans le répertoire ``tmp/csv`` sans passer par une connection à une boite email.
+- Importer les fichiers TXT dans le répertoire ``tmp/csv`` sans passer par une connexion à une boite email.
 
 Ainsi une autre tache est disponible sans se connecter à une boite email, ni passer par des fichiers TXT : ``url/controler/import_csv``
 
@@ -231,7 +231,11 @@ Définir la durée de vie du cache serveur Smarty
 ::
 	$config['smarty_cache_lifetime'] = 120;
 
-Paramétrer les fonds de carte utilisés par l'application. Si vous utilisez les fonds de cartes IGN, pensez à remplacer la valeur de ``maCleIgn`` dans ``url``
+Paramétrer les fonds de carte utilisés par l'application. 
+
+Si vous utilisez les fonds de cartes IGN, pensez à remplacer la valeur de ``maCleIgn`` dans ``url``.
+
+Renseignez aussi cette cle IGN dans le paramètre ``cleIgn`` du fichier ``/config/carto.php``
 ::
 	$config['leaflet_fonds_carte'] = array(
 			"IGNCARTE"=>array(

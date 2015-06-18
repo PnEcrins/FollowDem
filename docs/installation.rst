@@ -10,9 +10,9 @@ Création des tables de la base de données MySQL
 Avec phpMyAdmin
 --------------
 
-Se placer dans la BDD de FollowDem puis dans l’onglet "Importer" de phpMyAdmin.
+Se placer dans la BDD de FollowDem puis dans l’onglet ``Importer`` de phpMyAdmin.
 
-Cliquez sur “Choisissez un fichier” et sélectionner le fichier ``data/FollowDem_DataBase.sql`` qui est le script de création des tables.
+Cliquez sur ``Choisissez un fichier`` et sélectionner le fichier ``data/FollowDem_DataBase.sql`` qui est le script de création des tables.
 	
 Ensuite sélectionnez ``utf-8`` comme Jeu de caractères du fichier, autorisez l’importation partielle, sélectionnez ``SQL`` comme Format.
 	
