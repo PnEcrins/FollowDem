@@ -62,7 +62,12 @@ D'autres manières de remplir ce CSV pourraient être envisagées :
 - Remplir directement le fichier CSV automatiquement ou à la main
 - Importer les fichiers TXT dans le répertoire ``tmp/csv`` sans passer par une connection à une boite email.
 
-Le fichier CSV est constitué de plusieurs colonnes :
+Ainsi une autre tache est disponible sans se connecter à une boite email, ni passer par des fichiers TXT : ``url/controler/import_csv``
+
+- Elle recherche le fichier : ``csv/tracked_objects.csv``
+- Puis importe selon la définition du tableau associatif ``$config['csv_colonne']`` (nom_donnee => index CSV) 
+
+Dans notre cas, le fichier CSV est constitué des colonnes :
 
 - Id de l'objet.
 - Nom de l'objet.
