@@ -7,13 +7,14 @@ CHANGELOG
 
 **Nouvelles fonctionnalités**
 
--
--
+- Premiers développements de l'interface d'administration des données
+- Documentation de la possibilité d'importer des données directement depuis le CSV avec la tache ``url/controler/import_csv`` (sans passer par la connexion email et les fichiers TXT)
 
 **Corrections de bug**
 
--
--
+- Erreur de nom de variable dans ``api.class.php``
+- Suppression de 2 fichiers inutiles dans ``/config/``
+- Nettoyage des commentaires
 
 0.1.0 (2015-06-18)
 ------------------
