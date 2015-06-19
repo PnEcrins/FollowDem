@@ -15,5 +15,28 @@
 }
 #decale
 {
-	padding-top: 50px;
+	padding-top: 70px;
+}
+.bs-callout 
+{
+	
+    padding: 20px;
+    margin: 20px 0px;
+    border-width: 1px 1px 1px 5px;
+    border-style: solid;
+    border-color: #EEE;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-radius: 3px;
+}
+.bs-callout-success
+{
+    border-left-color: #5cb85c;
+}
+.bs-callout-danger
+{
+    border-left-color: #CE4844;
 }

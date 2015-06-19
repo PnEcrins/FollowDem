@@ -1,6 +1,18 @@
 <?php
 include ("head.inc.php");
 include ("nav.inc.php");
+include ("../config/config.php");
+include ("../classes/db.class.php");
+include ("../classes/config.class.php");
+$db=db::get();
+$requete = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects');
+$requete->execute();
+$results = $requete->fetchAll();
+
+if(isset($_POST['btSupprimer'])){
+	$requete = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
+	$requete->execute(array('id' => $_GET['id']));
+}
 ?>
 <div id="decale">
 	<div class="row">
@@ -23,28 +35,24 @@ include ("nav.inc.php");
 	</div>	
 	<div class="col-md-1"></div>
 	<div class="col-md-10">	
-	<table class="table table-striped table-bordered">
-		<tr><th></th><th>id</th><th>nom</th><th>date_creation</th><th>date_maj</th><th>active</th></tr>
-		<tr><td><input type="checkbox"></td><td>4179</td><td>Object_1</td><td>NULL</td><td>2015-06-01 11:00:00</td><td>1</td></tr>
-		<tr><td><input type="checkbox"></td><td>4278</td><td>Object_2</td><td>2015-05-23 00:00:00</td><td>2015-06-01 07:00:00</td><td>1</td></tr>
-		<tr><td><input type="checkbox"></td><td>4273</td><td>Object_3</td><td>2015-05-07 11:00:00</td><td>2015-06-01 07:00:00</td><td>1</td></tr>
-		<tr><td><input type="checkbox"></td><td>5191</td><td>Object_4</td><td>2015-06-01 11:00:00</td><td>2015-06-01 11:06:10</td><td>1</td></tr>
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<tr><th>id</th><th>nom</th><th>date_creation</th><th>active</th></tr>
+		<?php foreach($results as $row){?>
+			<tr>
+				<td><?php echo $row['id']; ?></td>
+				<td><?php echo $row['nom']; ?></td>
+				<td><?php echo $row['date_creation']; ?></td>
+				<td><?php echo $row['active']; ?></td>
+				<td>
+					<form name="formSuppr" action="listeObj.inc.php?action=delete&id=<?php echo $row['id']; ?>" method="POST"><button type="submit" class="btn btn-default" name="btSupprimer"><span class="glyphicon glyphicon-trash"></span></button></form>
+					<form name="formModif" action="listeObj.inc.php?action=update&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btModifier"><span class="glyphicon glyphicon-pencil"></span></button></form>			
+					<form name="formDetail" action="listeObj.inc.php?action=show&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btDetails"><span class="glyphicon glyphicon-list-alt"></span></button></form>
+				</td>
+			</tr>
+		<?php } ?>
 	</table>
 	</div>
-	<div class="col-md-1"></div>	
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="btModifier">Modifier</button>
-		</div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="btDetail">Details</button>
-		</div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="btSupprimer">Supprimer</button>
-		</div>
-		<div class="col-md-3"></div>
-	</div>
+	<div class="col-md-1"></div>
 </div>
 <?php
 include ("bottom.inc.php");

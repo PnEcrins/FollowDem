@@ -5,7 +5,7 @@ if(isset($_POST["btConnect"]))
 	{
 		if(($_POST["idLogin"]) == "admin" && ($_POST["idPwd"]) == "admin")
 		{
-			header("Location: ./index.php?act=2");
+			header("Location: ./index.php");
 		}
 	}
 }
