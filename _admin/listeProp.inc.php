@@ -6,7 +6,7 @@ include ("nav.inc.php");
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-3">
-			<h3>Liste des Proprietes</h3>
+			<h3>Liste des Propriétés</h3>
 		</div>
 		<div class="col-md-2"></div>
 		<div class="col-md-4">
