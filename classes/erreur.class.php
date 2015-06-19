@@ -5,8 +5,7 @@
 *	@copyright Parc national des Écrins
 *	
 */
-//@include_once trackedobjects.class.php
-//extends tracked_objects
+
 
 class erreur extends Exception 
 {

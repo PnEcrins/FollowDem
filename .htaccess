@@ -15,7 +15,7 @@
 </IfModule>
 
 #If rewrite mod isn't enabled
-ErrorDocument 404 index.php?controler=controler&action=error404
+ErrorDocument 404 /index.php?controler=controler&action=error404
 
 
 

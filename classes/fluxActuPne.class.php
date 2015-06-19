@@ -86,8 +86,3 @@ protected function get_info()
 	}*/
 }
 ?>
-<!-- A coler dans le fichier nav.inc.tpl.html, pour avoir le flux RSS des actualités  
-	Bloc Actualités (récupérant un flux depuis le site WEB) masqué
-	<li class="divider"></li>
-	<li><a data-toggle="modal" href="/classes/get_info" data-target="#modalepage"><i class="icon-list icon-large" style="color: #CEDC00"></i>&nbsp;&nbsp;{traduction::t('Actualites')}</a></li>
--->

@@ -1,13 +1,12 @@
 <?php
 /**
-*	Classe Objet - Permet l'interaction avec les données d'un objet traqué.
+*	Classe Objet - Permet l'intéraction avec les données d'un objet traqué.
 *	@author Fabien Selles
 *	@date 2013-07-25
-*	@copyright Parc national des Écrins
+*	@copyright Parc National des Écrins
 *	
 */
-//@include_once tracked_objects.class.php
-//extends tracked_objects
+
 
 class tracked_objects 
 {
@@ -65,36 +64,13 @@ class tracked_objects
 		
 		$this->objects_features = $objects_features;
 		
-		/*if(is_array($objects_features) && count($objects_features) > 0)
-		{
-			foreach($objects_features as $objects_features)
-			{
-				$i = count($this->objects_features);
-				$tmp_prop = new objects_features;
-				$tmp_prop->set_id_tracked_objects($this->id);
-				$tmp_prop->set_nom_prop($objects_features['nom_prop']);
-				$tmp_prop->set_valeur_prop($objects_features['valeur_prop']);
-				$this->objects_features[$i]	= $tmp_prop
-			}
-		}*/
+
 	}
 	public function set_gps_data($gps_data='')
 	{
+
 		$this->gps_data = $gps_data;
-		/*if(is_array($gps_data) && count($gps_data) > 0)
-		{
-			foreach($gps_data as $data)
-			{
-				$i = count($this->gps_data);
-				$this->gps_data[$i]= new gps_data;
-				$this->gps_data[$i]->set_id_tracked_objects($this->id);
-				$this->gps_data[$i]->set_dateheure($data['dateheure']);
-				$this->gps_data[$i]->set_latitude($data['latitude']);
-				$this->gps_data[$i]->set_longitude($data['longitude']);
-				$this->gps_data[$i]->set_temperature($data['temperature']);
-				$this->gps_data[$i]->set_nb_satellites($data['nb_satellites']);
-				$this->gps_data[$i]->set_altitude($data['altitude']);
-			*/
+
 	}
 	
 	public function get_nom()
@@ -137,12 +113,12 @@ class tracked_objects
 	}
 	
 	
-	/*renvoi tableau d'objet propriété */
-	public function get_objects_features($objects_features)
+	/* Renvoie tableau d'objet et de propriété */
+	public function get_objects_features($object_feature)
 	{
 		return $this->objects_features;
 	}
-	/*renvoi la valeur de la propriété demandée*/
+	/* Renvoie la valeur de la propriété demandée */
 	public function get_object_feature($prop='')
 	{
 		if ($prop !='' && isset($this->objects_features[$prop]))
@@ -162,7 +138,7 @@ class tracked_objects
 	
 	/**
 	* 	Charge l'objet
-	*	Si load_gps_data = true charge objet + donnees complètes
+	*	Si load_gps_data = true, charge l'objet + données complètes
 	*	Sinon objet + objects_features seulement
 	*
 	* 	@access  private
@@ -180,7 +156,7 @@ class tracked_objects
 		{
 			$this->set_nom($results->nom);
 			
-			//echo "\r\n".'On load tracked_objects :'.$this->id.'---'.$this->get_id();
+
 			$this->set_objects_features(objects_features::load_all($this->get_id()));
 			
 			$this->set_active($results->active);
@@ -199,8 +175,8 @@ class tracked_objects
 	
 	
 	/**
-	* 	Sauve l'objet, ses donnees et propriétés
-	*	Si load = 1 charge objet + donnees + proprietes
+	* 	Sauve l'objet, ses données et propriétés
+	*	Si load = 1, charge l'objet + les données + les propriétés
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -212,7 +188,7 @@ class tracked_objects
 		if(!$this->exist($update=true))
 			$this->insert();
 		
-		//Si on a des prop à sauver :
+		//Si on a des propriétés à sauver :
 		if (is_array($this->objects_features) && count($this->objects_features) > 0)
 		{
 			foreach($this->objects_features as $object_feature)
@@ -230,7 +206,7 @@ class tracked_objects
 	
 	/**
 	* 	Vérifie si un objet existe
-	*	S'il existe possibilité d'Update $update = true! si différence
+	*	S'il existe, possibilité d'Update, $update = true
 	*
 	* 	@access  private
 	* 	@return  boolean
@@ -313,8 +289,8 @@ class tracked_objects
 	
 	/**
 	* 	load_all
-	* 	Renvoi un tableau d'objet Objet
-	*	Voir la config "date_data_valide" qui permet d'éliminer les objjes non mis à jour depuis un certains temps.
+	* 	Renvoie un tableau d'objet Objet
+	*	Voir la config "date_data_valide" qui permet d'éliminer les objets non mis à jour depuis un certains temps.
 	*	load_gps_data : précise les données chargées avec l'objet. Valeurs possibles : load_donnees_last  - load_donnees_date - load_donnees_all
 	* 	@access  public
 	* 	@return  array
@@ -331,11 +307,11 @@ class tracked_objects
 		$i = 0;
 		while($result = $rqs->fetchObject())
 		{
-			/*Vérifie que l'objet a des données mise à jour */
+			/*Vérifie que l'objet a des données mises à jour */
 			$d = new DateTime();
 			$d->sub(new DateInterval('P'.config::get('date_data_valide').'D'));
 			
-			//echo $d->format('Y-m-d H:m:i').'---'.date('Y-m-d H:m:i');
+
 			
 			if(gps_data::load_all_by_date($result->id,$d->format('Y-m-d H:m:i'),date('Y-m-d H:m:i'),false,true)!== false)
 			{
@@ -360,7 +336,7 @@ class tracked_objects
 	/*Charge les données de l'objet sur une période
 	* 	@access  public
 	* 	@return  boolean
-	* 	@param	date_deb,date_fin,intervale(un intervale entre chaque capture de données - 1 donnees par jours par exemple)
+	* 	@param	date_deb,date_fin,intervale(un intervale entre chaque capture de données - 1 donnée par jour par exemple)
 	*	
 	*/
 	public function load_gps_data_date($date_deb=null,$date_fin=null,$intervale=null)
@@ -385,8 +361,8 @@ class tracked_objects
 	
 	/**
 	* 	import_csv
-	* 	Importe les nouvelles données à partir d'un fichier CSV
-	* 	pour les stocker dans la base de données. Pas de paramétrages d'emplacement de fichier.
+	* 	Importe les nouvelles données à partir d'un fichier CSV pour les stocker dans la BDD. 
+	*	Pas de paramétrage d'emplacement de fichier.
 	* 	Fichier placé dans le répertoire csv/tracked_objects.csv obligatoirement (traitement en CRON possible - Cf controleur).
 	*
 	* 	@access  public
@@ -398,7 +374,7 @@ class tracked_objects
 		$db=db::get();
 		$last_date_tracked_objects = array();
 		
-		//Séparateur de ligne pour les affichage log
+		//Séparateur de ligne pour les affichages log
 		$line = "\r\n\t";
 		
 		if($delimiter=='') {$delimiter==config::get('csv_separateur');}
@@ -408,7 +384,7 @@ class tracked_objects
 			echo $line."Traitement du fichier CSV : ";
 			while (($data = fgetcsv($fs,0,$delimiter,$enclosure)) !== FALSE) 
 			{
-				//echo '<pre>'.print_r($data,true).'</pre>';
+
 				
 				/*Construction condition d'import*/
 				$tmp_next ='';
@@ -429,7 +405,7 @@ class tracked_objects
 				}
 				eval('$result_cond = ('.$tmp_condition.');');
 				
-				echo $line."\t Condition sur les donnée récupérée : ".$tmp_condition.' -> résultat :'.$result_cond;
+				echo $line."\t Condition sur les données récupérées : ".$tmp_condition.' -> résultat :'.$result_cond;
 				
 				if($result_cond)
 				{
@@ -441,15 +417,12 @@ class tracked_objects
 					
 					
 					
-					/*Gestion des dates */
+					/* Gestion des dates */
 					$tmp_date	= $data[config::get('csv_colonne','date')].((config::get('csv_colonne','heure') !=-1)?' '.$data[config::get('csv_colonne','heure')]:'');
 					echo $line.'Date :'.$data[config::get('csv_colonne','date')].' '.$data[config::get('csv_colonne','heure')];
 					$obj_date 	= DateTime::createFromFormat(config::get('csv_date_format').' '.config::get('csv_heure_format'), $tmp_date);
 					
-					/*ERREUR FAIRE UNE MISE A JOUR DE LA DATE UNE FOIS LES DONNEES SAISIES COMPLETEMENT...
-					Fonctionne pour le csv car les données sont classée pas date croissante !
-					MODIF : ça marche ?
-					*/
+					/* Fait une mise à jour de la date une fois les données saisies complétement. */
 					if(isset($last_date_tracked_objects[$tmp_tracked_objects->get_id()]))
 					{
 						if($last_date_tracked_objects[$tmp_tracked_objects->get_id()] <  $obj_date->format('Y-m-d H:i:s'))
@@ -465,15 +438,15 @@ class tracked_objects
 					}
 					
 					/*Affectation des données*/
-					$data 	= new gps_data();
-					$data		->set_id_tracked_objects($tmp_tracked_objects->get_id());
-					$data		->set_dateheure($obj_date->format('Y-m-d H:i:s'));
-					$data		->set_latitude($data[config::get('csv_colonne','latitude')]);
-					$data		->set_longitude($data[config::get('csv_colonne','longitude')]);
-					$data		->set_temperature($data[config::get('csv_colonne','temperature')]);
-					$data		->set_nb_satellites($data[config::get('csv_colonne','nb_satellites')]);
-					$data		->set_altitude($data[config::get('csv_colonne','altitude')]);
-					$tmp_tracked_objects	->set_gps_data(array($data));
+					$gps_data 	= new gps_data();
+					$gps_data		->set_id_tracked_objects($tmp_tracked_objects->get_id());
+					$gps_data		->set_dateheure($obj_date->format('Y-m-d H:i:s'));
+					$gps_data		->set_latitude($data[config::get('csv_colonne','latitude')]);
+					$gps_data		->set_longitude($data[config::get('csv_colonne','longitude')]);
+					$gps_data		->set_temperature($data[config::get('csv_colonne','temperature')]);
+					$gps_data		->set_nb_satellites($data[config::get('csv_colonne','nb_satellites')]);
+					$gps_data		->set_altitude($data[config::get('csv_colonne','altitude')]);
+					$tmp_tracked_objects	->set_gps_data(array($gps_data));
 					
 					
 					
@@ -481,9 +454,7 @@ class tracked_objects
 					
 					$tmp_objects_features							= 	array();
 					
-					//HACK proprietes couleur
-					//if (config::get('recupe_couleur_name_tracked_objects'))
-						//$tmp_proprietes = tracked_objects::get_couleur_name($tmp_tracked_objects);
+
 					
 					foreach(config::get('csv_colonne_objects_features') as $clef=>$value)
 					{
@@ -512,8 +483,8 @@ class tracked_objects
 	/**
 	*	get_couleur_name
 	*
-	*	HACK pour récupérer les paramètres de couleurs dans le nom de l'objet contenu entre ()
-	*	Appel à cette fonctione désactivale dans le fichier config ainsi que les codes couleurs
+	*	HACK pour récupérer les paramètres des couleurs dans le nom de l'objet contenu entre parenthèses
+	*	Appel à cette fonctione désactivable dans le fichier config, ainsi que les codes couleurs
 	*
 	*/
 	static function get_couleur_name(tracked_objects $bouquetins)
@@ -524,7 +495,7 @@ class tracked_objects
 
 		if(isset($tmp[1]) && isset($tmp[2]))
 		{
-			$bouquetins->set_nom(trim($tmp[0])); //affectation du nom
+			$bouquetins->set_nom(trim($tmp[0])); // Affectation du nom
 			
 			
 			$couleurD 	= new object_feature();
