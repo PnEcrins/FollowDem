@@ -9,10 +9,17 @@ $requete = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_obje
 $requete->execute();
 $results = $requete->fetchAll();
 
+// Suppression
 if(isset($_POST['btSupprimer'])){
 	$requete = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
 	$requete->execute(array('id' => $_GET['id']));
 }
+
+// Modification
+/* if(isset($_POST['btModifier'])){
+	$requete = $db->prepare('UPDATE'.config::get('db_prefixe').'tracked_objects SET nom=?,date_maj=?,active=? WHERE id=?');
+	$requete->execute(array());
+} */
 ?>
 <div id="decale">
 	<div class="row">
@@ -36,18 +43,18 @@ if(isset($_POST['btSupprimer'])){
 	<div class="col-md-1"></div>
 	<div class="col-md-10">	
 	<table class="table table-striped table-bordered table-hover table-condensed">
-		<tr><th>id</th><th>nom</th><th>date_creation</th><th>active</th></tr>
-		<?php foreach($results as $row){?>
+		<tr><th></th><th>id</th><th>nom</th><th>date_creation</th><th>active</th></tr>
+		<?php foreach($results as $row){ ?>
 			<tr>
+				<td>
+					<form name="formSuppr" action="listeObj.inc.php?action=delete&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btSupprimer"><span class="glyphicon glyphicon-trash"></span></button></form>
+					<form name="formModif" action="objet.php?action=update&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btModifier"><span class="glyphicon glyphicon-pencil"></span></button></form>			
+					<form name="formDetail" action="listeObj.inc.php?action=show&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btDetails"><span class="glyphicon glyphicon-info-sign"></span></button></form>
+				</td>
 				<td><?php echo $row['id']; ?></td>
 				<td><?php echo $row['nom']; ?></td>
 				<td><?php echo $row['date_creation']; ?></td>
 				<td><?php echo $row['active']; ?></td>
-				<td>
-					<form name="formSuppr" action="listeObj.inc.php?action=delete&id=<?php echo $row['id']; ?>" method="POST"><button type="submit" class="btn btn-default" name="btSupprimer"><span class="glyphicon glyphicon-trash"></span></button></form>
-					<form name="formModif" action="listeObj.inc.php?action=update&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btModifier"><span class="glyphicon glyphicon-pencil"></span></button></form>			
-					<form name="formDetail" action="listeObj.inc.php?action=show&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btDetails"><span class="glyphicon glyphicon-list-alt"></span></button></form>
-				</td>
 			</tr>
 		<?php } ?>
 	</table>
