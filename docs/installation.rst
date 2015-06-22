@@ -71,7 +71,10 @@ En ligne de commande
 
 Configuration de l'application
 ==============================
-    
+
+Créer le répertoire ``/csv`` à la racine de l'application, créer le fichier ``tracked_objects.csv`` à l'intérieur de ce répertoire.
+Ensuite, créer le répertoire ``/csv`` dans le répertoire ``/tmp`` (ce sera ce dossier qui recevra les fichiers txt contenus dans les pièces jointes des emails envoyés par le satellite.
+
 Copier et renommer le fichier d'exemple de configuration de l'application ``config.php.sample`` en ``config.php``
     
 ::
