@@ -1,12 +1,20 @@
 <?php
 include ("head.inc.php");
 include ("nav.inc.php");
+include ("../config/config.php");
+include ("../classes/db.class.php");
+include ("../classes/config.class.php");
+$db=db::get();
+$reqLog = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'logs');
+$reqLog->execute();
+$resultLog = $reqLog->fetchAll();
+
 ?>
 <div id="decale">
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-3">
-			<h3>Liste des Logs</h3>
+			<h3>Contenu de la table logs</h3>
 		</div>
 		<div class="col-md-2"></div>
 		<div class="col-md-4">
@@ -23,30 +31,18 @@ include ("nav.inc.php");
 	</div>	
 	<div class="col-md-1"></div>
 	<div class="col-md-10">	
-	<table class="table table-striped table-bordered">
-		<tr><th></th><th>id</th><th>date</th><th>log</th></tr>
-		<tr><td><input type="checkbox"></td><td>1</td><td>2015-06-16 10:06:25</td><td>update objet id=4179--</td></tr>
-		<tr><td><input type="checkbox"></td><td>2</td><td>2015-06-16 10:06:25</td><td>Ajout donnee id=4179 - id_objet :4179</td></tr>
-		<tr><td><input type="checkbox"></td><td>3</td><td>2015-06-16 10:06:25</td><td>Donnees objet maj/ajoutée id=4179--</td></tr>
-		<tr><td><input type="checkbox"></td><td>4</td><td>2015-06-16 10:06:25</td><td>update objet id=4179--</td></tr>
-		<tr><td><input type="checkbox"></td><td>5</td><td>2015-06-16 10:06:25</td><td>Ajout donnee id=4179 - id_objet :4179</td></tr>
-		<tr><td><input type="checkbox"></td><td>6</td><td>2015-06-16 10:06:25</td><td>Donnees objet maj/ajoutée id=4179--</td></tr>
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<tr><th>id</th><th>date</th><th>log</th></tr>
+		<?php foreach($resultLog as $row){ ?>
+			<tr>
+				<td><?php echo $row['id']; ?></td>
+				<td><?php echo $row['date']; ?></td>
+				<td><?php echo $row['log']; ?></td>
+			</tr>
+		<?php } ?>
 	</table>
 	</div>
-	<div class="col-md-1"></div>	
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="btModifier">Modifier</button>
-		</div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="btDetail">Details</button>
-		</div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="btSupprimer">Supprimer</button>
-		</div>
-		<div class="col-md-3"></div>
-	</div>
+	<div class="col-md-1"></div>
 </div>
 <?php
 include ("bottom.inc.php");
