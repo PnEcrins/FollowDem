@@ -15,11 +15,6 @@ if ($_POST['button'] == "CONNEXION"){
 	$passmd5 = md5($_POST['fpassword']);
 	$erreur = '';
     
-    $serveur="localhost"; 
-	$user ="cartopne";
-	$passe="superpg"; 
-	$base="geonaturedb";
-    
 	$db = db::get();
 	
 	$query = 'SELECT identifiant, pass, nom_user, prenom_user FROM '.config::get('db_prefixe').'users WHERE identifiant = :login AND pass = :pass';
