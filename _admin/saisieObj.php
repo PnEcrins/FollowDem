@@ -293,8 +293,8 @@ if(isset($_POST['btEnregistrer'])){
 		<div class="form-group">
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="objJourCreation">Jour de création</label>
-			<div class="col-md-4">
-				<input class="form-control" type="date" value="<?php echo $valueJourCreation ;?>" placeholder="aaaa-mm-jj" name="objJourCreation" id="objJourCreation" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir le jour où vous recevez la 1ère donnée">
+			<div class="col-md-4 input-group date">
+				<input class="form-control" type="text" value="<?php echo $valueJourCreation ;?>" placeholder="aaaa-mm-jj" name="objJourCreation" id="objJourCreation" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez sélectionner le jour où vous recevez la 1ère donnée"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
 			<div class="col-md-3"></div>
 		</div>
