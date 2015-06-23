@@ -5,15 +5,16 @@ include ("../config/config.php");
 include ("../classes/db.class.php");
 include ("../classes/config.class.php");
 $db=db::get();
+
+// Suppression
+if(isset($_GET['btSupprimer'])){
+	$reqSupprObj = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
+	$reqSupprObj->execute(array('id' => $_GET['btSupprimer']));
+}
+
 $reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects');
 $reqObj->execute();
 $resultObj = $reqObj->fetchAll();
-
-// Suppression
-if(isset($_POST['btSupprimer'])){
-	$reqSupprObj = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
-	$reqSupprObj->execute(array('id' => $_GET['id']));
-}
 ?>
 <div id="decale">
 	<div class="row">
@@ -41,7 +42,7 @@ if(isset($_POST['btSupprimer'])){
 		<?php foreach($resultObj as $row){ ?>
 			<tr>
 				<td>
-					<form name="formSuppr" action="listeObj.inc.php" method="GET"><button type="submit" class="btn btn-default" name="btSupprimer"><span class="glyphicon glyphicon-trash"></span></button></form>
+					<form name="formSuppr" action="listeObj.inc.php" method="GET"><button type="submit" class="btn btn-default" name="btSupprimer" value="<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-trash"></span></button></form>
 				</td>
 				<td>
 					<form name="formModif" action="saisieObj.php" method="GET"><button type="submit" class="btn btn-default" name="btModifier" value="<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></button></form>			

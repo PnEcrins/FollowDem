@@ -273,7 +273,7 @@ if(isset($_POST['btEnregistrer'])){
 		<div id="message" class="<?php echo $msgClass; ?> col-md-6"> <?php echo $message; ?></div>
 		<div class="col-md-3"></div>
 	</div>
-	<form class="form-horizontal" name="monForm" action="ajoutObjet.php" method="POST">
+	<form class="form-horizontal" name="monForm" action="saisieObj.php" method="POST">
 		<div class="form-group">
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="objId">Id</label>
@@ -338,7 +338,7 @@ if(isset($_POST['btEnregistrer'])){
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="propValeur2">Couleur droite</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" value="<?php echo $valueCouleurD ;?>" placeholder="valeur HTML de la couleur (ex : #000000)" name="propValeur2" id="propValeur2" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir la valeur HTML de la couleur (ex : #000000)">
+				<input class="form-control color {hash:true}" type="text" value="<?php echo $valueCouleurD ;?>" placeholder="valeur HTML de la couleur (ex : #000000)" name="propValeur2" id="propValeur2" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir la valeur HTML de la couleur (ex : #000000)">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
@@ -346,7 +346,7 @@ if(isset($_POST['btEnregistrer'])){
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="propValeur4">Couleur gauche</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" value="<?php echo $valueCouleurG ;?>" placeholder="valeur HTML de la couleur (ex : #FFFFFF)" name="propValeur4" id="propValeur4" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir la valeur HTML de la couleur (ex : #FFFFFF)">
+				<input class="form-control color {hash:true}" type="text" value="<?php echo $valueCouleurG ;?>" placeholder="valeur HTML de la couleur (ex : #FFFFFF)" name="propValeur4" id="propValeur4" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir la valeur HTML de la couleur (ex : #FFFFFF)">
 			</div>
 			<div class="col-md-3"></div>
 		</div>		
