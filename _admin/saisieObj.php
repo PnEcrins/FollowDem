@@ -19,7 +19,7 @@ else{
 }
 
 // Traitement du formulaire
-if(isset($_POST['btConnect'])){
+if(isset($_POST['btEnregistrer'])){
 	if(isset($_POST['objId']) && isset($_POST['objNom']) && isset($_POST['objDateCreation']) && isset($_POST['objActive']) && !empty($_POST['objId']) && !empty($_POST['objNom']) && !empty($_POST['objDateCreation']) && !empty($_POST['objActive'])){
 		
 		$objId = $_POST['objId'];
@@ -85,31 +85,11 @@ if(isset($_POST['btConnect'])){
 			)
 		);
 		
-		$db=db::get();
-		$requete = $db->prepare(
-			'INSERT INTO '.config::get('db_prefixe').'tracked_objects(id_tracked_objects,nom_prop,valeur_prop) 
-			VALUES(
-				:id_tracked_objects,
-				:nom_prop,
-				:valeur_prop
-			)'
-		);
-		
 		$requete->execute(array(
 			'id_tracked_objects' => $propIdObj,
 			'nom_prop' => $propNom2,
 			'valeur_prop' => $propValeur2
 			)
-		);
-		
-		$db=db::get();
-		$requete = $db->prepare(
-			'INSERT INTO '.config::get('db_prefixe').'tracked_objects(id_tracked_objects,nom_prop,valeur_prop) 
-			VALUES(
-				:id_tracked_objects,
-				:nom_prop,
-				:valeur_prop
-			)'
 		);
 		
 		$requete->execute(array(
@@ -119,22 +99,13 @@ if(isset($_POST['btConnect'])){
 			)
 		);
 		
-		$db=db::get();
-		$requete = $db->prepare(
-			'INSERT INTO '.config::get('db_prefixe').'tracked_objects(id_tracked_objects,nom_prop,valeur_prop) 
-			VALUES(
-				:id_tracked_objects,
-				:nom_prop,
-				:valeur_prop
-			)'
-		);
-		
 		$requete->execute(array(
 			'id_tracked_objects' => $propIdObj,
 			'nom_prop' => $propNom4,
 			'valeur_prop' => $propValeur4
 			)
 		);
+	}
 }
 ?>
 <div id="decale"  class="text-center">
@@ -149,7 +120,7 @@ if(isset($_POST['btConnect'])){
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="objId">Id</label>
 			<div class="col-md-4">				
-				<input class="form-control" type="text" placeholder="id de l'objet" name="objId" id="objId">
+				<input class="form-control" type="text" placeholder="id de l'objet" name="objId" id="objId" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir un nombre entier, qui n'existe pas dans la base">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
@@ -157,23 +128,23 @@ if(isset($_POST['btConnect'])){
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="objNom">Nom</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" placeholder="nom de l'objet" name="objNom" id="objNom">
+				<input class="form-control" type="text" placeholder="nom de l'objet" name="objNom" id="objNom" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir le nom de l'objet">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
 		<div class="form-group">
 			<div class="col-md-2"></div>
-			<label class="col-md-2 control-label" for="objDateCreation">Jour de création</label>
+			<label class="col-md-2 control-label" for="objJourCreation">Jour de création</label>
 			<div class="col-md-4">
-				<input class="form-control" type="date" placeholder="aaaa-mm-jj" name="objJourCreation" id="objDateCreation">
+				<input class="form-control" type="date" placeholder="aaaa-mm-jj" name="objJourCreation" id="objJourCreation" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir le jour où vous recevez la 1ère donnée">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
 		<div class="form-group">
 			<div class="col-md-2"></div>
-			<label class="col-md-2 control-label" for="objDateCreation">Heure de création</label>
+			<label class="col-md-2 control-label" for="objHeureCreation">Heure de création</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" placeholder="hh:mm:ss" name="objHeureCreation" id="objDateCreation">
+				<input class="form-control" type="text" placeholder="hh:mm:ss" name="objHeureCreation" id="objHeureCreation" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir l'heure où vous recevez la 1ère donnée">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
@@ -191,7 +162,7 @@ if(isset($_POST['btConnect'])){
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="propValeur1">Naissance</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" placeholder="valeur de la propriété" name="propValeur1" id="propValeur1">
+				<input class="form-control" type="text" placeholder="année de naissance" name="propValeur1" id="propValeur1" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir l'année de naissance (ex : 2006)">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
@@ -207,24 +178,24 @@ if(isset($_POST['btConnect'])){
 		</div>
 		<div class="form-group">
 			<div class="col-md-2"></div>
-			<label class="col-md-2 control-label" for="propValeur2">Couleur primaire</label>
+			<label class="col-md-2 control-label" for="propValeur2">Couleur droite</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" placeholder="valeur de la propriété" name="propValeur2" id="propValeur2">
+				<input class="form-control" type="text" placeholder="valeur HTML de la couleur (ex : #000000)" name="propValeur2" id="propValeur2" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir la valeur HTML de la couleur (ex : #000000)">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
 		<div class="form-group">
 			<div class="col-md-2"></div>
-			<label class="col-md-2 control-label" for="propValeur4">Couleur secondaire</label>
+			<label class="col-md-2 control-label" for="propValeur4">Couleur gauche</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" placeholder="valeur de la propriété" name="propValeur4" id="propValeur4">
+				<input class="form-control" type="text" placeholder="valeur HTML de la couleur (ex : #FFFFFF)" name="propValeur4" id="propValeur4" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir la valeur HTML de la couleur (ex : #FFFFFF)">
 			</div>
 			<div class="col-md-3"></div>
 		</div>		
 		<div class="form-group">
 			<div class="col-md-2"></div>
 			<div class="col-md-offset-2 col-md-4">
-				<input type="submit" class="btn btn-primary btn-lg btn-block" name="btConnect" value="Enregistrer">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" name="btEnregistrer" value="Enregistrer" id="btEnregistrer" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Vérifiez que tous les champs ont été remplis">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
