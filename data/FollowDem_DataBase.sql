@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le : Mer 10 Juin 2015 à 15:04
+-- Généré le : Mar 23 Juin 2015 à 15:23
 -- Version du serveur: 5.5.43
 -- Version de PHP: 5.3.10-1ubuntu3.18
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `gps_data` (
   `altitude` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_objet` (`id_tracked_objects`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32211 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32244 ;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `date` datetime NOT NULL,
   `log` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83912 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84030 ;
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,25 @@ CREATE TABLE IF NOT EXISTS `tracked_objects` (
   `date_creation` datetime DEFAULT NULL,
   `date_maj` datetime DEFAULT NULL,
   `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id_user` int(10) unsigned NOT NULL,
+  `identifiant` varchar(100) NOT NULL,
+  `nom_user` varchar(50) NOT NULL,
+  `prenom_user` varchar(50) NOT NULL,
+  `pass` varchar(100) NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `session_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
