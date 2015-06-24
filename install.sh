@@ -1,3 +1,4 @@
+#!/bin/bash
 chmod 775 -R cache
 chmod 775 -R templates_c
 mv config/config.php.sample config/config.php
