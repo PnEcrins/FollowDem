@@ -7,11 +7,22 @@ $('#propValeur2').popover();
 $('#propValeur4').popover();
 $('#btEnregistrer').popover();
 
-$('#objJourCreation .input-group.date').datepicker({
-	format: "yyyy-mm-dd",
-	todayBtn: "linked",
-	clearBtn: true,
-	language: "fr",
-	autoclose: true,
-	todayHighlight: true
-});
+$(function() {
+    $( "#objJourCreation" ).datepicker();
+  });
+  
+ $(function() {
+    $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      height:140,
+      modal: true,
+      buttons: {
+        "Delete all items": function() {
+          $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });

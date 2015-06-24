@@ -8,6 +8,8 @@ $db=db::get();
 
 // Suppression
 if(isset($_GET['btSupprimer'])){
+	echo ("<div id='dialog-confirm' title='Suppression de l'objet ".$_GET['btSupprimer']." ?'><p>Cet objet va être supprimé de la base de données.
+	Êtes-vous sûr de vouloir supprimer cet objet ?</p></div>");
 	$reqSupprObj = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
 	$reqSupprObj->execute(array('id' => $_GET['btSupprimer']));
 }
