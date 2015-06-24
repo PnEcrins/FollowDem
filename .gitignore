@@ -3,3 +3,4 @@ template_c/*.*
 config/config.php
 logs/*.*
 templates/pages/fr/*.html
+config/config_pages.php
