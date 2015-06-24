@@ -13,8 +13,8 @@
 			<!-- <li><a href="./listeProp.inc.php"><i class="couleurBlanche glyphicon glyphicon-align-center"></i>&nbsp;&nbsp; Propriétés</a></li>
 			<li><a href="./listeData.inc.php"><i class="couleurBlanche glyphicon glyphicon-align-right"></i>&nbsp;&nbsp; Donnees</a></li> -->
 			<li><a href="./listeLogs.inc.php"><i class="couleurBlanche glyphicon glyphicon-eye-open"></i>&nbsp;&nbsp; Logs</a></li>
-			<li><a href="./ajoutObjet.php"><i class="couleurBlanche glyphicon glyphicon-plus"></i>&nbsp;&nbsp; Nouvel objet</a></li>
-			<li><a href="./ajoutObjet.php"><i class="couleurBlanche glyphicon glyphicon-question-sign"></i>&nbsp;&nbsp; Aide</a></li>
+			<li><a href="./saisieObj.php"><i class="couleurBlanche glyphicon glyphicon-plus"></i>&nbsp;&nbsp; Nouvel objet</a></li>
+			<li><a href="./aide.php"><i class="couleurBlanche glyphicon glyphicon-question-sign"></i>&nbsp;&nbsp; Aide</a></li>
 		</ul>
 	</div>
 </nav>

@@ -5,29 +5,24 @@ include ("../config/config.php");
 include ("../classes/db.class.php");
 include ("../classes/config.class.php");
 $db=db::get();
-$requete = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects');
-$requete->execute();
-$results = $requete->fetchAll();
 
 // Suppression
-if(isset($_POST['btSupprimer'])){
-	$requete = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
-	$requete->execute(array('id' => $_GET['id']));
+if(isset($_GET['btSupprimer'])){
+	$reqSupprObj = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
+	$reqSupprObj->execute(array('id' => $_GET['btSupprimer']));
 }
 
-// Modification
-/* if(isset($_POST['btModifier'])){
-	$requete = $db->prepare('UPDATE'.config::get('db_prefixe').'tracked_objects SET nom=?,date_maj=?,active=? WHERE id=?');
-	$requete->execute(array());
-} */
+$reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects');
+$reqObj->execute();
+$resultObj = $reqObj->fetchAll();
 ?>
 <div id="decale">
 	<div class="row">
 		<div class="col-md-2"></div>
-		<div class="col-md-3">
-			<h3>Liste des Objets</h3>
+		<div class="col-md-4">
+			<h3>Contenu de la table tracked_objects</h3>
 		</div>
-		<div class="col-md-2"></div>
+		<div class="col-md-1"></div>
 		<div class="col-md-4">
 			<form class="navbar-form" role="rechercher">
 				<div class="input-group">
@@ -43,13 +38,17 @@ if(isset($_POST['btSupprimer'])){
 	<div class="col-md-1"></div>
 	<div class="col-md-10">	
 	<table class="table table-striped table-bordered table-hover table-condensed">
-		<tr><th></th><th>id</th><th>nom</th><th>date_creation</th><th>active</th></tr>
-		<?php foreach($results as $row){ ?>
+		<tr><th></th><th></th><th></th><th>id</th><th>nom</th><th>date_creation</th><th>active</th></tr>
+		<?php foreach($resultObj as $row){ ?>
 			<tr>
 				<td>
-					<form name="formSuppr" action="listeObj.inc.php?action=delete&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btSupprimer"><span class="glyphicon glyphicon-trash"></span></button></form>
-					<form name="formModif" action="objet.php?action=update&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btModifier"><span class="glyphicon glyphicon-pencil"></span></button></form>			
-					<form name="formDetail" action="listeObj.inc.php?action=show&id=<?php echo $row['id']; ?>" method="GET"><button type="submit" class="btn btn-default" name="btDetails"><span class="glyphicon glyphicon-info-sign"></span></button></form>
+					<form name="formSuppr" action="listeObj.inc.php" method="GET"><button type="submit" class="btn btn-default" name="btSupprimer" value="<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-trash"></span></button></form>
+				</td>
+				<td>
+					<form name="formModif" action="saisieObj.php" method="GET"><button type="submit" class="btn btn-default" name="btModifier" value="<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></button></form>			
+				</td>
+				<td>	
+					<form name="formDetail" action="detailObj.php" method="GET"><button type="submit" class="btn btn-default" name="btDetails" value="<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-info-sign"></span></button></form>
 				</td>
 				<td><?php echo $row['id']; ?></td>
 				<td><?php echo $row['nom']; ?></td>
