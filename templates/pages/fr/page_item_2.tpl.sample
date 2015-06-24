@@ -1,0 +1,13 @@
+{assign scope="global" var="page_titre" value='monTitre'}
+
+<p><img src="images/img4item2.jpg" class="img-responsive img-rounded"/></p>
+<h3>mon titre h3</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Morbi nec massa tortor. 
+Ut pharetra posuere velit, in efficitur augue ultrices porta. 
+Suspendisse fringilla at leo at tristique. 
+Suspendisse potenti. 
+Donec blandit commodo erat. 
+Nunc auctor, enim ut auctor elementum, tortor est aliquet erat, sed dignissim turpis sapien nec erat. 
+Nulla laoreet, nulla eget sed. </p>
+<p><a class="btn btn-primary pull-right" href="" target="_blank">Lire la suite</a></p>
