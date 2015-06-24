@@ -1,0 +1,27 @@
+<?php
+/**
+*	Fichier de configuration pour le menu de navigation de l'application
+*	@author Thibault Romanin
+*	@copyright Parc National des Écrins
+*
+*/
+
+/**
+*	Tableau de config des pages
+*	Voir index ci-après
+*
+*	@var	array
+*/
+$config_page = array();
+
+/*** Menu de navigation */
+	$config_page['item_1'] = 'Item 1';
+	$config_page['sous_item_1'] = 'Sous-item 1';
+	$config_page['sous_item_2'] = 'Sous-item 2';
+	$config_page['sous_item_3'] = 'Sous-item 3';
+	$config_page['sous_item_4'] = 'Sous-item 4';
+	$config_page['item_2'] = 'Item 2';
+
+/*** Texte introduction */
+	$config_page['texte_introduction'] = '<strong>FollowDem</strong> est une application web cartographique permettant de suivre le déplacement d\'objets équipés d\'un GPS. Cette application est utilisée par le Parc National des Ecrins pour <a href=\'http://bouquetins.ecrins-parcnational.fr/\'>bouquetins</a>.<br / ><br / >
+	<strong>Suivez le déplacement de ces objets traqués.</strong>';

@@ -1,0 +1,18 @@
+{assign scope="global" var="page_titre" value="monTitre"}
+<p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec posuere.</strong></p>
+<p><img src="images/img1sousItem1.jpg" alt="image1" class="img-responsive img-rounded" /></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Integer non nisi sed lectus hendrerit volutpat. 
+Quisque commodo dui in tortor lobortis, at venenatis nunc lobortis. 
+Etiam at faucibus tellus. 
+Duis faucibus egestas felis vel ornare. 
+Integer porttitor suscipit eros ac condimentum. 
+Praesent nulla magna, molestie eget ex id, tristique eleifend justo. 
+Ut varius tincidunt nisi, sit amet mattis ipsum. 
+Ut luctus non turpis sit amet lacinia. 
+Nullam in neque cursus, feugiat mauris sit amet massa nunc.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Etiam vel pretium nisl. Nunc posuere.</p>
+
+<p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus augue leo cras amet.</strong></p>

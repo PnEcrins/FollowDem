@@ -20,13 +20,13 @@ $lang['Traces'] = 'Tracés';
 $lang['Derniers points'] = 'Derniers points';
 
 /*Menu Pages et Actions*/
-$lang['Informations'] = 'Item 1';
-$lang['Bouquetin des Alpes'] = 'Sous-item 1';
-$lang['Capture Bouquetins'] = 'Sous-item 2';
-$lang['Faune sauvage'] = 'Sous-item 3';
-$lang['Diego'] = 'Sous-item 4';
+$lang['Informations'] = config_page::get('item_1');
+$lang['Bouquetin des Alpes'] = config_page::get('sous_item_1');
+$lang['Capture Bouquetins'] = config_page::get('sous_item_2');
+$lang['Faune sauvage'] = config_page::get('sous_item_3');
+$lang['Diego'] = config_page::get('sous_item_4');
 $lang['Actualites'] = 'Toutes les actualités'; // pas utilisé
-$lang['Parc national des Ecrins'] = 'Item 2';
+$lang['Parc national des Ecrins'] = config_page::get('item_2');
 $lang['Outils'] = 'Outils';
 $lang['Réinitialiser la vue'] = 'Réinitialiser la vue';
 $lang['Légendes de la carte'] = 'Légendes de la carte';
@@ -35,8 +35,7 @@ $lang['Informations / Mentions légales'] = 'Informations / Mentions légales';
 $lang['Contacts'] = 'Contacts';
 
 /* Textes interface */
-$lang['Texte indroduction'] = "<strong>FollowDem</strong> est une application web cartographique permettant de suivre le déplacement d'objets équipés d'un GPS. Cette application est utilisée par le Parc National des Ecrins pour <a href='http://bouquetins.ecrins-parcnational.fr/'>bouquetins</a>.<br / ><br / >
-<strong>Suivez le déplacement de ces objets traqués.</strong>";
+$lang['Texte indroduction'] = config_page::get('texte_introduction');
 $lang['Entete liste tracked_objects'] = '<strong>Cliquez sur le nom d\'un objet traqué pour voir son parcours</strong> <br /> Pour les';
 $lang['Slide derniers jours'] = 'derniers jours.';
 $lang['Entete selection periode'] = '<strong>Sélectionnez la période de déplacement à afficher</strong>';

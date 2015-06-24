@@ -1,8 +1,6 @@
-vider_cache.sh
 cache/*.*
 template_c/*.*
 config/config.php
-config/carto.php
-classes/controler/controler.class.php
-# csv/*.*
 logs/*.*
+templates/pages/fr/*.html
+config/config_pages.php

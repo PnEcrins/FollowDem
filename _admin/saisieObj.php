@@ -214,7 +214,7 @@ if(isset($_POST['btEnregistrer'])){
 				'id' => $objId
 				)
 			);
-			
+			// Traitement des modifications des propriétés d'un objet
 			$propIdObj = $_POST['objId'];
 			$propNom1 = "naissance";
 			$propValeur1 = $_POST['propValeur1'];
@@ -294,7 +294,7 @@ if(isset($_POST['btEnregistrer'])){
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="objJourCreation">Jour de création</label>
 			<div class="col-md-4 input-group date">
-				<input class="form-control" type="text" value="<?php echo $valueJourCreation ;?>" placeholder="aaaa-mm-jj" name="objJourCreation" id="objJourCreation" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez sélectionner le jour où vous recevez la 1ère donnée"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				<input class="form-control" type="text" value="<?php echo $valueJourCreation ;?>" placeholder="aaaa-mm-jj" name="objJourCreation" id="objJourCreation"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
 			<div class="col-md-3"></div>
 		</div>

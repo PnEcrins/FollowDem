@@ -1,0 +1,26 @@
+{assign scope="global" var="page_titre" value="Aide de l'application FollowDem"}
+
+<h4>Localisation des objets traqués / interaction avec la carte</h4>
+<p>Cliquez sur un point de la carte pour connaître la date et le nom de l'objet traqué.</p>
+<p>Cliquez dans la liste sur le nom d'un objet pour faire apparaître son parcours.</p>
+<ul class="list-group">
+	<li class="list-group-item">Il est possible de sélectionner une période à afficher (sélecteur présent au dessus de la liste des objets),</li>
+	<li class="list-group-item">Le parcours s'affiche avec des flèches de direction,</li>
+	<li class="list-group-item">Un zoom automatique centre la vue sur la totalité du parcours,</li>
+	<li class="list-group-item">La dernière position connue de l'objet traqué reste en avant,</li>
+	<li class="list-group-item">Des points intermédiaires apparaissent et vous permettent de connaître la date de passage et l'altitude.</li>
+</ul>
+<h4>Autres fonctionnalités</h4>
+<p>Dans le menu supérieur, vous trouverez des informations complémentaire</p>
+<ul class="list-group">
+	<li class="list-group-item">Item 1,</li>
+	<li class="list-group-item">Item 2,</li>
+	<li class="list-group-item">Des informations générales sur l'application</li>
+</ul>
+
+<h4>Compatibilité</h4>
+<p>Ce site Internet est compatible avec tous les supports connectés. Ordinateurs personnels, tablettes, smartphones.</p>
+<p>Si vous rencontrez un dysfonctionnement, merci de <a href="{config::get('emailContact')}">nous contacter</a>.</p>
+
+<h4>Besoin de plus d'informations</h4>
+<p>Vous pouvez contacter le webmaster : <a href="{config::get('emailContact')}">formulaire de contact</a>.</p>
