@@ -2,5 +2,5 @@ cache/*.*
 template_c/*.*
 config/config.php
 logs/*.*
-templates/pages/fr/*.html
+templates/pages/fr/info.tpl.html
 config/config_pages.php
