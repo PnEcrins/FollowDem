@@ -1,4 +1,5 @@
 <?php
+include ("verification.inc.php");
 include("./head.inc.php");
 include("./nav.inc.php");
 ?>

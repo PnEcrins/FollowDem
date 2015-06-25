@@ -1,9 +1,10 @@
 <?php
+include ("verification.inc.php");
 include ("head.inc.php");
 include ("nav.inc.php");
-include ("../config/config.php");
-include ("../classes/db.class.php");
-include ("../classes/config.class.php");
+// include ("../config/config.php");
+// include ("../classes/db.class.php");
+// include ("../classes/config.class.php");
 $db=db::get();
 $reqLog = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'logs');
 $reqLog->execute();

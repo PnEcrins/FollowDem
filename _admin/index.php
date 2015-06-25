@@ -18,8 +18,6 @@ if ($_POST['button'] == "Connexion"){
     $sth=$db->prepare($query);
     $sth->execute(array(':login'=>$login,':pass'=>$passmd5));
     $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-    // print_r($result[0]['identifiant']);
-    // exit;
     
 		if (count($result) === 1)
 		{
