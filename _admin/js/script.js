@@ -10,7 +10,7 @@ $('#btEnregistrer').popover();
 $(function() {
     $( "#objJourCreation" ).datepicker();
   });
-  
+  /*
  $(function() {
     $( "#dialog-confirm" ).dialog({
       resizable: false,
@@ -25,4 +25,4 @@ $(function() {
         }
       }
     });
-  });
+  });*/

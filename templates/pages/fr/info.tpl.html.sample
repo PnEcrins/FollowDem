@@ -1,0 +1,24 @@
+﻿{assign scope="global" var="page_titre" value='Actualités'}
+
+{literal}
+<style type="text/css">
+	article
+	{
+		margin:.5em;
+		font-size:.9em;
+	}
+	article a
+	{
+		color:#8E228A;
+		font-weight:bold;
+		font-size:1.1em;
+	}
+	
+	article .small
+	{
+		font-size:.8em;
+		color:#444;
+	}
+</style>
+{/literal}
+{$content}
