@@ -6,8 +6,6 @@
 *	
 */
 
-
-
 $lang['titre'] = 'FollowDem';
 
 
@@ -20,13 +18,13 @@ $lang['Traces'] = 'Tracés';
 $lang['Derniers points'] = 'Derniers points';
 
 /*Menu Pages et Actions*/
-$lang['item_1'] = config_page::get('item_1');
-$lang['sous_item_1'] = config_page::get('sous_item_1');
-$lang['sous_item_2'] = config_page::get('sous_item_2');
-$lang['sous_item_3'] = config_page::get('sous_item_3');
-$lang['sous_item_4'] = config_page::get('sous_item_4');
+$lang['item_1'] = config::get('item_1');
+$lang['sous_item_1'] = config::get('sous_item_1');
+$lang['sous_item_2'] = config::get('sous_item_2');
+$lang['sous_item_3'] = config::get('sous_item_3');
+$lang['sous_item_4'] = config::get('sous_item_4');
 $lang['Actualites'] = 'Toutes les actualités'; // pas utilisé
-$lang['item_2'] = config_page::get('item_2');
+$lang['item_2'] = config::get('item_2');
 $lang['Outils'] = 'Outils';
 $lang['Réinitialiser la vue'] = 'Réinitialiser la vue';
 $lang['Légendes de la carte'] = 'Légendes de la carte';
@@ -35,7 +33,7 @@ $lang['Informations / Mentions légales'] = 'Informations / Mentions légales';
 $lang['Contacts'] = 'Contacts';
 
 /* Textes interface */
-$lang['Texte indroduction'] = config_page::get('texte_introduction');
+$lang['Texte indroduction'] = config::get('texte_introduction');
 $lang['Entete liste tracked_objects'] = '<strong>Cliquez sur le nom d\'un objet traqué pour voir son parcours</strong> <br /> Pour les';
 $lang['Slide derniers jours'] = 'derniers jours.';
 $lang['Entete selection periode'] = '<strong>Sélectionnez la période de déplacement à afficher</strong>';

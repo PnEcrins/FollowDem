@@ -2,7 +2,6 @@
 chmod 775 -R cache
 chmod 775 -R templates_c
 mv config/config.php.sample config/config.php
-mv config/config_pages.php.sample config/config_pages.php
 mv templates/pages/fr/page_aide.tpl.sample templates/pages/fr/page_aide.tpl
 mv templates/pages/fr/page_contact.tpl.sample templates/pages/fr/page_contact.tpl
 mv templates/pages/fr/page_item_2.tpl.sample templates/pages/fr/page_item_2.tpl
