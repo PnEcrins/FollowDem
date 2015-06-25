@@ -18,13 +18,13 @@ $lang['Traces'] = 'Tracés';
 $lang['Derniers points'] = 'Derniers points';
 
 /*Menu Pages et Actions*/
-$lang['item_1'] = config::get('item_1');
-$lang['sous_item_1'] = config::get('sous_item_1');
-$lang['sous_item_2'] = config::get('sous_item_2');
-$lang['sous_item_3'] = config::get('sous_item_3');
-$lang['sous_item_4'] = config::get('sous_item_4');
+$lang['item_a'] = config::get('item_a');
+$lang['sous_item_a'] = config::get('sous_item_a');
+$lang['sous_item_b'] = config::get('sous_item_b');
+$lang['sous_item_c'] = config::get('sous_item_c');
+$lang['sous_item_d'] = config::get('sous_item_d');
 $lang['Actualites'] = 'Toutes les actualités'; // pas utilisé
-$lang['item_2'] = config::get('item_2');
+$lang['item_b'] = config::get('item_b');
 $lang['Outils'] = 'Outils';
 $lang['Réinitialiser la vue'] = 'Réinitialiser la vue';
 $lang['Légendes de la carte'] = 'Légendes de la carte';

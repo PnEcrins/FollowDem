@@ -1,9 +1,10 @@
 <?php
+include ("verification.inc.php");
 include ("head.inc.php");
 include ("nav.inc.php");
-include ("../config/config.php");
-include ("../classes/db.class.php");
-include ("../classes/config.class.php");
+// include ("../config/config.php");
+// include ("../classes/db.class.php");
+// include ("../classes/config.class.php");
 
 // Initialisation des variables
 $msgClass = "";
@@ -102,7 +103,9 @@ if(isset($_POST['btEnregistrer'])){
 			// Traitement de l'ajout d'objet
 			$objId = $_POST['objId'];
 			$objNom = $_POST['objNom'];
-			$objDateCreation = $_POST['objJourCreation']." ".$_POST['objHeureCreation'];
+			$traitementObjJourCreation = $_POST['objJourCreation'];
+			$suiteTraitementObjJourCreation = substr($traitementObjJourCreation,6,4)."-".substr($traitementObjJourCreation,0,2)."-".substr($traitementObjJourCreation,3,2);
+			$objDateCreation = $suiteTraitementObjJourCreation." ".$_POST['objHeureCreation'];
 			$objDateMaj = date('Y-m-d')." ".date('h:i:s');
 			$objActive = $_POST['objActive'];
 			

@@ -1,17 +1,20 @@
 <?php
+include ("verification.inc.php");
 include ("head.inc.php");
 include ("nav.inc.php");
-include ("../config/config.php");
-include ("../classes/db.class.php");
-include ("../classes/config.class.php");
+// include ("../config/config.php");
+// include ("../classes/db.class.php");
+// include ("../classes/config.class.php");
 $db=db::get();
 
 // Suppression
 if(isset($_GET['btSupprimer'])){
-	echo ("<div id='dialog-confirm' title='Suppression de l'objet ".$_GET['btSupprimer']." ?'><p>Cet objet va être supprimé de la base de données.
-	Êtes-vous sûr de vouloir supprimer cet objet ?</p></div>");
+	/*echo ("<div id='dialog-confirm' title='Suppression de l'objet ".$_GET['btSupprimer']." ?'><p>Cet objet va être supprimé de la base de données.
+	Êtes-vous sûr de vouloir supprimer cet objet ?</p></div>");*/
 	$reqSupprObj = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
 	$reqSupprObj->execute(array('id' => $_GET['btSupprimer']));
+	$reqSupprProp = $db->prepare('DELETE FROM '.config::get('db_prefixe').'objects_features where id_tracked_objects = :id_tracked_objects');
+	$reqSupprProp->execute(array('id_tracked_objects' => $_GET['btSupprimer']));
 }
 
 $reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects');
