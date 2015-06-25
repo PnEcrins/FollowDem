@@ -2,9 +2,6 @@
 include ("verification.inc.php");
 include ("head.inc.php");
 include ("nav.inc.php");
-// include ("../config/config.php");
-// include ("../classes/db.class.php");
-// include ("../classes/config.class.php");
 
 // Initialisation des variables
 $msgClass = "";
