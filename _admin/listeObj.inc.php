@@ -7,17 +7,46 @@ $db=db::get();
 
 // Suppression
 if(isset($_GET['btSupprimer'])){
-	/*echo ("<div id='dialog-confirm' title='Suppression de l'objet ".$_GET['btSupprimer']." ?'><p>Cet objet va être supprimé de la base de données.
-	Êtes-vous sûr de vouloir supprimer cet objet ?</p></div>");*/
 	$reqSupprObj = $db->prepare('DELETE FROM '.config::get('db_prefixe').'tracked_objects where id = :id');
 	$reqSupprObj->execute(array('id' => $_GET['btSupprimer']));
 	$reqSupprProp = $db->prepare('DELETE FROM '.config::get('db_prefixe').'objects_features where id_tracked_objects = :id_tracked_objects');
 	$reqSupprProp->execute(array('id_tracked_objects' => $_GET['btSupprimer']));
 }
 
-$reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects');
-$reqObj->execute();
-$resultObj = $reqObj->fetchAll();
+$cpt = 0;
+if (isset($_GET['btSuivant'])){
+	$nbDepart = 15;
+	$nbDepart = $_GET['btSuivant'];
+	$cpt = $nbDepart + 15;
+	$db=db::get();
+	$reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects LIMIT '.$cpt.',15');
+	$reqObj->execute();
+	$resultObj = $reqObj->fetchAll();
+}
+else{
+	if (isset($_GET['btPrecedent'])){
+	$nbDepart2 = 0;
+	$nbDepart2 = $_GET['btPrecedent'];
+	if ($nbDepart2 <= 0){
+		$cpt = 0;
+		$disable2 = "disabled";
+	}
+	else{
+		$cpt = $nbDepart2 - 15;
+		$disable2 = "";
+	}
+	$db=db::get();
+	$reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects LIMIT '.$cpt.',15');
+	$reqObj->execute();
+	$resultObj = $reqObj->fetchAll();
+	}
+	else{
+		$db=db::get();
+		$reqObj = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'tracked_objects LIMIT 0,15');
+		$reqObj->execute();
+		$resultObj = $reqObj->fetchAll();
+	}
+}
 ?>
 <div id="decale">
 	<div class="row">
@@ -62,6 +91,18 @@ $resultObj = $reqObj->fetchAll();
 	</table>
 	</div>
 	<div class="col-md-1"></div>
+		<form action="" method="GET" class="form-horizontal" name="monForm">
+		<div class="form-group">
+			<div class="col-md-2"></div>
+			<div class="col-md-offset-2 col-md-2">
+				<button type="submit" name="btPrecedent" value="<?php echo $cpt; ?>" id="btPrecedent" class="btn btn-primary btn-lg btn-block <?php echo $disable2; ?>">Précédent</button>
+			</div>
+			<div class="col-md-2">
+				<button type="submit" name="btSuivant" value="<?php if(count($resultLog) < 15){ echo($nbDepart); $disable="disabled"; }else{ echo $cpt; $disable="";} ?>" id="btSuivant" class="btn btn-primary btn-lg btn-block <?php echo $disable; ?>">Suivant</button>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</form>
 </div>
 <?php
 include ("bottom.inc.php");
