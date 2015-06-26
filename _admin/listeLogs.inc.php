@@ -1,14 +1,25 @@
 <?php
+include ("verification.inc.php");
 include ("head.inc.php");
 include ("nav.inc.php");
-include ("../config/config.php");
-include ("../classes/db.class.php");
-include ("../classes/config.class.php");
-$db=db::get();
-$reqLog = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'logs');
-$reqLog->execute();
-$resultLog = $reqLog->fetchAll();
+// include ("../config/config.php");
+// include ("../classes/db.class.php");
+// include ("../classes/config.class.php");
 
+if (isset($_GET['nbDepart'])){
+	$nbDepart = 0;
+	$nbDepart = $_GET['nbDepart'];
+	$db=db::get();
+	$reqLog = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'logs LIMIT '.$nbDepart.',15');
+	$reqLog->execute();
+	$resultLog = $reqLog->fetchAll();
+}
+else{
+	$db=db::get();
+	$reqLog = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'logs LIMIT 0,15');
+	$reqLog->execute();
+	$resultLog = $reqLog->fetchAll();
+}
 ?>
 <div id="decale">
 	<div class="row">
@@ -39,10 +50,28 @@ $resultLog = $reqLog->fetchAll();
 				<td><?php echo $row['date']; ?></td>
 				<td><?php echo $row['log']; ?></td>
 			</tr>
-		<?php } ?>
+		<?php }	?>
 	</table>
 	</div>
 	<div class="col-md-1"></div>
+	
+	<form action="" method="GET" class="form-horizontal" name="monForm">
+	<?php /*foreach($resultLog as $rowcount){ 
+		$compteur += $cpt / 15;
+		$nbDepart += $compteur * 15;
+	} */
+	?>
+		<div class="form-group">
+			<div class="col-md-2"></div>
+			<div class="col-md-offset-2 col-md-2">
+				<button type="submit" class="btn btn-primary btn-lg btn-block" name="btPrecedent" value="" id="btPrecedent">Précédent</button>
+			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-primary btn-lg btn-block" name="btSuivant" value="" id="btSuivant">Suivant</button>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</form>
 </div>
 <?php
 include ("bottom.inc.php");
