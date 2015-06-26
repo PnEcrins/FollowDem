@@ -151,7 +151,7 @@ Le cache est sauvegardé dans deux dossiers différents : ``/templates_c`` et ``
 Lorsque vous effectuez des modifications dans l'application, il se peut que les changements ne se soient pas enregistrés dans les dossiers de cache.
 Pour voir ces modifications appliquées, il vous faudra vider les dossiers ``/templates_c`` et ``/cache``.
 
-Afin que le cache fonctionne correctement, il est nécessaire de modifier les droits, pour ceci, tapez les commandes suivantes dans la console :
+Afin que le cache fonctionne correctement, il est nécessaire de modifier les droits de leurs répertoires, pour ceci, tapez les commandes suivantes dans la console :
 
 ::
 	
