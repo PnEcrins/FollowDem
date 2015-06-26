@@ -1,11 +1,10 @@
 <?php
 include ("head.inc.php");
-include ("nav.inc.php");
 include ("../config/config.php");
 include ("../classes/db.class.php");
 include ("../classes/config.class.php");
 
-if ($_POST['button'] == "Connexion"){
+if (isset($_POST['button']) && $_POST['button'] == "Connexion"){
         
 	$login = $_POST['flogin'];
 	$password = $_POST['fpassword'];
@@ -37,7 +36,7 @@ if ($_POST['button'] == "Connexion"){
 		}
 		
 		else{
-		$erreur='<img src="images/supprimer.gif" alt="" align="absmiddle">&nbsp;Identification incorrecte ou droits insuffisants';
+		$erreur='<div class="text-danger bs-callout-danger bs-callout col-md-6">Identification incorrecte ou droits insuffisants.</div>';
 		}
 }
 else{
@@ -49,54 +48,59 @@ else{
 	session_destroy();
 }
 ?>
-<form name="formlogin" method="post" action="index.php">
-	<p>&nbsp;</p>
+<div id="decale"  class="text-center">
 	<div class="row">
 		<div class="col-md-3"></div>
-		<table class="col-md-6 table table-striped table-bordered table-hover table-condensed">
-			<tr>
-				<td><img src="../images/logo.jpg" alt="Parc national des Ecrins"></td>
-			</tr>
-		</table>
+			<div class="col-md-6">
+				<img src="../images/logo.jpg" alt="Parc national des Ecrins">
+			</div>
 		<div class="col-md-3"></div>
 	</div>
-	
-	<table class="col-md-6 table table-striped table-bordered table-hover table-condensed">
-		<tr>
-			<td>
-				<span><b>IDENTIFICATION</b></span>
-			</td>
-		</tr>
+	<div class="jumbotron"><h2>Identification</h2></div>
 		
-		<? if (isset($erreur)){ ?>
-		<tr><td><?=$erreur;?></td></tr>
-		<? } ?>
-
-		<tr>
-			<td valign="top">Utilisateur</td>
-			<td>
-				<span id="vlogin">
-					<input type="text" id="login" name="flogin" value="<?php if(isset($login)){echo $login;}?>">
-				</span>
-			</td>
-		</tr>
+	<? if (isset($erreur)){ ?>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<?=$erreur;?>
+		<div class="col-md-3"></div>
+	</div>
+	<? } ?>
 		
-		<tr>
-			<td valign="top">Mot de passe</td>
-			<td>
-				<span id="vpassword"><input type="password" id="password" name="fpassword" value="<?php if(isset($password)){echo $password;}?>"></span>
-			</td>
-		</tr>
-		
-		<tr>
-			<td colspan="2" align="center"><input type="submit" name="button" id="button" value="Connexion"></td>
-		</tr>
-		
-		<tr>
-			<td colspan="2" bgcolor="#A9A7A8" align="center"><span class="Style4">&copy; 2015 - Parc national des Ecrins </span></td>
-		</tr>
-	</table>
-</form>
+	<form class="form-horizontal" name="formlogin" method="post" action="index.php">
+		<div class="form-group">
+			<div class="col-md-2"></div>
+			<label class="col-md-2 control-label">Utilisateur</label>
+			<div class="col-md-4">
+					<!-- <span id="vlogin"> -->
+				<input class="form-control" type="text" id="login" name="flogin" value="<?php if(isset($login)){echo $login;}?>" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir votre identifiant">
+					<!-- </span> -->
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2"></div>
+			<label class="col-md-2 control-label">Mot de passe</label>
+			<div class="col-md-4">
+					<!-- <span id="vpassword"> -->
+				<input class="form-control" type="password" id="password" name="fpassword" value="<?php if(isset($password)){echo $password;}?>" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Veuillez saisir votre mot de passe">
+					<!-- </span> -->
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2"></div>
+			<div class="col-md-offset-2 col-md-4">
+				<input class="btn btn-primary btn-lg btn-block" type="submit" name="button" id="button" value="Connexion" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Vérifiez que tous les champs ont été correctement remplis">
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-3"></div>
+				<div class="col-md-6">&copy; 2015 - Parc national des Ecrins</div>
+			<div class="col-md-3"></div>
+		</div>
+	</form>
+</div>
 <?php
 include ("bottom.inc.php");
 ?>
