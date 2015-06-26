@@ -6,6 +6,9 @@ $('#propValeur1').popover();
 $('#propValeur2').popover();
 $('#propValeur4').popover();
 $('#btEnregistrer').popover();
+$('#login').popover();
+$('#password').popover();
+$('#button').popover();
 
 $(function() {
     $( "#objJourCreation" ).datepicker();

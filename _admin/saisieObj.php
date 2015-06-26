@@ -353,7 +353,7 @@ if(isset($_POST['btEnregistrer'])){
 		<div class="form-group">
 			<div class="col-md-2"></div>
 			<div class="col-md-offset-2 col-md-4">
-				<input type="submit" class="btn btn-primary btn-lg btn-block" name="btEnregistrer" value="Enregistrer" id="btEnregistrer" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Vérifiez que tous les champs ont été remplis">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" name="btEnregistrer" value="Enregistrer" id="btEnregistrer" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Vérifiez que tous les champs ont été correctement remplis">
 			</div>
 			<div class="col-md-3"></div>
 		</div>
