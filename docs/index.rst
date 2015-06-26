@@ -12,6 +12,7 @@ Contenu:
 
    server
    installation
+   gestion_donnees
    configuration
    auteurs
    changelog
