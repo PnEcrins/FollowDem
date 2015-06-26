@@ -1,3 +1,7 @@
+body
+{
+	overflow-x: hidden;
+}
 #navbar-title
 {
 	font-weight: bold;
