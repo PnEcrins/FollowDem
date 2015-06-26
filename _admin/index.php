@@ -31,7 +31,7 @@ if (isset($_POST['button']) && $_POST['button'] == "Connexion"){
                 ':session_id'=>session_id(),
                 ':identifiant'=>$result[0]['identifiant']
             ));
-			header("Location: listeObj.inc.php");
+			header("Location: listeObj.inc.php?btPrecedent=0");
 			}
 		}
 		
