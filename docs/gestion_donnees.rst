@@ -4,6 +4,8 @@ GESTION DES DONNEES
 
 Après avoir installé et configuré l'application, vous devez créer vos objets suivis dans la base de données.
 
+Une interface d'administration est en cours de développement (dans le répertoire ``_admin``, accessible à l'adresse ``http://mondomaine.com/_admin``). Elle permet actuellement de lister les objets de la BDD mais pas encore de les éditer. Ainsi ces opérations de gestion des données doivent pour le moment être faites directement dans la BDD.
+
 Tout d'abord, sélectionnez la BDD de votre application dans phpMyAdmin.
 
 CAS n°1 : Ajouter un objet dont l'émetteur GPS n'a jamais été utilisé
