@@ -56,6 +56,7 @@ Il faut donc exécuter le script http://mon-domaine.com/controler/import_imap_cs
 Il se peut que le fichier contienne des données avant la pose du collier, il faut donc éxecuter dans MYSQL la requête suivante :
 
 ::
+
 	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
 		
 CAS n°2 : Ajout d'un nouvel objet dont le collier a déjà été utilisé sur un autre objet
@@ -64,11 +65,13 @@ CAS n°2 : Ajout d'un nouvel objet dont le collier a déjà été utilisé sur u
 Si le collier a déjà été utilisé il convient de supprimer toutes les données antérieures à la nouvelle date de pose pour le collier.
 
 ::
+
 	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
 		
 Si vous souhaitez conserver les données de l'ancien objet, vous pouvez effectuer la requête suivante :
 
 ::
+
 	UPDATE `gps_data` SET `id_tracked_objects` = 'id_objet_O' WHERE `id_tracked_objects` = 'id_objet';
 		
 Ensuite reprenez les étapes du cas n°1.
@@ -83,21 +86,25 @@ Par la suite, modifiez l'identifiant du collier dans la table ``objects_features
 Sinon, tapez la requête suivante :
 
 ::
+
 	UPDATE `objects_features` SET `id_tracked_objects` = 'id_ancien_collier' WHERE `id_tracked_objects` = 'id_nouveau_collier';
 		
 Enfin, supprimez les données datant d'avant la pose du collier :
 
 ::
+
 	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
 		
 Très important, si vous souhaitez conserver les anciennes données de l'objet, tapez la requête suivante :
 
 ::
+
 	UPDATE `gps_data` SET `id_tracked_objects` = 'id_ancien_collier' WHERE `id_tracked_objects` = 'id_nouveau_collier';
 		
 Mais si vous souhaitez les supprimer, privilégiez plutôt la requête suivante :
 
 ::
+
 	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_ancien_collier';
 		
 Tout comme dans le cas n°1, si vous voulez importer des données existantes, exécutez le script suivant : http://mon-domaine.com/controler/import_imap_csv.
@@ -118,6 +125,7 @@ Et après il faut mettre le champ ``active`` à ``0``.
 Exécutez les requêtes suivantes :
 
 ::
+
 	DELETE FROM `tracked_objects` WHERE `id` = 'id_collier';
 	DELETE FROM `objects_features` WHERE `id_tracked_objects` = 'id_collier';
 	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier';
