@@ -2,122 +2,130 @@
 GESTION DES DONNEES
 ===================
 
-Après avoir configuré votre serveur, si vous avez besoin d'effectuer des tâches sur la base de données, référez vous à ce document.
+AprÃ¨s avoir configurÃ© votre serveur, si vous avez besoin d'effectuer des tÃ¢ches sur la base de donnÃ©es, rÃ©fÃ©rez vous Ã  ce document.
 
-Tout d'abord, sélectionnez la base de votre application.
+Tout d'abord, sÃ©lectionnez la base de votre application.
 
-CAS n°1 : Ajouter un objet dont le collier n'a jamais été utilisé
+CAS nÂ°1 : Ajouter un objet dont le collier n'a jamais Ã©tÃ© utilisÃ©
 =================================================================
 
-Insérez une nouvelle ligne dans la table tracked_objects :
+InsÃ©rez une nouvelle ligne dans la table tracked_objects :
 
-• ``id`` : correspond à l'identifiant numérique du collier.
+â€¢ ``id`` : correspond Ã  l'identifiant numÃ©rique du collier.
 
-• ``nom`` : nom de l'objet.
+â€¢ ``nom`` : nom de l'objet.
 
-• ``date_creation`` : date du jour ou laisser vide.
+â€¢ ``date_creation`` : date du jour ou laisser vide.
 
-• ``date_maj`` : laisser vide.
+â€¢ ``date_maj`` : laisser vide.
 
-• ``active`` : désactive l'affichage d'un objet qui ne renvoie pas de données satellite. 
+â€¢ ``active`` : dÃ©sactive l'affichage d'un objet qui ne renvoie pas de donnÃ©es satellite. 
 
-Attention mettre ``0`` ne signifie pas que l'objet sera désactivé du site pour toujours mais qu'il n'y apparaît plus tant que de nouvelles données satellites ne sont pas disponibles.
+Attention mettre ``0`` ne signifie pas que l'objet sera dÃ©sactivÃ© du site pour toujours mais qu'il n'y apparaÃ®t plus tant que de nouvelles donnÃ©es satellites ne sont pas disponibles.
 
-Si des données correspondantes au collier sont de nouveau transmises l'objet sera réactivé automatiquement.
+Si des donnÃ©es correspondantes au collier sont de nouveau transmises l'objet sera rÃ©activÃ© automatiquement.
 
-Ensuite, insérez 4 nouvelles entrées dans la table objects_features (une entrée par champ ``nom_prop``) :
+Ensuite, insÃ©rez 4 nouvelles entrÃ©es dans la table objects_features (une entrÃ©e par champ ``nom_prop``) :
 
-• ``id_tracked_objects`` : correspond à l'identifiant numérique du collier (sans le T5HS- devant)
+â€¢ ``id_tracked_objects`` : correspond Ã  l'identifiant numÃ©rique du collier (sans le T5HS- devant)
 
-• ``nom_prop`` : peut avoir 4 différentes valeur :
+â€¢ ``nom_prop`` : peut avoir 4 diffÃ©rentes valeur :
 
 - ``couleurD`` : couleur de la boucle sur l'oreille droite,
 
 - ``couleurG`` : couleur de la boucle sur l'oreille gauche,
 
-- ``naissance`` : année de naissance
+- ``naissance`` : annÃ©e de naissance
 
 - ``sexe``
 
-• ``valeur_prop`` : valeur selon ``nom_prop`` :
+â€¢ ``valeur_prop`` : valeur selon ``nom_prop`` :
 
-- ``couleurD`` ou ``couleurG`` : couleur héxadecimale précédée de # (ex : #FF4574)
+- ``couleurD`` ou ``couleurG`` : couleur hÃ©xadecimale prÃ©cÃ©dÃ©e de # (ex : #FF4574)
 
-- ``naissance`` : année au format numérique (ex : 2010)
+- ``naissance`` : annÃ©e au format numÃ©rique (ex : 2010)
 
 - ``sexe`` : F ou M
 
-Il ne reste plus qu'à faire un import manuel des données existantes si des données ont déjà été transmises après la pose du collier sur l'objet traqué.
+Il ne reste plus qu'Ã  faire un import manuel des donnÃ©es existantes si des donnÃ©es ont dÃ©jÃ  Ã©tÃ© transmises aprÃ¨s la pose du collier sur l'objet traquÃ©.
 
-Ces données se trouvent dans le répertoire ``/tmp/csv`` dans les fichier TXT.
+Ces donnÃ©es se trouvent dans le rÃ©pertoire ``/tmp/csv`` dans les fichier TXT.
 
-Il faut donc exécuter le script http://mon-domaine.com/controler/import_imap_csv. Les données sont importées dans la table ``gps_data``.
+Il faut donc exÃ©cuter le script http://mon-domaine.com/controler/import_imap_csv. Les donnÃ©es sont importÃ©es dans la table ``gps_data``.
 
-Il se peut que le fichier contienne des données avant la pose du collier, il faut donc éxecuter dans MYSQL la requête suivante :
+Il se peut que le fichier contienne des donnÃ©es avant la pose du collier, il faut donc Ã©xecuter dans MYSQL la requÃªte suivante :
 
-	::
-		DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
+::
+
+	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
 		
-CAS n°2 : Ajout d'un nouvel objet dont le collier a déjà été utilisé sur un autre objet
+CAS nÂ°2 : Ajout d'un nouvel objet dont le collier a dÃ©jÃ  Ã©tÃ© utilisÃ© sur un autre objet
 =======================================================================================
 
-Si le collier a déjà été utilisé il convient de supprimer toutes les données antérieures à la nouvelle date de pose pour le collier.
+Si le collier a dÃ©jÃ  Ã©tÃ© utilisÃ© il convient de supprimer toutes les donnÃ©es antÃ©rieures Ã  la nouvelle date de pose pour le collier.
 
-	::
-		DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
+::
+
+	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
 		
-Si vous souhaitez conserver les données de l'ancien objet, vous pouvez effectuer la requête suivante :
+Si vous souhaitez conserver les donnÃ©es de l'ancien objet, vous pouvez effectuer la requÃªte suivante :
 
-	::
-		UPDATE `gps_data` SET `id_tracked_objects` = 'id_objet_O' WHERE `id_tracked_objects` = 'id_objet';
+::
+
+	UPDATE `gps_data` SET `id_tracked_objects` = 'id_objet_O' WHERE `id_tracked_objects` = 'id_objet';
 		
-Ensuite reprenez les étapes du cas n°1.
+Ensuite reprenez les Ã©tapes du cas nÂ°1.
 
-CAS n°3 : Un objet change de collier
+CAS nÂ°3 : Un objet change de collier
 ====================================
 
-Modifiez l'identifiant du collier dans la table ``tracked_objects``, pour ceci vous avez juste à éditer la ligne avec l'id souhaité.
+Modifiez l'identifiant du collier dans la table ``tracked_objects``, pour ceci vous avez juste Ã  Ã©diter la ligne avec l'id souhaitÃ©.
 
-Par la suite, modifiez l'identifiant du collier dans la table ``objects_features``, vous devez éditer 4 lignes comme dans le cas n°1.
+Par la suite, modifiez l'identifiant du collier dans la table ``objects_features``, vous devez Ã©diter 4 lignes comme dans le cas nÂ°1.
 
-Sinon, tapez la requête suivante :
+Sinon, tapez la requÃªte suivante :
 
-	::
-		UPDATE `objects_features` SET `id_tracked_objects` = 'id_ancien_collier' WHERE `id_tracked_objects` = 'id_nouveau_collier';
+::
+
+	UPDATE `objects_features` SET `id_tracked_objects` = 'id_ancien_collier' WHERE `id_tracked_objects` = 'id_nouveau_collier';
 		
-Enfin, supprimez les données datant d'avant la pose du collier :
+Enfin, supprimez les donnÃ©es datant d'avant la pose du collier :
 
-	::
-		DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
+::
+
+	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier' AND `dateheure` > 'date_de_pose';
 		
-Très important, si vous souhaitez conserver les anciennes données de l'objet, tapez la requête suivante :
+TrÃ¨s important, si vous souhaitez conserver les anciennes donnÃ©es de l'objet, tapez la requÃªte suivante :
 
-	::
-		UPDATE `gps_data` SET `id_tracked_objects` = 'id_ancien_collier' WHERE `id_tracked_objects` = 'id_nouveau_collier';
+::
+
+	UPDATE `gps_data` SET `id_tracked_objects` = 'id_ancien_collier' WHERE `id_tracked_objects` = 'id_nouveau_collier';
 		
-Mais si vous souhaitez les supprimer, privilégiez plutôt la requête suivante :
+Mais si vous souhaitez les supprimer, privilÃ©giez plutÃ´t la requÃªte suivante :
 
-	::
-		DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_ancien_collier';
+::
+
+	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_ancien_collier';
 		
-Tout comme dans le cas n°1, si vous voulez importer des données existantes, exécutez le script suivant : http://mon-domaine.com/controler/import_imap_csv.
+Tout comme dans le cas nÂ°1, si vous voulez importer des donnÃ©es existantes, exÃ©cutez le script suivant : http://mon-domaine.com/controler/import_imap_csv.
 
-CAS n°4 : Ne plus afficher un objet
+CAS nÂ°4 : Ne plus afficher un objet
 ===================================
 
-2 solutions s'offrent à vous :
+2 solutions s'offrent Ã  vous :
 
-- Vous voulez conserver les anciennes données :
+- Vous voulez conserver les anciennes donnÃ©es :
 
 Il suffit pour cela de renommer l'identifiant dans la table ``tracked_objects``.
 
-Et après il faut mettre le champ ``active`` à ``0``.
+Et aprÃ¨s il faut mettre le champ ``active`` Ã  ``0``.
 
-- Vous souhaitez supprimer définitivement les données :
+- Vous souhaitez supprimer dÃ©finitivement les donnÃ©es :
 
-Exécutez les requêtes suivantes :
+ExÃ©cutez les requÃªtes suivantes :
 
-	::
-		DELETE FROM `tracked_objects` WHERE `id` = 'id_collier';
-		DELETE FROM `objects_features` WHERE `id_tracked_objects` = 'id_collier';
-		DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier';
+::
+
+	DELETE FROM `tracked_objects` WHERE `id` = 'id_collier';
+	DELETE FROM `objects_features` WHERE `id_tracked_objects` = 'id_collier';
+	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_collier';
