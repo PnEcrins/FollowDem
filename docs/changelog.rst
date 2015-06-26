@@ -2,16 +2,21 @@
 CHANGELOG
 =========
 
-0.3.0 (unreleased)
+0.4.0 (unreleased)
 ------------------
 
 **Nouvelles fonctionnalités**
 
-- 
+-
 
-**Corrections de bug**
+0.3.0 (2015-06-26)
+------------------
 
-- 
+**Nouvelles fonctionnalités**
+
+- Généricité des pages d'info de l'application (dans /template/pages/fr/)
+- Documentation de la Gestion des données
+- Evolution des développements sur l'administration (formulaire LOGIN, connexion à la BDD, composants JQUERY UI...)
 
 0.2.0 (2015-06-22)
 ------------------
