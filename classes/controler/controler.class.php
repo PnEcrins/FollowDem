@@ -223,7 +223,7 @@ class controler
 			{
 				if(strstr($message->getSubject(),'Tellus data from') !== false)
 				{
-					echo $line.'1 message trouve concernant FollowDem'; 
+					echo $line.'1 message trouve concernant Bouquetins'; 
 					$attachements = $message->getAttachments();
 					if($attachements !== false)
 					{
@@ -241,7 +241,7 @@ class controler
 				}
 			}
 			echo $line.'Boîte email vidangée !';
-			//$imap->expunge(); //on supprime les emails traités
+			$imap->expunge(); //on supprime les emails traités
 		}	
 			
 			
@@ -304,7 +304,7 @@ class controler
 									
 									echo $line.'Envoi email pour informer de la non récupération du non, non concordance des données';
 									//On envoi un email pour informer de l'ajout nécessaire de l'id/nom
-									$corps = "<html><head><meta http-equiv= \"content-type\" content=\"text/html; charset=UTF-8\"></head><body><h3>Notification application FollowDem</h3>
+									$corps = "<html><head><meta http-equiv= \"content-type\" content=\"text/html; charset=UTF-8\"></head><body><h3>Notification application Bouquetins</h3>
 									<p>Un nouvel identifiant (".$id.") a été reconnu lors de l'import automatique.</p>
 									<p>Il est nécessaire de renseigner son nom dans le fichier de configuration (config/config.php - 'csv_nom_tracked_objects') pour finaliser l'import de donnée.</p>
 									<p>Les données sont conservées. Une fois le nom renseigné dans le tableau l'import sera effectuée lors de la prochaine automatisation.
