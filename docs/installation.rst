@@ -150,3 +150,22 @@ Le cache est sauvegardé dans deux dossiers différents : ``/templates_c`` et ``
 
 Lorsque vous effectuez des modifications dans l'application, il se peut que les changements ne se soient pas enregistrés dans les dossiers de cache.
 Pour voir ces modifications appliquées, il vous faudra vider les dossiers ``/templates_c`` et ``/cache``.
+
+Afin que le cache fonctionne correctement, il est nécessaire de modifier les droits de leurs répertoires, pour ceci, tapez les commandes suivantes dans la console :
+
+::
+	
+	chmod 775 -R cache/
+	chmod 775 -R templates_c/
+
+	
+Gestion des droits
+==================
+
+Si vous rencontrez des problèmes lors de l'exécution du script d'import des csv (cf ``configuration.rst``), ceci vient des droits sur le fichier ``tracked_objects.csv``.
+
+Il faut que vous exécutiez la commande suivante :
+
+::
+
+	chmod 664 -R csv/
