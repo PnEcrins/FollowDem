@@ -33,21 +33,16 @@ Ensuite, insérez 4 nouvelles entrées dans la table ``objects_features`` (une e
 
 • ``nom_prop`` : peut avoir 4 valeurs différentes :
 
-- ``couleurD`` : couleur de la boucle sur l'oreille droite,
-
-- ``couleurG`` : couleur de la boucle sur l'oreille gauche,
-
-- ``naissance`` : année de naissance
-
-- ``sexe`` : M ou F
+	- ``couleurD`` : couleur de la boucle sur l'oreille droite,
+	- ``couleurG`` : couleur de la boucle sur l'oreille gauche,
+	- ``naissance`` : année de naissance
+	- ``sexe`` : M ou F
 
 • ``valeur_prop`` : valeur selon ``nom_prop`` :
 
-- ``couleurD`` ou ``couleurG`` : couleur héxadecimale précédée de # (ex : #FF4574)
-
-- ``naissance`` : année au format numérique (ex : 2010)
-
-- ``sexe`` : F ou M
+	- ``couleurD`` ou ``couleurG`` : couleur héxadecimale précédée de # (ex : #FF4574)
+	- ``naissance`` : année au format numérique (ex : 2010)
+	- ``sexe`` : F ou M
 
 Il ne reste plus qu'à lancer un import des données existantes si des données ont déjà été transmises après la pose de l'émetteur GPS sur l'objet traqué.
 
