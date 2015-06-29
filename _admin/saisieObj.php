@@ -18,6 +18,7 @@ $id = "";
 $valueJourCreation = "";
 $valueHeureCreation = "";
 $modif = "";
+$input_type = "text";
 
 // Lorsque l'on arrive par le bouton modifier
 if(!isset($_GET['btModifier']) && ($_GET['btModifier'] == "")){
@@ -86,7 +87,7 @@ else{
 			}
 		}
 	}
-	$desactive = "readonly";
+	$input_type = "hidden";
 	$msgPopover = "";
 }
 
@@ -188,11 +189,16 @@ if(isset($_POST['btEnregistrer'])){
 	
 	// Traitement des modifications d'un objet
 	else{
-		if(isset($_POST['objId']) && isset($_POST['objNom']) && isset($_POST['objJourCreation']) && isset($_POST['objHeureCreation']) && isset($_POST['objActive']) && !empty($_POST['objId']) && !empty($_POST['objNom']) && !empty($_POST['objJourCreation']) && !empty($_POST['objHeureCreation']) && !empty($_POST['objActive']) && isset($_POST['objId']) && isset($_POST['propValeur1']) && isset($_POST['propValeur2']) && isset($_POST['propValeur3']) && isset($_POST['propValeur4']) && !empty($_POST['objId']) && !empty($_POST['propValeur1']) && !empty($_POST['propValeur2']) && !empty($_POST['propValeur3']) && !empty($_POST['propValeur4'])){
+		if(isset($_POST['objId']) && isset($_POST['objNom'])  && isset($_POST['objActive']) && !empty($_POST['objId']) && !empty($_POST['objNom']) && !empty($_POST['objActive']) && isset($_POST['propValeur1']) && isset($_POST['propValeur2']) && isset($_POST['propValeur3']) && isset($_POST['propValeur4']) && !empty($_POST['propValeur1']) && !empty($_POST['propValeur2']) && !empty($_POST['propValeur3']) && !empty($_POST['propValeur4'])){
 			
 			$objId = $_POST['objId'];
 			$objNom = $_POST['objNom'];
-			$objDateCreation = $_POST['objJourCreation']." ".$_POST['objHeureCreation'];
+			if(isset($_POST['objJourCreation']) && isset($_POST['objHeureCreation']) && !empty($_POST['objJourCreation']) && !empty($_POST['objHeureCreation'])) {
+				$objDateCreation = $_POST['objJourCreation']." ".$_POST['objHeureCreation'];
+			}
+			else{
+				$objDateCreation = null;
+			}
 			$objDateMaj = date('Y-m-d')." ".date('h:i:s');
 			$objActive = $_POST['objActive'];
 			
@@ -214,6 +220,7 @@ if(isset($_POST['btEnregistrer'])){
 				'id' => $objId
 				)
 			);
+			print_r($requeteModifObj); exit;
 			// Traitement des modifications des propriétés d'un objet
 			$propIdObj = $_POST['objId'];
 			$propNom1 = "naissance";
@@ -267,21 +274,26 @@ if(isset($_POST['btEnregistrer'])){
 }
 ?>
 <div id="decale"  class="text-center">
-	<div class="jumbotron"><h2><?php echo("$titre"); ?></h2></div>
+	<div class="jumbotron"><h2><?php echo $titre; ?></h2></div>
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div id="message" class="<?php echo $msgClass; ?> col-md-6"> <?php echo $message; ?></div>
 		<div class="col-md-3"></div>
 	</div>
 	<form class="form-horizontal" name="monForm" action="saisieObj.php" method="POST">
-		<div class="form-group">
-			<div class="col-md-2"></div>
-			<label class="col-md-2 control-label" for="objId">Id</label>
-			<div class="col-md-4">				
-				<input class="form-control"  <?php echo $desactive; ?> type="text" placeholder="<?php echo $placeholderId; ?>" name="objId" id="objId" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="<?php echo $msgPopover; ?>">
+		<?php if($input_type=="text"){ ?>
+			<div class="form-group">
+				<div class="col-md-2"></div>
+				<label class="col-md-2 control-label" for="objId">Id</label>
+				<div class="col-md-4">			
+					<input class="form-control"  type="text" placeholder="<?php echo $placeholderId; ?>" name="objId" id="objId" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="<?php echo $msgPopover; ?>">
+				</div>
+				<div class="col-md-3"></div>
 			</div>
-			<div class="col-md-3"></div>
-		</div>
+		<?php }
+		else{?>
+			<input type="hidden" name="objId" id="objId" value="<?php echo $id; ?>" >
+		<?php } ?>
 		<div class="form-group">
 			<div class="col-md-2"></div>
 			<label class="col-md-2 control-label" for="objNom">Nom</label>

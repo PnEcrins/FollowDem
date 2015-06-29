@@ -6,7 +6,7 @@
 *	
 */
 
-$lang['titre'] = 'FollowDem';
+$lang['titre'] = 'Bouquetins des Écrins';
 
 
 
