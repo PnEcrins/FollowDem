@@ -19,3 +19,4 @@ cp images/img3sousItemb.jpg.sample images/img3sousItemb.jpg
 cp images/img4itemb.jpg.sample images/img4itemb.jpg
 cp images/logo.jpg.sample images/logo.jpg
 cp images/logo.png.sample images/logo.png
+cp favicon.ico.sample favicon.ico
