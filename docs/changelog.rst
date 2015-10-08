@@ -5,9 +5,14 @@ CHANGELOG
 0.4.0 (unreleased)
 ------------------
 
-**Nouvelles fonctionnalités**
+**New features**
 
--
+- US language file added
+- Generic favicon
+
+**Documentation**
+
+- Update data management documentation
 
 0.3.0 (2015-06-26)
 ------------------
