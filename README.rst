@@ -8,6 +8,7 @@ This application is used by the Ecrins national Park to follow ibex : `<http://b
 .. image :: docs/img/screenshot-bouquetins-pne.jpg
     :target: http://bouquetins.ecrins-parcnational.fr
 
+    
 French version of this presentation : `<https://github.com/PnEcrins/FollowDem/blob/master/README-fr.rst>`_
     
 Technologies
@@ -25,7 +26,7 @@ Technologies
 Presentation
 ------------
 
-**General principle** : 
+**General principles** : 
 
 This application allows to track position of several objects (animals, bus...) equipped with a GPS.
 
@@ -35,13 +36,13 @@ Then the application download these GPS positions to upload them in the MySQL da
 
 A task (``import_imap_csv`` in file ``/classes/controler/controler.class.php``) is executing these steps : 
 
-- Connect to this mailbox and to extract the TXT files attached to emails
-- Copy these TXT files in the directory ``tmp/csv``
-- Delete emails once TXT files are copied on FollowDem server
-- Import new positions of all objects (if these ones are already in the database with a common ID) in a CSV file (``/csv/tracked_objects.csv``)
-- Delete the TXT temporaries TXT files once their content has been included in the CSV file
-- Import new positions in the MySQL database from the file ``/csv/tracked_objects.csv``
-- Empty file ``/csv/tracked_objects.csv``
+- Connecting to this mailbox and extracting the TXT files attached to emails
+- Copying these TXT files in the directory ``tmp/csv``
+- Deleting emails once TXT files are copied on FollowDem server
+- Importing new positions of all objects (if these ones are already in the database with a common ID) in a CSV file (``/csv/tracked_objects.csv``)
+- Deleting the TXT temporaries TXT files once their content has been included in the CSV file
+- Importing new positions in the MySQL database from the file ``/csv/tracked_objects.csv``
+- Emptying file ``/csv/tracked_objects.csv``
 
 This task can be executed manually or with a CRON launched automatically and regulary. 
 
@@ -55,15 +56,19 @@ Other ways to fill this CSV could be considered :
 Try it at `<http://bouquetins.ecrins-parcnational.fr>`_.
 
 It includes a list of tracked objects, the map of tracked objects, a tool to select data duration. 
+
 When you click on an objects on map, click on "Voir le parcours" to show his recent travel. Then you can change duration (last 15, 30, 60, 90, 120... days). 
+
 You can also click on one position to view the day and hour, altitude and temperature. 
 
 All datas are collected in real-time and automatically from GPS positions of each ibex. 
 
 Our aim with this application was to do something very easy to use for everyone (schools, tourists, scientifics, curious...) that want to understand how ibex are moving. 
+
 We have another internal tool with more functionalities for our scientific program. 
 
 We learnt a lot with this GPS program. Here is just an example of an ibex that travelled to Italia : http://www.ecrins-parcnational.fr/actualite/un-bouquetin-des-cerces-en-italie
+
 Scientific program explanations : http://www.ecrins-parcnational.fr/actualite/des-bouquetins-geolocalises
 
 Installation
