@@ -13,13 +13,13 @@ Vous devez disposer d'un serveur ou d'un hébergement mutualisé avec MySQL, PHP
 
 Si vous avez la main sur le serveur, cette documentation vous aidera à sa mise en place.
 
-Si vous disposez d'un hébergement mutualisé, le serveur doit être prêt à l'utilisation (avec MySQL, PHP 5.4 et Apache2), passez alors directement à  :ref:`la rubrique INSTALLATION <installation-section>`.
+Si vous disposez d'un hébergement mutualisé, le serveur doit être prêt à l'utilisation (avec MySQL, PHP 5.4 et Apache2), passez alors directement à  la rubrique INSTALLATION.
 
 * Ressources minimales du serveur :
 
 Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
 
-* Disposer d'un utilisateur linux (nommé ``followdem`` dans cette exemple et dont le répertoire est ainsi dans ``/home/followdem/``
+* Disposer d'un utilisateur linux (nommé ``followdem`` dans cette exemple et dont le répertoire est ainsi dans ``/home/followdem/``)
 
   :: 
     
