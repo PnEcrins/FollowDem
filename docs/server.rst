@@ -26,7 +26,7 @@ Un serveur disposant d'au moins de 1 Go RAM et de 10 Go d'espace disque.
         sudo adduser --home /home/followdem followdem
 
 
-* Récupérer le zip de l'application sur le Github du projet (`X.Y.Z à remplacer par le numéro de version souhaité <https://github.com/mPnEcrins/FollowDem/releases>`_) et dézippez le dans le répertoire de l'utilisateur linux : 
+* Récupérer le zip de l'application sur le Github du projet (`X.Y.Z à remplacer par le numéro de version souhaité <https://github.com/mPnEcrins/FollowDem/releases>`_) et dézippez le dans le répertoire ``/tmp`` puis copiez le dans le répertoire de l'utilisateur linux : 
 
   ::
     
