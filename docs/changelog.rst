@@ -13,6 +13,7 @@ CHANGELOG
 **Documentation**
 
 - Update data management documentation
+- Few details in installation documentation
 
 0.3.0 (2015-06-26)
 ------------------
