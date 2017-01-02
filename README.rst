@@ -93,5 +93,5 @@ Licence
 * Copyright (c) 2015 - Parc National des Écrins
 
 
-.. image:: http://pnecrins.github.io/GeoNature/img/logo-pne.jpg
+.. image:: http://geonature.fr/img/logo-pne.jpg
     :target: http://www.ecrins-parcnational.fr
