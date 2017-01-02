@@ -1,7 +1,7 @@
 =======
 SERVEUR
 =======
-.. image:: http://geotrek.fr/images/logo-pne.png
+.. image:: http://geonature.fr/img/logo-pne.jpg
     :target: http://www.ecrins-parcnational.fr
     
 
