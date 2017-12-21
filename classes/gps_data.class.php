@@ -7,12 +7,11 @@
 *	
 */
 
-
 class gps_data
 {
-
+	
 	protected 	$id		 				= 0;
-	protected 	$id_tracked_objects 				= 0;
+	protected 	$ref_device 			= 0;
 	protected 	$dateheure 				= null;
 	protected 	$latitude 				= 0;
 	protected 	$longitude 				= 0;
@@ -33,9 +32,9 @@ class gps_data
 	{
 		$this->id = $id;
 	}
-	public function set_id_tracked_objects($id_tracked_objects)
+	public function set_id_animal($id_animal)
 	{
-		$this->id_tracked_objects = $id_tracked_objects;
+		$this->id_animal = $id_animal;
 	}
 	public function set_dateheure($dateheure)
 	{
@@ -66,9 +65,9 @@ class gps_data
 	{
 		return $this->id;
 	}
-	public function get_id_tracked_objects()
+	public function get_id_animal()
 	{
-		return $this->id_tracked_objects;
+		return $this->id_animal;
 	}
 	public function get_dateheure()
 	{
@@ -130,12 +129,12 @@ class gps_data
 	private function load()
 	{
 		$db=db::get();
-		$rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'gps_data where id = ?');
+		$rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'v_gps_animal where id = ?');
 		$rql->execute(array($this->get_id()));
 		if($result = $rql->fetchObject())
 		{
 			$this->set_id($result->id);
-			$this->set_id_tracked_objects($result->id_tracked_objects);
+			$this->set_id_animal($result->id_animal);
 			$this->set_dateheure($result->dateheure);
 			$this->set_latitude($result->latitude);
 			$this->set_longitude($result->longitude);
@@ -153,11 +152,13 @@ class gps_data
 	* 	@return  boolean
 	* 	@param
 	*/
+
+	
 	private function exist($update=false)
 	{
 		$db=db::get();
-		$rqe = $db->prepare('SELECT count(id) as nb,id_tracked_objects,dateheure FROM '.config::get('db_prefixe').'gps_data where id_tracked_objects = ? AND dateheure = ?');
-		$rqe->execute(array($this->get_id_tracked_objects(), $this->get_dateheure_bdd()));
+		$rqe = $db->prepare('SELECT count(id) as nb,id_animal,dateheure FROM '.config::get('db_prefixe').'gps_data where id_animal = ? AND dateheure = ?');
+		$rqe->execute(array($this->get_id_animal(), $this->get_dateheure_bdd()));
 		
 		$results = $rqe->fetchObject();
 		if ($results===false || $results->nb == 0) 
@@ -177,14 +178,14 @@ class gps_data
 	{
 		$db=db::get();
 		$rqi = $db->prepare('INSERT INTO '.config::get('db_prefixe').'gps_data VALUES(?,?,?,?,?,?,?,?)');
-		$rqi->execute(array($this->get_id(),$this->get_id_tracked_objects(),$this->get_dateheure_bdd(),$this->get_latitude(),$this->get_longitude(),$this->get_temperature(),$this->get_nb_satellites(),$this->get_altitude()));
+		$rqi->execute(array($this->get_id(),$this->get_id_animal(),$this->get_dateheure_bdd(),$this->get_latitude(),$this->get_longitude(),$this->get_temperature(),$this->get_nb_satellites(),$this->get_altitude()));
 		if ($rqi->rowCount() === 0)
 		{
-			trace::add("ERREUR ajout gps_data id=".$this->get_id_tracked_objects().' - id_tracked_objects :'.$this->get_id_tracked_objects());
+			trace::add("ERREUR ajout gps_data id=".$this->get_id_animal().' - id_animal :'.$this->get_id_animal());
 		}
 		else
 		{
-			trace::add("Ajout gps_data id=".$this->get_id_tracked_objects().' - id_tracked_objects :'.$this->get_id_tracked_objects());
+			trace::add("Ajout gps_data id=".$this->get_id_animal().' - id_animal :'.$this->get_id_animal());
 		}
 	}
 	
@@ -197,14 +198,14 @@ class gps_data
 	private function update()
 	{
 		$db=db::get();
-		$rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'gps_data SET id_tracked_objects=?,dateheure=?,latitude=?,longitude=?,temperature=?,nb_satellite=?,altitude=? WHERE id=?');
-		$rqu->execute(array($this->get_id_tracked_objects(),$this->get_dateheure_bdd(),$this->get_latitude(),$this->get_longitude(),$this->get_temperature(),$this->get_nb_satellites(),$this->get_altitude(),$this->get_id()));
+		$rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'gps_data SET id_animal=?,dateheure=?,latitude=?,longitude=?,temperature=?,nb_satellite=?,altitude=? WHERE id=?');
+		$rqu->execute(array($this->get_id_animal(),$this->get_dateheure_bdd(),$this->get_latitude(),$this->get_longitude(),$this->get_temperature(),$this->get_nb_satellites(),$this->get_altitude(),$this->get_id()));
 		
 		if ($rqu->rowCount() === 0){
-			trace::add("ERREUR update gps_data id=".$this->get_id().'--'.$this->get_id_tracked_objects());
+			trace::add("ERREUR update gps_data id=".$this->get_id().'--'.$this->get_id_animal());
 		}
 		else {		
-			trace::add("update gps_data id=".$this->get_id().'--'.$this->get_id_tracked_objects());
+			trace::add("update gps_data id=".$this->get_id().'--'.$this->get_id_animal());
 		}
 	}
 	/**
@@ -217,38 +218,38 @@ class gps_data
 	{
 		$db=db::get();
 		$rqd = $db->prepare('DELETE FROM '.config::get('db_prefixe').'gps_data WHERE id=?');
-		$rqd->execute(array($this->get_id_tracked_objects(),$this->get_nom_prop()));
+		$rqd->execute(array($this->get_id_animal(),$this->get_nom_prop()));
 		if ($rqd->rowCount() === 0){
-			trace::add("ERREUR Suppression gps_data id=".$this->get_id().'--'.$this->get_id_tracked_objects());
+			trace::add("ERREUR Suppression gps_data id=".$this->get_id().'--'.$this->get_id_animal());
 		}
 		else {
-			trace::add("Suppression gps_data id=".$this->get_id().'--'.$this->get_id_tracked_objects());
+			trace::add("Suppression gps_data id=".$this->get_id().'--'.$this->get_id_animal());
 		}
 	}
 	
 	
 	/**
-	* 	Charge toutes les données de l'objet si $id_tracked_objects retourne un tableau d'objets et de propriétés
-	*	Attention si $id_tracked_objects = 0 - Chargements et requêtes peuvent être longs !
+	* 	Charge toutes les données de l'objet si $id_animal retourne un tableau d'objets et de propriétés
+	*	Attention si $id_animal = 0 - Chargements et requêtes peuvent être longs !
 	* 	@access  static
 	* 	@return  array
-	* 	@param	id_tracked_objects, order
+	* 	@param	id_animal, order
 	*/
 	
-	static function load_all($id_tracked_objects=0,$order='nom_prop')
+	static function load_all($id_animal=0,$order='nom_prop')
 	{
 		$db=db::get();
 		$tmp_gps_data = array();
 		
-		if($id_tracked_objects===0)
+		if($id_animal===0)
 		{
 			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data ORDER BY '.$order);
 			$rqs->execute();
 		}
 		else
 		{
-			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'objects_features where id_tracked_objects = ? ORDER BY '.$order);			
-			$rqs->execute(array($id_tracked_objects));
+			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'objects_features where id_animal = ? ORDER BY '.$order);			
+			$rqs->execute(array($id_animal));
 		}
 		while($result = $rqs->fetchObject())
 			$tmp_gps_data[] = new objects_features($result->id);
@@ -258,13 +259,13 @@ class gps_data
 	
 	/**
 	* 	Charge toutes les données entre 2 dates ou la dernière date
-	*	Attention si $id_tracked_objects = 0 - Chargements et requêtes peuvent être longs !
+	*	Attention si $id_animal = 0 - Chargements et requêtes peuvent être longs !
 	* 	@access  static
 	* 	@return  array
-	* 	@param	id_tracked_objects, date_deb, date_fin, last_gps_data (dernières données seulement), order, $count_only(compte seulement si des données existent)
+	* 	@param	id_animal, date_deb, date_fin, last_gps_data (dernières données seulement), order, $count_only(compte seulement si des données existent)
 	*/
 	
-	static function load_all_by_date($id_tracked_objects=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='dateheure')
+	static function load_all_by_date($id_animal=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='dateheure')
 	{
 		$db=db::get();
 		$tmp_gps_data = array();
@@ -272,10 +273,10 @@ class gps_data
 		$where = '';
 		$prepare = array();
 		$next = '';
-		if($id_tracked_objects!==0)
+		if($id_animal!==0)
 		{
-			$where.=' id_tracked_objects = ?';
-			$prepare[]=$id_tracked_objects;
+			$where.=' id_animal = ?';
+			$prepare[]=$id_animal;
 			$next = ' AND ';
 		}
 		
@@ -295,20 +296,19 @@ class gps_data
 		}
 		else
 		{
-			$where.= $next.'dateheure IN (SELECT max(dateheure) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.' )';
+			$where.= $next.'dateheure IN (SELECT max(dateheure) FROM '.config::get('db_prefixe').'v_gps_animal WHERE'.$where.' )';
 			$prepare = array_merge($prepare,$prepare);
 		}
 		
 
 		
 		if($count_only === true)
-			$rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
+			$rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'v_gps_animal where '.$where.' ORDER BY '.$order);
 		else
-			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
+			$rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'v_gps_animal where '.$where.' ORDER BY '.$order);
 
-		$rqs->execute($prepare);
 		
-
+		$rqs->execute($prepare);
 
 		if($count_only === true)
 		{
