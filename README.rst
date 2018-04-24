@@ -1,59 +1,82 @@
 FollowDem
 =========
 
-Application web cartographique permettant de suivre le déplacement d'objets équipés d'un GPS. 
+Cartographic web application to track moving objects equipped with a GPS.
 
-Utilisée pour le suivi GPS des bouquetins du Parc national des Ecrins : `<http://bouquetins.ecrins-parcnatonal.fr>`_
+This application is used by the Ecrins national Park to follow ibex : `<http://bouquetins.ecrins-parcnational.fr>`_
 
 .. image :: docs/img/screenshot-bouquetins-pne.jpg
     :target: http://bouquetins.ecrins-parcnational.fr
 
+    
+French version of this presentation : `<https://github.com/PnEcrins/FollowDem/blob/master/README-fr.rst>`_
+    
 Technologies
 ------------
 
-- Langages : PHP, HTML, JS, CSS
-- BDD : MySQL / PDO
-- Serveur : Debian ou Ubuntu
-- Framework carto : `Leaflet <http://leafletjs.com>`_
-- Framework CSS : `Bootstrap <http://getbootstrap.com>`_
+- Languages : PHP, HTML, JS, CSS
+- Database : MySQL / PDO
+- Server : Debian ou Ubuntu
+- Carto framework : `Leaflet <http://leafletjs.com>`_
+- CSS framework : `Bootstrap <http://getbootstrap.com>`_
 - Template : `Bootleaf <https://github.com/bmcbride/bootleaf>`_
-- Gestion des templates et du cache : `Smarty <http://www.smarty.net>`_
-- Fonds rasters : Geoportail, OpenStreetMap, Google Maps, WMS
+- Cache and template management : `Smarty <http://www.smarty.net>`_
+- Base maps : Geoportail, OpenStreetMap, Google Maps, WMS
 
-Présentation
+Presentation
 ------------
 
-**Principe général** : 
+**General principles** : 
 
-L'application permet de suivre la position et le délacement de plusieurs objets équipés d'un GPS. 
+This application allows to track position of several objects (animals, bus...) equipped with a GPS.
 
-Les objets ont chacun un identifiant. Ils transmettent tous leur position GPS à un satellite à intervalles réguliers. 
+Each object has an ID. They all transmit their GPS position to a satellite at regular intervals.
 
-Il faut ensuite récupérer ces positions GPS des objets pour les intégrer dans la base de données MySQL. Pour cela un fichier TXT par position et par objet est envoyé à une boite email.
+Then the application download these GPS positions to upload them in the MySQL database. For that, a TXT file is sent to an electronic mailbox for each object and each position. 
 
-Une tâche (``import_imap_csv`` dans le fichier ``/classes/controler/controler.class.php``) permet de : 
+A task (``import_imap_csv`` in file ``/classes/controler/controler.class.php``) is executing these steps : 
 
-- Se connecter à cette boite email et d'en extraire les fichiers TXT en pièce-jointe des emails
-- Copier ces fichiers TXT dans le répertoire ``tmp/csv``
-- Supprimer les emails une fois les fichiers TXT copiés sur le serveur
-- Importer les nouvelles positions des différents objets (si ceux-ci existent dans la BDD avec un identifiant commun) dans un fichier CSV (``/csv/tracked_objects.csv``)
-- Supprimer les fichiers TXT temporaires une fois qu'ils ont été traités
-- Importer les nouvelles positions dans la BDD MySQL depuis le fichier ``/csv/tracked_objects.csv``
-- Vider le fichier ``/csv/tracked_objects.csv``
+- Connecting to this mailbox and extracting the TXT files attached to emails
+- Copying these TXT files in the directory ``tmp/csv``
+- Deleting emails once TXT files are copied on FollowDem server
+- Importing new positions of all objects (if these ones are already in the database with a common ID) in a CSV file (``/csv/tracked_objects.csv``)
+- Deleting the TXT temporaries TXT files once their content has been included in the CSV file
+- Importing new positions in the MySQL database from the file ``/csv/tracked_objects.csv``
+- Emptying file ``/csv/tracked_objects.csv``
 
-Cette tache peut être lancée manuellement ou par un CRON lancé autmatiquement à intervalle régulier.
+This task can be executed manually or with a CRON launched automatically and regulary. 
 
-D'autres manières de remplir ce CSV pourraient être envisagées : 
+Other ways to fill this CSV could be considered : 
 
-- Remplir directement le fichier CSV automatiquement ou à la main
-- Importer les fichiers TXT dans le répertoire ``tmp/csv`` sans passer par une connection à une boite email.
+- Directly fill the CSV file (automatically or manually)
+- Import TXT files in directory ``tmp/csv`` without connecting to a mailbox
+
+**Demonstration and features**
+
+Try it at `<http://bouquetins.ecrins-parcnational.fr>`_.
+
+It includes a list of tracked objects, the map of tracked objects, a tool to select data duration. 
+
+When you click on an objects on map, click on "Voir le parcours" to show his recent travel. Then you can change duration (last 15, 30, 60, 90, 120... days). 
+
+You can also click on one position to view the day and hour, altitude and temperature. 
+
+All datas are collected in real-time and automatically from GPS positions of each ibex. 
+
+Our aim with this application was to do something very easy to use for everyone (schools, tourists, scientifics, curious...) that want to understand how ibex are moving. 
+
+We have another internal tool with more functionalities for our scientific program. 
+
+We learnt a lot with this GPS program. Here is just an example of an ibex that travelled to Italia : http://www.ecrins-parcnational.fr/actualite/un-bouquetin-des-cerces-en-italie
+
+Scientific program explanations : http://www.ecrins-parcnational.fr/actualite/des-bouquetins-geolocalises
 
 Installation
 ------------
 
-Consulter la documentation :  `<http://followdem.rtfd.org>`_
+Documentation :  `<http://followdem.rtfd.org>`_ (French)
 
-Auteurs
+Authors
 -------
 
 Parc national des Ecrins
@@ -63,12 +86,12 @@ Parc national des Ecrins
 - Gil Deluermoz
 - Camille Monchicourt
 
-License
+Licence
 -------
 
 * OpenSource - BSD
 * Copyright (c) 2015 - Parc National des Écrins
 
 
-.. image:: http://pnecrins.github.io/GeoNature/img/logo-pne.jpg
+.. image:: http://geonature.fr/img/logo-pne.jpg
     :target: http://www.ecrins-parcnational.fr

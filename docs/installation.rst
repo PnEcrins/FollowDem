@@ -1,7 +1,7 @@
 ============
 INSTALLATION
 ============
-.. image:: http://geotrek.fr/images/logo-pne.png
+.. image:: http://geonature.fr/img/logo-pne.jpg
     :target: http://www.ecrins-parcnational.fr
     
 Création des tables de la base de données MySQL
@@ -62,12 +62,42 @@ En ligne de commande
 
   ::
     
-        cd /tmp
-        sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
-        sudo unzip vX.Y.Z.zip
-        sudo mkdir -p /home/followdem/monprojet
-        sudo cp FollowDem-master/* /home/followdem/monprojet
         cd /home/followdem
+        wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
+        unzip vX.Y.Z.zip
+        cd FollowDem-X.Y.Z/
+
+Vous pouvez renommer le répertoire de l'application si vous souhaitez.
+
+Configuration Apache
+====================
+
+Créez un virtualhost pour l'application :
+
+::
+    
+        sudo nano /etc/apache2/sites-available/followdem.conf
+
+Intégrez-y ces lignes en les adaptant à votre serveur : 
+
+::
+    
+        <VirtualHost *:80>
+	   ServerName URLServeur
+	   Alias / "repertoire de l'appli"
+	   <Directory "repertoire de l'appli">
+	       Options Indexes FollowSymLinks
+	       AllowOverride All
+	       Require all granted
+	   </Directory>
+        </VirtualHost>
+
+Activez le virtualhost puis redémarrez Apache :
+
+::
+    
+        sudo a2ensite followdem
+        sudo apachectl restart
 
 Configuration de l'application
 ==============================
@@ -75,15 +105,14 @@ Configuration de l'application
 Créer le répertoire ``/csv`` à la racine de l'application, créer le fichier ``tracked_objects.csv`` à l'intérieur de ce répertoire.
 Ensuite, créer le répertoire ``/csv`` dans le répertoire ``/tmp`` (ce sera ce répertoire qui recevra les fichiers txt contenus dans les pièces jointes des emails envoyés par le satellite).
 
-Copier et renommer le fichier d'exemple de configuration de l'application ``config.php.sample`` en ``config.php``
+Exécutez le script ``install.sh`` qui va copier les différents fichiers exemples : 
     
 ::
 
-        cd /home/followdem/monprojet/config
-        cp config.php.sample config.php
-        cd ..
+        cd /home/followdem/monprojet
+        .install.sh
 
-Editer le fichier ``config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
+Editer alors le fichier ``config/config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
 
 Voir la rubrique CONFIGURATION pour le détail des paramètres.
     
@@ -150,14 +179,6 @@ Le cache est sauvegardé dans deux dossiers différents : ``/templates_c`` et ``
 
 Lorsque vous effectuez des modifications dans l'application, il se peut que les changements ne se soient pas enregistrés dans les dossiers de cache.
 Pour voir ces modifications appliquées, il vous faudra vider les dossiers ``/templates_c`` et ``/cache``.
-
-Afin que le cache fonctionne correctement, il est nécessaire de modifier les droits de leurs répertoires, pour ceci, tapez les commandes suivantes dans la console :
-
-::
-	
-	chmod 775 -R cache/
-	chmod 775 -R templates_c/
-
 	
 Gestion des droits
 ==================
