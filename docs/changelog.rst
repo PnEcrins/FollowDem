@@ -5,6 +5,9 @@ CHANGELOG
 0.4.0 (unreleased)
 ------------------
 
+0.3.1 (2018-04-24)
+------------------
+
 **New features**
 
 - US language file added
@@ -13,7 +16,7 @@ CHANGELOG
 **Documentation**
 
 - Update data management documentation
-- Few details in installation documentation
+- Several additional information in installation documentation
 
 0.3.0 (2015-06-26)
 ------------------
