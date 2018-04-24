@@ -62,12 +62,42 @@ En ligne de commande
 
   ::
     
-        cd /tmp
-        sudo wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
-        sudo unzip vX.Y.Z.zip
-        sudo mkdir -p /home/followdem/monprojet
-        sudo cp FollowDem-master/* /home/followdem/monprojet
         cd /home/followdem
+        wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
+        unzip vX.Y.Z.zip
+        cd FollowDem-X.Y.Z/
+
+Vous pouvez renommer le répertoire de l'application si vous souhaitez.
+
+Configuration Apache
+====================
+
+Créez un virtualhost pour l'application :
+
+::
+    
+        sudo nano /etc/apache2/sites-available/followdem.conf
+
+Intégrez-y ces lignes en les adaptant à votre serveur : 
+
+::
+    
+        <VirtualHost *:80>
+	   ServerName URLServeur
+	   Alias / "repertoire de l'appli"
+	   <Directory "repertoire de l'appli">
+	       Options Indexes FollowSymLinks
+	       AllowOverride All
+	       Require all granted
+	   </Directory>
+        </VirtualHost>
+
+Activez le virtualhost puis redémarrez Apache :
+
+::
+    
+        sudo a2ensite followdem
+        sudo apachectl restart
 
 Configuration de l'application
 ==============================
