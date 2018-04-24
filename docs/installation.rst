@@ -75,15 +75,14 @@ Configuration de l'application
 Créer le répertoire ``/csv`` à la racine de l'application, créer le fichier ``tracked_objects.csv`` à l'intérieur de ce répertoire.
 Ensuite, créer le répertoire ``/csv`` dans le répertoire ``/tmp`` (ce sera ce répertoire qui recevra les fichiers txt contenus dans les pièces jointes des emails envoyés par le satellite).
 
-Copier et renommer le fichier d'exemple de configuration de l'application ``config.php.sample`` en ``config.php``
+Exécutez le script ``install.sh`` qui va copier les différents fichiers exemples : 
     
 ::
 
-        cd /home/followdem/monprojet/config
-        cp config.php.sample config.php
-        cd ..
+        cd /home/followdem/monprojet
+        .install.sh
 
-Editer le fichier ``config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
+Editer alors le fichier ``config/config.php`` pour définir les paramètres de connexion à votre base de données, ainsi que tous les paramètres utiles à une personnalisation de votre application.
 
 Voir la rubrique CONFIGURATION pour le détail des paramètres.
     
@@ -150,14 +149,6 @@ Le cache est sauvegardé dans deux dossiers différents : ``/templates_c`` et ``
 
 Lorsque vous effectuez des modifications dans l'application, il se peut que les changements ne se soient pas enregistrés dans les dossiers de cache.
 Pour voir ces modifications appliquées, il vous faudra vider les dossiers ``/templates_c`` et ``/cache``.
-
-Afin que le cache fonctionne correctement, il est nécessaire de modifier les droits de leurs répertoires, pour ceci, tapez les commandes suivantes dans la console :
-
-::
-	
-	chmod 775 -R cache/
-	chmod 775 -R templates_c/
-
 	
 Gestion des droits
 ==================
