@@ -63,8 +63,8 @@ En ligne de commande
   ::
     
         cd /home/followdem
-        wget https://github.com/PnEcrins/FollowDem/archive/vX.Y.Z.zip
-        unzip vX.Y.Z.zip
+        wget https://github.com/PnEcrins/FollowDem/archive/X.Y.Z.zip
+        unzip X.Y.Z.zip
         cd FollowDem-X.Y.Z/
 
 Vous pouvez renommer le répertoire de l'application si vous souhaitez.
