@@ -90,7 +90,7 @@ Enfin, supprimez les données datant d'avant la pose de l'émetteur GPS (en remp
 
 ::
 
-	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_emetteurGPS' AND `dateheure` > 'date_de_pose';
+	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_emetteurGPS' AND `dateheure` < 'date_de_pose';
 		
 Très important, si vous souhaitez conserver les anciennes données de l'objet, tapez la requête suivante (en remplacant ``id_ancien_emetteurGPS`` et ``id_nouvel_emetteurGPS``) :
 
