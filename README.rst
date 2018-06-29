@@ -89,7 +89,7 @@ Parc national des Ecrins
 Licence
 -------
 
-* OpenSource - BSD
+* OpenSource - GPLv3
 * Copyright (c) 2015 - Parc National des Écrins
 
 
