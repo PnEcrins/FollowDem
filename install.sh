@@ -1,6 +1,6 @@
 #!/bin/bash
-chmod 775 -R cache
-chmod 775 -R templates_c
+chmod -R 775  cache
+chmod -R 775  templates_c
 cp config/config.php.sample config/config.php
 cp templates/pages/fr/page_aide.tpl.html.sample templates/pages/fr/page_aide.tpl.html
 cp templates/pages/fr/info.tpl.html.sample templates/pages/fr/info.tpl.html
