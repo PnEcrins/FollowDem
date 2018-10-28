@@ -1,0 +1,113 @@
+{assign scope="global" var="page_titre" value="monTitre"}
+
+<img src="images/img1sousItem1.jpg" alt="image1" class="img-responsive img-rounded" />
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet turpis massa.
+ Mauris enim lacus, convallis nec interdum at, interdum sit posuere.</p>
+<img alt="image2" src="images/img2sousItem1.jpg" class="img-responsive img-rounded" />
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Morbi molestie eu sem in faucibus. 
+Nulla consequat quam sed lacus ultrices rutrum. 
+Proin lacinia neque sit amet ante lobortis efficitur. 
+Integer aliquet aliquam sed.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Quisque tincidunt, tortor vel sodales cras amet.</p>
+<h3>table name</h3>
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+    <tr>
+      <th>table header</th>
+      <td>table data</td>
+    </tr>
+  </tbody>
+</table>
+<h3>mon titre h3</h3>
+<img alt="image3" src="images/img2sousItem1.jpg" class="img-responsive img-rounded" />
+<p>Lorem ipsum dolor sit amet, consectetur volutpat. </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Praesent dictum vestibulum nibh, sed sodales ex venenatis nec. 
+Sed eu justo non nibh congue pellentesque. 
+Sed porta turpis duis. </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+In tincidunt suscipit justo non rutrum. 
+Sed id diam a leo porta fermentum a nec sem. 
+Maecenas tortor leo, egestas metus. </p>
+<h3>mon titre h3</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Pellentesque massa ante, luctus vel aliquet finibus, blandit id urna. 
+Sed lectus magna cras amet.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Quisque tristique nullam.</p>
+<img alt="image4" src="images/img2sousItem1.jpg" class="img-responsive img-rounded" />
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Ut rhoncus augue ac lacus luctus ultrices. 
+Nullam a tortor sed enim sollicitudin vestibulum. 
+Maecenas eu leo feugiat, porttitor leo eget, aliquam urna. 
+Vivamus id convallis diam, eget consectetur felis. 
+Ut id urna in elit amet. </p>
+<h3>mon titre h3</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Ut dignissim, nulla non mattis sed. </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Sed aliquam non nulla sit amet dapibus. 
+Fusce vestibulum elit in felis convallis ultrices cras amet. </p>
+
+<h3>mon titre h3</h3>
+<img alt="image5" src="images/img2sousItem1.jpg" class="img-responsive img-rounded" />
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Fusce sed finibus metus. 
+Proin pellentesque, arcu in tincidunt posuere, odio dolor dapibus erat, nec lobortis elit urna eu magna. 
+Etiam vel ex non turpis imperdiet pellentesque quis et dui. 
+Sed et tincidunt eros, id porta posuere. </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Sed porta vestibulum malesuada. 
+Sed tortor turpis, ultrices ut laoreet eu, elementum eget massa. 
+Sed aliquam facilisis ante quis finibus. 
+Mauris feugiat neque non condimentum ullamcorper. 
+Cras consectetur eleifend sollicitudin. 
+Aliquam eu placerat sapien nullam. </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Fusce bibendum massa et massa pretium posuere. </p>

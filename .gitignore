@@ -1,0 +1,12 @@
+cache/*.*
+template_c/*.*
+config/config.php
+templates/pages/fr/*.html
+images/034143.jpg
+images/logo.jpg
+images/logo.png
+images/img1sousItem1.png
+images/img2sousItem1.png
+images/img3sousItem2.png
+images/img4item2.png
+favicon.ico

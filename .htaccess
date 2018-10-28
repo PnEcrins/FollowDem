@@ -1,0 +1,22 @@
+# Disable Multiviews
+#Options -Multiviews -indexes
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteBase /
+	# Acces controler - action
+	RewriteCond %{REQUEST_FILENAME} !-f [OR]
+	RewriteCond %{REQUEST_FILENAME} !-l [OR]
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([a-z]{2})/pages/([a-zA-Z0-1_-]+).html$ index.php?controler=controler&action=get_page&langue=$1&params=page-$2 [NC,L,QSA]
+	RewriteRule ^([a-zA-Z_-]+)/([a-zA-Z_-]+)$ index.php?controler=$1&action=$2 [NC,L,QSA]
+	RewriteRule ^([a-zA-Z_-]+)/([a-zA-Z_-]+)/([a-zA-Z0-9_-]+)$ index.php?controler=$1&action=$2&params=$3 [NC,L,QSA]
+	#RewriteRule ^(.*).html$ index.php [NC,L]
+</IfModule>
+
+#If rewrite mod isn't enabled
+ErrorDocument 404 /index.php?controler=controler&action=error404
+
+
+
+
