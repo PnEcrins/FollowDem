@@ -33,7 +33,7 @@ class Analysis
     {
         if ($id !== 0)
         {
-            $this->set_id($id);
+            $this->setId($id);
             $this->load();
         }
     }
@@ -319,8 +319,8 @@ class Analysis
     private function load()
     {
         $db=db::get();
-        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'analysis where id = ?');
-        $rql->execute(array($this->get_id()));
+        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'analyses where id = ?');
+        $rql->execute(array($this->getId()));
         if($result = $rql->fetchObject())
         {
             $this->setId($result->id);
@@ -442,20 +442,21 @@ class Analysis
      * 	@param	device_id, order
      */
 
-    static function load_all($device_id=0,$order='nom_prop')
+    static function load_all($animal_id=0)
     {
         $db=db::get();
         $tmp_gps_data = array();
 
-        if($device_id===0)
+        if($animal_id===0)
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analysis ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analyses');
             $rqs->execute();
         }
         else
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analysis where device_id = ? ORDER BY '.$order);
-            $rqs->execute(array($device_id));
+            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analyses where device_id in (select device_id from animal_devices where animal_id = ?)');
+            $rqs->execute(array($animal_id));
+            //$rqs->debugDumpParams();
         }
         while($result = $rqs->fetchObject())
             $tmp_gps_data[] = new Analysis($result->id);
@@ -471,18 +472,17 @@ class Analysis
      * 	@param	device_id, date_deb, date_fin, last_gps_data (dernières données seulement), order, $count_only(compte seulement si des données existent)
      */
 
-    static function load_all_by_date($device_id=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='gps_date')
+     static function load_all_by_date($animal_id=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='gps_date')
     {
         $db=db::get();
         $tmp_gps_data = array();
-
         $where = '';
         $prepare = array();
         $next = '';
-        if($device_id!==0)
+        if($animal_id!==0)
         {
-            $where.=' device_id = ?';
-            $prepare[]=$device_id;
+            $where.=' device_id in ( select device_id from animal_devices where animal_id = ?) ';
+            $prepare[]=$animal_id;
             $next = ' AND ';
         }
 
@@ -502,20 +502,18 @@ class Analysis
         }
         else
         {
-            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.' )';
+            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'analyses WHERE'.$where.' )';
             $prepare = array_merge($prepare,$prepare);
         }
 
 
 
         if($count_only === true)
-            $rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'analysis where '.$where.' ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'analyses where '.$where.' ORDER BY '.$order);
         else
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analysis where '.$where.' ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'analyses where '.$where.' ORDER BY '.$order);
 
         $rqs->execute($prepare);
-
-
 
         if($count_only === true)
         {
@@ -526,15 +524,27 @@ class Analysis
         }
         else
         {
-            while($result = $rqs->fetchObject())
-                $tmp_gps_data[] = new Analysis($result->id);
-
-
-            if(count($tmp_gps_data) > 0)
+            while($result = $rqs->fetchObject()){
+                $analysis = new Analysis();
+                $analysis->setId($result->id);
+                $analysis->setDeviceId($result->device_id);
+                $analysis->setGpsDate($result->gps_date);
+                $analysis->setLatitude($result->latitude);
+                $analysis->setLongitude($result->longitude);
+                $analysis->setTemperature($result->temperature);
+                $analysis->setSatNumber($result->sat_number);
+                $analysis->setAltitude($result->altitude);
+                $tmp_gps_data[] = $analysis;
+            }
+            /*
+            if(count($tmp_gps_data)>0) {
+                print_r(count($tmp_gps_data));
                 return $tmp_gps_data;
-            else
+            }else
                 return false;
+            */
         }
+        return $tmp_gps_data;
     }
 
 }

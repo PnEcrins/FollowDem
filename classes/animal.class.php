@@ -200,8 +200,10 @@ class Animal
             $this->setUpdated_at($results->updated_at);
 
             $this->setAttributes(AnimalAttribute::load_all($this->getId()));
-            if($load_gps_data==true)
-                $this->setAnalysis(Analysis::load_all($this->getId()));
+            if($load_gps_data==true) {
+                $data = Analysis::load_all_by_date($this->getId());
+                $this->setAnalysis($data);
+            }
         }
         else
         {
@@ -221,7 +223,20 @@ class Animal
 
         return $tmp_animals;
     }
-
+    /*Charge les données de l'objet sur une période
+        * 	@access  public
+        * 	@return  boolean
+        * 	@param	date_deb,date_fin,intervale(un intervale entre chaque capture de données - 1 donnée par jour par exemple)
+        *
+        */
+    public function load_gps_data_date($date_deb=null,$date_fin=null,$intervale=null)
+    {
+        if($date_deb !== null)
+        {
+            if($date_fin === null){$date_fin = date('Y-m-d H:m:i',time());}
+            $this->setAnalysis(Analysis::load_all_by_date($this->getId(),$date_deb,$date_fin,false));
+        }
+    }
     /**
      * @return null
      */

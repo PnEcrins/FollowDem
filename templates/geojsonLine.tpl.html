@@ -8,10 +8,10 @@
                 "type": "LineString",
                 "coordinates": [{/literal}
 				{assign var=cpt value=1}
-				{assign var=gps_data value=$tracked_objects->get_gps_data()}
+				{assign var=gps_data value=$animal->getAnalysis()}
 				{foreach $gps_data as $data}
-					[{$data->get_longitude()},
-					{$data->get_latitude()}]
+					[{$data->getLongitude()},
+					{$data->getLatitude()}]
 					{if $cpt < count($gps_data)},{/if}
 					{assign var=cpt value=$cpt+1}
 				{/foreach}]	
@@ -19,10 +19,10 @@
             "type": "Feature",
             "properties": {
 {/literal}
-                "nom": "{$tracked_objects->get_nom()}"
+                "nom": "{$animal->getName()}"
 {literal}   },{/literal}
             
-			"id": {$tracked_objects->get_id()}
+			"id": {$animal->getId()}
 {literal} 
 		}
 	]

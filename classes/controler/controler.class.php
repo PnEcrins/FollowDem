@@ -60,7 +60,7 @@ class controler
 		//print_r($animals);
 		
 		/* Initialise le contenu carto lefleat en positionnant les dernières traces */
-		$content = api::leaflet_ini($objets);
+		$content = api::leaflet_ini($animals);
 		
 		/*Assigne smarty*/
 		$this->smarty->assign('content',$content);
@@ -108,7 +108,7 @@ class controler
 		{
 			header('Content-Type: application/json'); 
 			
-			$tracked_objects = new tracked_objects($this->params['id_tracked_objects']);
+			$animal = new Animal($this->params['id_tracked_objects']);
 			
 			if (isset($this->params['periode']) && $this->params['periode'] != '')
 				$periode = $this->params['periode'];
@@ -122,10 +122,8 @@ class controler
 			
 			$d = new DateTime();
 			$d->sub(new DateInterval('P'.$periode.'D'));
-			//echo $d->format('Y-m-d H:m:s');
-			$tracked_objects->load_gps_data_date($d->format('Y-m-d H:m:s'),date('Y-m-d H:m:s'));
-			
-			$this->smarty->assign("tracked_objects",$tracked_objects);
+            $animal->load_gps_data_date($d->format('Y-m-d H:m:s'),date('Y-m-d H:m:s'));
+			$this->smarty->assign("animal",$animal);
 			echo $this->smarty->fetch('geojson'.$type.'.tpl.html');
 		}
 		else

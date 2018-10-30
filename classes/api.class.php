@@ -1,9 +1,9 @@
 <?php
 /**
 *	Classe API 
-* 	Classe permettant l'interface l'IHM... renvoi des données pour l'affichage ou le traitement
+* 	Classe permettant l'interface l'IHM... renvoi des donnï¿½es pour l'affichage ou le traitement
 *	@author Fabien Selles
-*	@copyright Parc National des écrins
+*	@copyright Parc National des ï¿½crins
 *	
 */
 
@@ -57,7 +57,7 @@ class api
 		}
 		$leaflet_ini .='latlng = new L.LatLng('.config::get('leaflet_centrage_initiale',0).','.config::get('leaflet_centrage_initiale',1).');';
 		
-		/* Gestion des pictogrammes utilisés */
+		/* Gestion des pictogrammes utilisï¿½s */
 		foreach(config::get('leaflet_pictos') as $nomvar=>$params)
 		{
 			$leaflet_ini .= 'var '.$nomvar.' = L.icon({';
@@ -90,17 +90,17 @@ class api
 							}).addTo(map);';*/
 		
 		
-		/* Style par defaut pour les tracés */
+		/* Style par defaut pour les tracï¿½s */
 		$leaflet_ini .= 'var styleTrace = '.json_encode(config::get('lefleat_style_trace')).';';
 		
 		
-		/*Création d'un layer pour les direction (flèches) sur le Layer Ligne */
+		/*Crï¿½ation d'un layer pour les direction (flï¿½ches) sur le Layer Ligne */
 		
 		$leaflet_ini .='var geojsonLayerLineGroup = new L.layerGroup();
 		geojsonLayerLineGroup.addTo(map);
 		';
 		
-		/*Création d'un Layer pour les données GeoJson Line */
+		/*Crï¿½ation d'un Layer pour les donnï¿½es GeoJson Line */
 		$leaflet_ini .='
 		var geojsonLayerLine = new L.GeoJSON(null, {
 			style:styleTrace,
@@ -129,7 +129,7 @@ class api
 				/*Initialisation du groupe de layers*/
 				geojsonLayerLineGroup.clearLayers();
 				
-				/*Il peut arriver que le Geojson soit vide ou ne contienne que une coordonnée*/
+				/*Il peut arriver que le Geojson soit vide ou ne contienne que une coordonnï¿½e*/
 				if(latlong.length > 1)
 				{
 					var fleche = new L.polylineDecorator( latlong, {
@@ -147,7 +147,7 @@ class api
 		});
 		/*map.addLayer(geojsonLayerLine);*/';
 		
-		/*Création d'un Layer pour les données GeoJson Points */
+		/*Crï¿½ation d'un Layer pour les donnï¿½es GeoJson Points */
 		$leaflet_ini .='var geojsonLayerPoint = new L.GeoJSON(null, {
 			style:styleTrace,
 			pointToLayer: function (feature, latlng) {
@@ -174,12 +174,12 @@ class api
 		map.addLayer(geojsonLayerPoint);';
 		
 		
-		/*Création d'un Layer pour les données GeoJson Point Derniers emplacement */
+		/*Crï¿½ation d'un Layer pour les donnï¿½es GeoJson Point Derniers emplacement */
 		$leaflet_ini .='var geojsonLayerPointLast = new L.GeoJSON(null);
 		map.addLayer(geojsonLayerPointLast);
 		geojsonLayerPointLast.bringToFront();';
 		
-		/*Affichage du choix des layers disponibles - Fond de carte et layer des données*/
+		/*Affichage du choix des layers disponibles - Fond de carte et layer des donnï¿½es*/
 		$leaflet_ini .='map.addControl(new L.Control.Layers({';
 		foreach($tmp_control_map as $nom=>$value)
 			$leaflet_ini .= '\''.$nom.'\':'.$value.',';
@@ -188,18 +188,18 @@ class api
 		
 		
 		
-		/* Traitement des objets - markers à afficher */
+		/* Traitement des objets - markers ï¿½ afficher */
 		if(count($objets) > 0) {
 			$leaflet_ini .='var markers = {};';
 			foreach($objets as $tracked_objects)
 			{
-				/*On défini les styles pour le point de la dernière position (cercle)*/
+				/*On dï¿½fini les styles pour le point de la derniï¿½re position (cercle)*/
 				
 				
 
 				if (count(config::get('lefleat_style_point_surcharge')) > 0 && $tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')))
 				{
-					$tmp_style = 'var style'.$tracked_objects->get_id(). '='.json_encode(config::get('lefleat_style_point_surcharge')).';';
+					$tmp_style = 'var style'.$tracked_objects->getId(). '='.json_encode(config::get('lefleat_style_point_surcharge')).';';
 					
 					$tmp_style = str_replace(config::get('lefleat_style_point_surcharge','color'),$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')),$tmp_style);
 					$tmp_style = str_replace(config::get('lefleat_style_point_surcharge','fillColor'),$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','fillColor')),$tmp_style);
@@ -218,19 +218,21 @@ class api
 				}
 				else
 				{
-					$leaflet_ini .= 'var style'.$tracked_objects->get_id(). '='.json_encode(config::get('lefleat_style_point_defaut')).';';
+					$leaflet_ini .= 'var style'.$tracked_objects->getId(). '='.json_encode(config::get('lefleat_style_point_defaut')).';';
 				}
-				
-				if(count($tracked_objects->get_gps_data()) > 0)
+				//print_r(count($tracked_objects->getAnalysis()));
+				if(count($tracked_objects->getAnalysis()) > 0)
 				{
+
 					
-					foreach($tracked_objects->get_gps_data() as $gps_data)
+					foreach($tracked_objects->getAnalysis() as $gps_data)
 					{
+					    //print_r($gps_data);
 						//$leaflet_ini .= 'new L.LatLng('.$gps_data->get_latitude().','.$gps_data->get_longitude().');';
-						$leaflet_ini .= 'markers['.$tracked_objects->get_id().'] = L.circleMarker(['.$gps_data->get_latitude().','.$gps_data->get_longitude().'], style'.$tracked_objects->get_id().').addTo(geojsonLayerPointLast);';
-						$leaflet_ini .= 'markers['.$tracked_objects->get_id().'].bindPopup("<p><strong>'.$tracked_objects->get_nom().'</strong><br />'.$gps_data->get_dateheure().'<br /><a id=\"voirparcours'.$tracked_objects->get_id().'\" href=\"#\" onClick=\"active_parcours(false);\"><i class=\"glyphicon glyphicon-map-marker\"></i> Voir le parcours</a></p>");';
-						$leaflet_ini .= 'markers['.$tracked_objects->get_id().'].on(\'click\', function (d) {
-							  active_tracked_objects('.$tracked_objects->get_id().');
+						$leaflet_ini .= 'markers['.$tracked_objects->getId().'] = L.circleMarker(['.$gps_data->getLatitude().','.$gps_data->getLongitude().'], style'.$tracked_objects->getId().').addTo(geojsonLayerPointLast);';
+						$leaflet_ini .= 'markers['.$tracked_objects->getId().'].bindPopup("<p><strong>'.$tracked_objects->getName().'</strong><br />'.$gps_data->getGpsDate().'<br /><a id=\"voirparcours'.$tracked_objects->getId().'\" href=\"#\" onClick=\"active_parcours(false);\"><i class=\"glyphicon glyphicon-map-marker\"></i> Voir le parcours</a></p>");';
+						$leaflet_ini .= 'markers['.$tracked_objects->getId().'].on(\'click\', function (d) {
+							  active_tracked_objects('.$tracked_objects->getId().');
 						});';
 						
 						/*
@@ -252,7 +254,7 @@ class api
 		map.addLayer(marker);
 		
 	
-		marker.bindPopup("<p>Parc National des écrins</p>");*/
+		marker.bindPopup("<p>Parc National des ï¿½crins</p>");*/
 	
 	}
 	
