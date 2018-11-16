@@ -8,6 +8,7 @@ This application is used by the Ecrins national Park to follow ibex : `<http://b
 .. image :: docs/img/screenshot-bouquetins-pne.jpg
     :target: http://bouquetins.ecrins-parcnational.fr
 
+Also used for http://it.marittimemercantour.eu/app-lemed-ibex and http://bouquetins.vanoise-parcnational.fr/.
     
 French version of this presentation : `<https://github.com/PnEcrins/FollowDem/blob/master/README-fr.rst>`_
     
