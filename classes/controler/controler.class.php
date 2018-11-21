@@ -186,7 +186,7 @@ class controler
 	*/
 	protected function import_csv()
 	{
-		tracked_objects::import_csv();
+		Device::import_csv();
 	}
 	
 	

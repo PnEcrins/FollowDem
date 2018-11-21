@@ -444,7 +444,7 @@ class tracked_objects
 					$gps_data		->set_latitude($data[config::get('csv_colonne','latitude')]);
 					$gps_data		->set_longitude($data[config::get('csv_colonne','longitude')]);
 					$gps_data		->set_temperature($data[config::get('csv_colonne','temperature')]);
-					$gps_data		->set_nb_satellites($data[config::get('csv_colonne','nb_satellites')]);
+					$gps_data		->set_nb_satellites($data[config::get('csv_colonne','sat_number')]);
 					$gps_data		->set_altitude($data[config::get('csv_colonne','altitude')]);
 					$tmp_tracked_objects	->set_gps_data(array($gps_data));
 					

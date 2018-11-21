@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Zouhir
+ * User: Zouhair ET-TAOUSY
  * Date: 10/25/18
  * Time: 2:46 PM
  */
@@ -362,20 +362,21 @@ class Analysis
      * 	@return
 
      */
-    private function insert()
+    public function insert()
     {
         $db=db::get();
-        $rqi = $db->prepare('INSERT INTO '.config::get('db_prefixe').'analysis VALUES(?,?,?,?,?,?,?,?)');
+        $rq = 'INSERT INTO '.config::get('db_prefixe').'analyses';
+        $rq .= ' (device_id, gps_date, latitude, longitude, temperature, sat_number, altitude) VALUES(?,?,?,?,?,?,?)';
+        $rqi = $db->prepare($rq);
         $rqi->execute(
             array(
-                $this->get_id(),
-                $this->get_device_id(),
-                $this->get_dateheure_bdd(),
-                $this->get_latitude(),
-                $this->get_longitude(),
-                $this->get_temperature(),
-                $this->get_nb_satellites(),
-                $this->get_altitude())
+                $this->getDeviceId(),
+                $this->getGpsDate(),
+                $this->getLatitude(),
+                $this->getLongitude(),
+                $this->getTemperature(),
+                $this->getSatNumber(),
+                $this->getAltitude())
         );
         if ($rqi->rowCount() === 0)
         {
@@ -385,6 +386,7 @@ class Analysis
         {
             trace::add("Ajout gps_data id=".$this->getId().' - id_device :'.$this->getDeviceId());
         }
+
     }
 
     /**
