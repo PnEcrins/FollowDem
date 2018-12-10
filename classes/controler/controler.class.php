@@ -55,7 +55,6 @@ class controler
 		
 		
 		/*Charge tous les objet actifs et leur dernière donnée*/
-		$objets = tracked_objects::load_all('nom');
         $animals = Animal::load_all('name');
 		//print_r($animals);
 		
@@ -264,18 +263,18 @@ class controler
 							$cpt = 1;
 							
 							//On vérifie si on connait l'identifiant dans le fichier de configuration pour le premier import ou dans la BDD 
-							$rqe = $db->prepare('SELECT count(id) as nb,nom FROM '.config::get('db_prefixe').'tracked_objects where id = ?');
-							$rqe->execute(array($id));
-							$results = $rqe->fetchObject();
+							//$rqe = $db->prepare('SELECT count(id) as nb,nom FROM '.config::get('db_prefixe').'tracked_objects where id = ?');
+							//$rqe->execute(array($id));
+							//$results = $rqe->fetchObject();
 							
-							if (config::get('csv_nom_tracked_objects',$id) != '' || $results->nb == 1)
+							if ($id)
 							{
 								//on a l'identifiant on traite le contenu du fichier
 								
 								//Récupération du nom
-								$name = (config::get('csv_nom_tracked_objects',$id)!='')?config::get('csv_nom_tracked_objects',$id):$results->nom;
+								//$name = (config::get('csv_nom_tracked_objects',$id)!='')?config::get('csv_nom_tracked_objects',$id):$results->nom;
 								
-								echo $line.'Données concordantes trouvées pour l\'objet traqué :'.$name;
+								echo $line.'Données concordantes trouvées pour l\'objet traqué :'.$id;
 								/*on lit toutes les lignes sauf les 3 premières*/
 								while (($buffer = fgets($fs, 4096)) !== false) 
 								{
@@ -284,8 +283,8 @@ class controler
 										if (trim($buffer) != '')
 										{
 											$buffer = str_replace("\t",',',$buffer);
-											$csv.= $id.",".$name.",".$buffer;
-											echo $line."\t".'Données ligne '.($cpt-3).' : '.$id.",".$name.",".$buffer;
+											$csv.= $id.",".$buffer;
+											echo $line."\t".'Données ligne '.($cpt-3).' : '.$id.",".$buffer;
 										}
 									}
 									$cpt++;

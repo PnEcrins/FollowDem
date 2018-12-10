@@ -157,7 +157,7 @@ $config = array();
 	*/
 	//$config['csv_colonne'] = array('id'=>1,'nom'=>0,'date'=>2,'heure'=>3,'latitude'=>7,'longitude'=>8,'temperature'=>9,'nb_satellites'=>14,'altitude'=>15);
 	
-	$config['csv_colonne'] = array('id'=>0,'nom'=>1,'date'=>2,'heure'=>3,'latitude'=>5,'longitude'=>6,'temperature'=>11,'nb_satellites'=>7,'altitude'=>9);
+    $config['csv_colonne'] = array('id'=>0,'date'=>1,'heure'=>2,'ttf'=>3, 'latitude'=>4,'longitude'=>5,'nb_satellites'=>6,'dimension'=>8,'altitude'=>8,'hadop'=>9,'temperature'=>10,'x'=>11,'y'=>12);
 	
 	//$config['csv_colonne'] = array('id'=>0,'date'=>1,'heure'=>3,'TTF'=>3, 'latitude'=>7,'longitude'=>8,'temperature'=>9,'nb_satellites'=>14,'altitude'=>15);
 
@@ -221,8 +221,8 @@ $config = array();
 	*	index tableau = colonne csv - Valeur = condition à appliquer
 	*	@var	array
 	*/
-	$config['csv_condition'] = array(array(5,'>0'),array(6,'>0'),array(9,'>1000'),array(9,'<4102'));
-	$config['csv_condition_type'] = array(5=>'numeric',6=>'numeric',9=>'numeric');
+	$config['csv_condition'] = array(array(4,'>0'),array(5,'>0'),array(8,'>1000'),array(8,'<4102'));
+    $config['csv_condition_type'] = array(4=>'numeric',5=>'numeric',8=>'numeric');
 	
 	/**
 	*	Paramètres de configuration pour se connecter à la boîte mail pour l'import des pièces jointes

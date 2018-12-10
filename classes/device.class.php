@@ -170,10 +170,13 @@ class Device
                 eval('$result_cond = ('.$tmp_condition.');');
 
                 echo $line."\t Condition sur les données récupérées : ".$tmp_condition.' -> résultat :'.$result_cond;
-
-                if($result_cond)
-                {
+                $accurate = 0;
+                if($result_cond) {
                     echo $line.'Données répondant aux conditions';
+                    $accurate = 1;
+                }else
+                    echo $line.'gps_data ne répondant pas aux conditions';
+
                     $device = new Device();
                     $device->setId($data[config::get('csv_colonne','id')]);
 
@@ -191,11 +194,17 @@ class Device
                     $analysis 	= new Analysis();
                     $analysis->setDeviceId($device->getId());
                     $analysis->setGpsDate($obj_date->format('Y-m-d H:i:s'));
+                    $analysis->setTtf($data[config::get('csv_colonne','ttf')]);
                     $analysis->setLatitude($data[config::get('csv_colonne','latitude')]);
                     $analysis->setLongitude($data[config::get('csv_colonne','longitude')]);
-                    $analysis->setTemperature($data[config::get('csv_colonne','temperature')]);
                     $analysis->setSatNumber($data[config::get('csv_colonne','nb_satellites')]);
+                    $analysis->setDimension($data[config::get('csv_colonne','dimension')]);
                     $analysis->setAltitude($data[config::get('csv_colonne','altitude')]);
+                    $analysis->setHadop($data[config::get('csv_colonne','hadop')]);
+                    $analysis->setTemperature($data[config::get('csv_colonne','temperature')]);
+                    $analysis->setX($data[config::get('csv_colonne','x')]);
+                    $analysis->setY($data[config::get('csv_colonne','y')]);
+                    $analysis->setAccurate($accurate);
                     $analysis->insert();
 
 
@@ -203,9 +212,7 @@ class Device
                     /*Affectation des propriétés*/
                     echo $line.'tracked_objects sauvardé :'.print_r($device);
 
-                }
-                else
-                    echo $line.'gps_data ne répondant pas aux conditions';
+
             }
             fclose($fs);
             echo $line.'Dernière date de capture sauvées :'.print_r($last_date_tracked_objects);

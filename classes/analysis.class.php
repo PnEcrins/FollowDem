@@ -22,6 +22,7 @@ class Analysis
     protected 	$altitude;
     protected 	$geom_mp;
     protected 	$accurate;
+    protected 	$dimension;
     protected 	$animale_device_id;
     protected 	$created_at;
     protected 	$updated_at;
@@ -366,18 +367,47 @@ class Analysis
     {
         $db=db::get();
         $rq = 'INSERT INTO '.config::get('db_prefixe').'analyses';
-        $rq .= ' (device_id, gps_date, latitude, longitude, temperature, sat_number, altitude) VALUES(?,?,?,?,?,?,?)';
+        $rq .= ' (device_id, 
+                  gps_date,
+                  ttf,
+                  latitude, 
+                  longitude,
+                  sat_number, 
+                  dimension,
+                  altitude,
+                  hadop,
+                  temperature, 
+                  x,
+                  y,
+                  accurate
+                  ) 
+                  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        try
+        {
         $rqi = $db->prepare($rq);
         $rqi->execute(
             array(
                 $this->getDeviceId(),
                 $this->getGpsDate(),
+                $this->getTtf(),
                 $this->getLatitude(),
                 $this->getLongitude(),
-                $this->getTemperature(),
                 $this->getSatNumber(),
-                $this->getAltitude())
+                $this->getDimension(),
+                $this->getAltitude(),
+                $this->getHadop(),
+                $this->getTemperature(),
+                $this->getX(),
+                $this->getY(),
+                $this->getAccurate()
+                )
         );
+        }
+        catch(PDOException $e)
+        {
+            print_r("hello");
+            handle_sql_errors($rq, $e->getMessage());
+        }
         if ($rqi->rowCount() === 0)
         {
             trace::add("ERREUR ajout gps_data id=".$this->getId().' - id_device :'.$this->getDeviceId());
@@ -387,6 +417,23 @@ class Analysis
             trace::add("Ajout gps_data id=".$this->getId().' - id_device :'.$this->getDeviceId());
         }
 
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDimension()
+    {
+        return $this->dimension;
+    }
+
+    /**
+     * @param mixed $dimension
+     */
+    public function setDimension($dimension)
+    {
+        $this->dimension = $dimension;
     }
 
     /**

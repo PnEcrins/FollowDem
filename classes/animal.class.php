@@ -215,12 +215,21 @@ class Animal
     {
         $db=db::get();
         $tmp_animals = array();
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'animals ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'animals where id in ( select animal_id from '.config::get('db_prefixe').'animal_devices)  ORDER BY '.$order);
             $rqs->execute();
 
-        while($result = $rqs->fetchObject())
-            $tmp_animals[] = new Animal($result->id);
+        while($results = $rqs->fetchObject()) {
+            $animal = new Animal($results->id);
+            $animal->setName($results->name);
+            $animal->setBirthYear($results->birth_year);
+            $animal->setCaptureDate($results->capture_date);
+            $animal->setDeathDate($results->death_date);
+            $animal->setCreated_at($results->created_at);
+            $animal->setUpdated_at($results->updated_at);
 
+            $animal->setAttributes(AnimalAttribute::load_all($animal->getId()));
+            $tmp_animals[] = $animal;
+}
         return $tmp_animals;
     }
     /*Charge les données de l'objet sur une période

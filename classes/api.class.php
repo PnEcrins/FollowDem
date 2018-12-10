@@ -38,7 +38,7 @@ class api
 	
 	
 	/**
-	* 	leaflet_ini - Itnitialisation de leaflet
+	* 	leaflet_ini - Itnitialisation de leaflet_1
 	*
 	* 	@access  public
 	* 	@return  string
