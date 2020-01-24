@@ -320,7 +320,7 @@ class Analysis
     private function load()
     {
         $db=db::get();
-        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'analyses where id = ?');
+        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'gps_data where id = ?');
         $rql->execute(array($this->getId()));
         if($result = $rql->fetchObject())
         {
@@ -366,21 +366,21 @@ class Analysis
     public function insert()
     {
         $db=db::get();
-        $rq = 'INSERT INTO '.config::get('db_prefixe').'analyses';
-        $rq .= ' (device_id, 
+        $rq = 'INSERT INTO '.config::get('db_prefixe').'gps_data';
+        $rq .= ' (device_id,
                   gps_date,
                   ttf,
-                  latitude, 
+                  latitude,
                   longitude,
-                  sat_number, 
+                  sat_number,
                   dimension,
                   altitude,
                   hadop,
-                  temperature, 
+                  temperature,
                   x,
                   y,
                   accurate
-                  ) 
+                  )
                   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
         try
         {
@@ -498,12 +498,12 @@ class Analysis
 
         if($animal_id===0)
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analyses');
+            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data');
             $rqs->execute();
         }
         else
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'analyses where device_id in (select device_id from animal_devices where animal_id = ?)');
+            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data where device_id in (select device_id from animal_devices where animal_id = ?)');
             $rqs->execute(array($animal_id));
             //$rqs->debugDumpParams();
         }
@@ -551,16 +551,16 @@ class Analysis
         }
         else
         {
-            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'analyses WHERE'.$where.' )';
+            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.' )';
             $prepare = array_merge($prepare,$prepare);
         }
 
 
 
         if($count_only === true)
-            $rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'analyses where '.$where.' ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
         else
-            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'analyses where '.$where.' ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
 
         $rqs->execute($prepare);
 
