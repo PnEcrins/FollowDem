@@ -7,7 +7,7 @@ cp templates/pages/fr/info.tpl.html.sample templates/pages/fr/info.tpl.html
 cp templates/pages/fr/page_contact.tpl.html.sample templates/pages/fr/page_contact.tplc.html
 cp templates/pages/fr/page_item_b.tpl.html.sample templates/pages/fr/page_item_b.tpl.html
 cp templates/pages/fr/page_legende.tpl.html.sample templates/pages/fr/page_legende.tpl.html
-cp templates/pages/fr/page_outils_informations.html.tpl.sample templates/pages/fr/page_outils_informations.tpl.html
+cp templates/pages/fr/page_outils_informations.tpl.html.sample templates/pages/fr/page_outils_informations.tpl.html
 cp templates/pages/fr/page_sous_item_a.tpl.html.sample templates/pages/fr/page_sous_item_a.tpl.html
 cp templates/pages/fr/page_sous_item_b.tpl.html.sample templates/pages/fr/page_sous_item_b.tpl.html
 cp templates/pages/fr/page_sous_item_c.tpl.html.sample templates/pages/fr/page_sous_item_c.tpl.html
