@@ -503,7 +503,7 @@ class Analysis
         }
         else
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data where device_id in (select device_id from animal_devices where animal_id = ?)');
+            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data where animale_device_id in (select device_id from '.config::get('db_prefixe').'animal_devices where animal_id = ?)');
             $rqs->execute(array($animal_id));
             //$rqs->debugDumpParams();
         }
@@ -530,7 +530,7 @@ class Analysis
         $next = '';
         if($animal_id!==0)
         {
-            $where.=' device_id in ( select device_id from animal_devices where animal_id = ?) ';
+            $where.=' animale_device_id in ( select device_id from '.config::get('db_prefixe').'animal_devices where animal_id = ?) ';
             $prepare[]=$animal_id;
             $next = ' AND ';
         }
@@ -551,7 +551,7 @@ class Analysis
         }
         else
         {
-            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.' )';
+            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.' GROUP BY gps_date )';
             $prepare = array_merge($prepare,$prepare);
         }
 
@@ -576,7 +576,7 @@ class Analysis
             while($result = $rqs->fetchObject()){
                 $analysis = new Analysis();
                 $analysis->setId($result->id);
-                $analysis->setDeviceId($result->device_id);
+                //$analysis->setDeviceId($result->device_id);
                 $analysis->setGpsDate($result->gps_date);
                 $analysis->setLatitude($result->latitude);
                 $analysis->setLongitude($result->longitude);
