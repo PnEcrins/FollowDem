@@ -551,7 +551,7 @@ class Analysis
         }
         else
         {
-            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.' GROUP BY gps_date )';
+            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.')';
             $prepare = array_merge($prepare,$prepare);
         }
 
