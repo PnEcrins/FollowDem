@@ -12,15 +12,15 @@
 			<p>{traduction::t('Texte indroduction')}</p>
 			<p>&nbsp;</p>
 		   <div class="panel panel-success">
-			   
-				 <div class="panel-heading">{traduction::t('Entete liste tracked_objects')} 
+
+				 <div class="panel-heading">{traduction::t('Entete liste tracked_objects')}
 					<select id='periode'>
 					{foreach $periode_valeurs as $periodes}
 						<option value="{$periodes}" {if $periodes == $periode_min}selected{/if}>{$periodes}</option>
 					{/foreach}
 					</select> {traduction::t('Slide derniers jours')}
-				
-				
+
+
 				 {* <input id="slider" name="periode" class="slider" type="text" data-slider="true" data-slider-highlight="true" data-slider-range="{$periode_min},{$periode_max}" {if ($periode_valeurs !='')}data-slider-values="{$periode_valeurs}"{/if}  data-slider-step="1" value="{$periode_min}" />*}
 				 </div>
 				 <div class="panel-body" style="padding: 0px 15px;">
@@ -28,7 +28,7 @@
 					<div id="{$tracked_objects->getId()}" class="tracked_objects">
 					{if $propcouleur != ''}
 						<div class="color">
-							
+
 								{assign var="color" value=$tracked_objects->get_object_feature($propcouleur)}
 								{assign var="filcolor" value=$tracked_objects->get_object_feature($propfilcolor)}
 								{*assign var="rel_color" value=config::get('recupe_couleur_code',$color)*}
@@ -36,7 +36,7 @@
 								<div style="background-color:{$color}">
 									<div style="background-color:{$filcolor};padding:6px;"></div>
 								</div>
-							
+
 						</div>
 					{/if}
 						<h3>{if $tracked_objects->get_object_feature('sexe')}<img src="images/{if $tracked_objects->get_object_feature('sexe')=='M'}male{else}women{/if}.png" width="18" height="18" />&nbsp;&nbsp;{/if}{$tracked_objects->getName()}</h3>
@@ -61,7 +61,7 @@
 
 	<div class="modal fade" id="error">
 		<div class="modal-dialog">
-			
+
 			 <div class="modal-content">
 				<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
