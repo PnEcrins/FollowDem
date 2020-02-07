@@ -9,13 +9,13 @@ try
 {
 	/* Initialisation de l'application */
 	include_once('config/bootstrap.php');
-	
+
 	/*Récupération du controler et de l'action*/
 	if(isset($_GET['controler']) && $_GET['controler']!='')
 		$controler = trim(htmlentities($_GET['controler']));
 	if(isset($_GET['action']) && $_GET['action']!='')
 		$action = trim(htmlentities($_GET['action']));
-	
+
 	/* Appel du controleur */
 	$controler = new $controler($action);
 }
