@@ -268,6 +268,18 @@ class GPSDATA
      */
     public function getAnimaleDeviceId()
     {
+        if($this->device_id) {
+            $db=db::get();
+            $rql = $db->prepare('SELECT ad.id FROM '.config::get('db_prefixe').'animal_devices AS ad
+                JOIN '.config::get('db_prefixe').'devices AS d ON d.id=ad.device_id
+                JOIN '.config::get('db_prefixe').'animals AS a ON a.id=ad.animal_id
+                where d.id = ? AND a.death_date IS NULL' );
+            $rql->execute(array($this->device_id));
+            if($result = $rql->fetchObject()) {
+                return $this->animale_device_id = $result->id;
+            }
+        }
+
         return $this->animale_device_id;
     }
 
@@ -325,7 +337,7 @@ class GPSDATA
         if($result = $rql->fetchObject())
         {
             $this->setId($result->id);
-            $this->setDeviceId($result->device_id);
+            $this->setAnimaleDeviceId($result->animale_device_id);
             $this->setGpsDate($result->gps_date);
             $this->setLatitude($result->latitude);
             $this->setLongitude($result->longitude);
@@ -367,7 +379,7 @@ class GPSDATA
     {
         $db=db::get();
         $rq = 'INSERT INTO '.config::get('db_prefixe').'gps_data';
-        $rq .= ' (device_id,
+        $rq .= ' (
                   gps_date,
                   ttf,
                   latitude,
@@ -379,7 +391,8 @@ class GPSDATA
                   temperature,
                   x,
                   y,
-                  accurate
+                  accurate,
+                  animale_device_id
                   )
                   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
         try
@@ -387,7 +400,6 @@ class GPSDATA
         $rqi = $db->prepare($rq);
         $rqi->execute(
             array(
-                $this->getDeviceId(),
                 $this->getGpsDate(),
                 $this->getTtf(),
                 $this->getLatitude(),
@@ -399,7 +411,8 @@ class GPSDATA
                 $this->getTemperature(),
                 $this->getX(),
                 $this->getY(),
-                $this->getAccurate()
+                $this->getAccurate(),
+                $this->getAnimaleDeviceId()
                 )
         );
         }
