@@ -6,7 +6,7 @@
  * Date: 10/25/18
  * Time: 2:46 PM
  */
-class Analysis
+class GPSDATA
 {
     protected 	$id;
     protected 	$device_id;
@@ -28,7 +28,7 @@ class Analysis
     protected 	$updated_at;
 
     /**
-     * Analysis constructor.
+     * GPSDATA constructor.
      */
     public function __construct($id=0)
     {
@@ -346,7 +346,7 @@ class Analysis
     private function exist($update=false)
     {
         $db=db::get();
-        $rqe = $db->prepare('SELECT count(id) as nb,device_id,dateheure FROM '.config::get('db_prefixe').'analysis where device_id = ? AND gps_date = ?');
+        $rqe = $db->prepare('SELECT count(id) as nb,device_id,dateheure FROM '.config::get('db_prefixe').'gpsdata where device_id = ? AND gps_date = ?');
         $rqe->execute(array($this->getDeviceId(), $this->getGpsDate()));
 
         $results = $rqe->fetchObject();
@@ -445,7 +445,7 @@ class Analysis
     private function update()
     {
         $db=db::get();
-        $rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'analysis SET device_id=?,gps_date=?,latitude=?,longitude=?,temperature=?,number_sat=?,altitude=? WHERE id=?');
+        $rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'gpsdata SET device_id=?,gps_date=?,latitude=?,longitude=?,temperature=?,number_sat=?,altitude=? WHERE id=?');
         $rqu->execute(array(
             $this->getDeviceId(),
             $this->getGpsDate(),
@@ -472,7 +472,7 @@ class Analysis
     private function delete()
     {
         $db=db::get();
-        $rqd = $db->prepare('DELETE FROM '.config::get('db_prefixe').'analysis WHERE id=?');
+        $rqd = $db->prepare('DELETE FROM '.config::get('db_prefixe').'gpsdata WHERE id=?');
         $rqd->execute(array($this->getId()));
         if ($rqd->rowCount() === 0){
             trace::add("ERREUR Suppression gps_data id=".$this->getId().'--'.$this->getDeviceId());
@@ -508,7 +508,7 @@ class Analysis
             //$rqs->debugDumpParams();
         }
         while($result = $rqs->fetchObject())
-            $tmp_gps_data[] = new Analysis($result->id);
+            $tmp_gps_data[] = new GPSDATA($result->id);
 
         return $tmp_gps_data;
     }
@@ -574,16 +574,16 @@ class Analysis
         else
         {
             while($result = $rqs->fetchObject()){
-                $analysis = new Analysis();
-                $analysis->setId($result->id);
-                //$analysis->setDeviceId($result->device_id);
-                $analysis->setGpsDate($result->gps_date);
-                $analysis->setLatitude($result->latitude);
-                $analysis->setLongitude($result->longitude);
-                $analysis->setTemperature($result->temperature);
-                $analysis->setSatNumber($result->sat_number);
-                $analysis->setAltitude($result->altitude);
-                $tmp_gps_data[] = $analysis;
+                $gpsdata = new GPSDATA();
+                $gpsdata->setId($result->id);
+                //$gpsdata->setDeviceId($result->device_id); // Join with animalDevice ?
+                $gpsdata->setGpsDate($result->gps_date);
+                $gpsdata->setLatitude($result->latitude);
+                $gpsdata->setLongitude($result->longitude);
+                $gpsdata->setTemperature($result->temperature);
+                $gpsdata->setSatNumber($result->sat_number);
+                $gpsdata->setAltitude($result->altitude);
+                $tmp_gps_data[] = $gpsdata;
             }
             /*
             if(count($tmp_gps_data)>0) {

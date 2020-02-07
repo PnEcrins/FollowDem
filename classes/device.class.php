@@ -191,21 +191,21 @@ class Device
                     /* Fait une mise à jour de la date une fois les données saisies complétement. */
 
                     /*Affectation des données*/
-                    $analysis 	= new Analysis();
-                    $analysis->setDeviceId($device->getId());
-                    $analysis->setGpsDate($obj_date->format('Y-m-d H:i:s'));
-                    $analysis->setTtf($data[config::get('csv_colonne','ttf')]);
-                    $analysis->setLatitude($data[config::get('csv_colonne','latitude')]);
-                    $analysis->setLongitude($data[config::get('csv_colonne','longitude')]);
-                    $analysis->setSatNumber($data[config::get('csv_colonne','nb_satellites')]);
-                    $analysis->setDimension($data[config::get('csv_colonne','dimension')]);
-                    $analysis->setAltitude($data[config::get('csv_colonne','altitude')]);
-                    $analysis->setHadop($data[config::get('csv_colonne','hadop')]);
-                    $analysis->setTemperature($data[config::get('csv_colonne','temperature')]);
-                    $analysis->setX($data[config::get('csv_colonne','x')]);
-                    $analysis->setY($data[config::get('csv_colonne','y')]);
-                    $analysis->setAccurate($accurate);
-                    $analysis->insert();
+                    $gpsdata 	= new GPSDATA();
+                    $gpsdata->setDeviceId($device->getId());
+                    $gpsdata->setGpsDate($obj_date->format('Y-m-d H:i:s'));
+                    $gpsdata->setTtf($data[config::get('csv_colonne','ttf')]);
+                    $gpsdata->setLatitude($data[config::get('csv_colonne','latitude')]);
+                    $gpsdata->setLongitude($data[config::get('csv_colonne','longitude')]);
+                    $gpsdata->setSatNumber($data[config::get('csv_colonne','nb_satellites')]);
+                    $gpsdata->setDimension($data[config::get('csv_colonne','dimension')]);
+                    $gpsdata->setAltitude($data[config::get('csv_colonne','altitude')]);
+                    $gpsdata->setHadop($data[config::get('csv_colonne','hadop')]);
+                    $gpsdata->setTemperature($data[config::get('csv_colonne','temperature')]);
+                    $gpsdata->setX($data[config::get('csv_colonne','x')]);
+                    $gpsdata->setY($data[config::get('csv_colonne','y')]);
+                    $gpsdata->setAccurate($accurate);
+                    $gpsdata->insert();
 
 
 

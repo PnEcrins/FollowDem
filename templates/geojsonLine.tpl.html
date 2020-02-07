@@ -1,5 +1,5 @@
 {strip}{literal}{"type": "FeatureCollection",
-    "features": 
+    "features":
 	[
 	{/literal}
 {literal}
@@ -8,22 +8,22 @@
                 "type": "LineString",
                 "coordinates": [{/literal}
 				{assign var=cpt value=1}
-				{assign var=gps_data value=$animal->getAnalysis()}
+				{assign var=gps_data value=$animal->getGPSDATA()}
 				{foreach $gps_data as $data}
 					[{$data->getLongitude()},
 					{$data->getLatitude()}]
 					{if $cpt < count($gps_data)},{/if}
 					{assign var=cpt value=$cpt+1}
-				{/foreach}]	
+				{/foreach}]
 {literal}   },
             "type": "Feature",
             "properties": {
 {/literal}
                 "nom": "{$animal->getName()}"
 {literal}   },{/literal}
-            
+
 			"id": {$animal->getId()}
-{literal} 
+{literal}
 		}
 	]
 }{/literal}

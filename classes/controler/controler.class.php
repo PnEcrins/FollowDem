@@ -5,22 +5,22 @@
 *	Controleur basique pour le traitement de l'affichage des données. S'appuie sur la classe API pour la récupération des données
 *	@author Fabien Selles
 *	@copyright Parc National des écrins
-*	
+*
 */
 
 class controler
 {
 	private $smarty = '';
-	
+
 	private $params = array();
-	
+
 	public function __construct($action='')
 	{
 		$this->smarty = api::smarty();
-		
+
 		if (isset($_GET['params']))
 		{
-			
+
 			$tmp = explode('-',$_GET['params']);
 			$i=0;
 			while($i<count($tmp))
@@ -31,20 +31,20 @@ class controler
 		}
 		elseif (isset($_POST) && count($_POST) >0)
 			$this->params = $_POST;
-		
+
 		//echo 'Caching smarty :"'.($this->smarty->caching)?'Ok':'No';
-		
+
 		$this->$action();
-		
-		
-		
+
+
+
 	}
-	
+
 	/**
-	* 	last_trace - Affiche une carte avec les données initiales 
+	* 	last_trace - Affiche une carte avec les données initiales
 	*
 	* 	@access  protected
-	* 	@return  
+	* 	@return
 	* 	@param
 	*/
 	protected function last_trace($template="index")
@@ -52,19 +52,19 @@ class controler
 		/*Paramètre de la page*/
 		$this->smarty->assign("titre_application",config::get('titre_application'));
 		$this->smarty->assign("leaflet_gmap",config::get('leaflet_gmap'));
-		
-		
+
+
 		/*Charge tous les objet actifs et leur dernière donnée*/
         $animals = Animal::load_all('name');
 		//print_r($animals);
-		
+
 		/* Initialise le contenu carto lefleat en positionnant les dernières traces */
 		$content = api::leaflet_ini($animals);
-		
+
 		/*Assigne smarty*/
 		$this->smarty->assign('content',$content);
 		$this->smarty->assign("animals",$animals);
-		
+
 		$this->smarty->assign('periode_min',config::get('periode_min'));
 		$this->smarty->assign('periode_max',config::get('periode_max'));
 		if(is_array(config::get('periode_valeurs')) && count(config::get('periode_valeurs')))
@@ -74,7 +74,7 @@ class controler
 
 		$lefleat_style_point_surcharge = config::get('lefleat_style_point_surcharge');
 		if(count($lefleat_style_point_surcharge) > 0 && isset($lefleat_style_point_surcharge['color']))
-		{	
+		{
 			$this->smarty->assign("propcouleur",config::get('lefleat_style_point_surcharge','color'));
 			$this->smarty->assign("propfilcolor",config::get('lefleat_style_point_surcharge','fillColor'));
 		}
@@ -83,42 +83,42 @@ class controler
 			$this->smarty->assign("propcouleur",'');
 			$this->smarty->assign("propfilcolor",'');
 		}
-		
+
 		$this->smarty->assign("sidebar_left",'');
 		$this->smarty->assign("sidebarright",'');
 		$this->smarty->assign("sidebarbottom",'');
 
 		echo $this->smarty->fetch($template.'.tpl.html');
 	}
-	
+
 	/**
 	* 	Renvoi des données GeoJson (LineString) pour un parcours sur un temps donnés - Appel AJAX !
 	*
 	* 	@access  protected
-	* 	@return  
+	* 	@return
 	* 	@param
 	*/
 	protected function get_parcours_geojson()
 	{
-		
+
 		$this->smarty->setCacheLifetime(0);
-		
+
 		if(isset($this->params['id_tracked_objects']))
 		{
-			header('Content-Type: application/json'); 
-			
+			header('Content-Type: application/json');
+
 			$animal = new Animal($this->params['id_tracked_objects']);
-			
+
 			if (isset($this->params['periode']) && $this->params['periode'] != '')
 				$periode = $this->params['periode'];
 			else
 				$periode =  config::get('periode_min');
-				
+
 			if (isset($this->params['type']) && $this->params['type'] != '')
 				$type = $this->params['type'];
 			else
 				$type =  "Line";
-			
+
 			$d = new DateTime();
 			$d->sub(new DateInterval('P'.$periode.'D'));
             $animal->load_gps_data_date($d->format('Y-m-d H:m:s'),date('Y-m-d H:m:s'));
@@ -127,20 +127,20 @@ class controler
 		}
 		else
 			echo 'OUT';
-	
+
 	}
-	
+
 	/**
 	* 	get_page - Renvoi le contenu d'une template correspondante
 	*
 	* 	@access  protected
-	* 	@return  
+	* 	@return
 	* 	@param
 	*/
 	protected function get_page()
 	{
 		$cacheid = $this->params['page'];
-		
+
 		$sep = config::get('system_separateur');
 		$tpl = 'templates'.$sep.'pages'.$sep.traduction::get_langue().$sep.$this->params['page'].'.tpl.html';
 		if(isset($this->params['page']) && file_exists($tpl))
@@ -157,50 +157,50 @@ class controler
 		}
 	}
 
-	
+
 	protected function clear_cache()
 	{
 		$this->smarty->clearAllCache();
 	}
-	
-	
+
+
 	/**
 	* 	Affiche une page non trouvée 404 !
 	*
 	* 	@access  protected
-	* 	@return  
+	* 	@return
 	* 	@param
 	*/
 	protected function error404()
-	{	
+	{
 		$this->smarty->assign('content',traduction::t('Page non trouvee'));
 	}
-	
+
 	/**
 	* 	import_csv - Importe les données en CSV
 	*
 	* 	@access  protected
-	* 	@return  
+	* 	@return
 	* 	@param
 	*/
 	protected function import_csv()
 	{
 		Device::import_csv();
 	}
-	
-	
+
+
 	/**
 	* 	import_imap_csv - Recupère les pièces jointes d'email (.txt) pour conversion et import en CSV !
 	*
 	* 	@access  protected
-	* 	@return  
+	* 	@return
 	* 	@param
 	*/
 	protected function import_imap_csv()
 	{
-		
+
 		$line = "\r\n";
-		
+
 		$db=db::get();
 		echo $line.'###'.date('d/m/Y H:i').'##################################';
 		$line = "\r\n\t".'> ';
@@ -208,9 +208,9 @@ class controler
 		$imap = new imap(config::get('domaine_import_imap_csv'),993);
 		$imap->setAuthentication(config::get('id_authentification_import_imap_csv'),config::get('mdp_authentification_import_imap_csv'));
 		$imap->setMailBox('INBOX');
-		
+
 		$tmp_rep = 'tmp'.config::get('system_separateur').'csv'.config::get('system_separateur');
-		
+
 		$nummessage = $imap->numMessages();
 		echo $line.'Nombre de message(s) a traiter :'.$nummessage;
 		if ($nummessage > 0)
@@ -220,7 +220,7 @@ class controler
 			{
 				if(strstr($message->getSubject(),'Tellus data from') !== false)
 				{
-					echo $line.'1 message trouve concernant Bouquetins'; 
+					echo $line.'1 message trouve concernant Bouquetins';
 					$attachements = $message->getAttachments();
 					if($attachements !== false)
 					{
@@ -232,24 +232,24 @@ class controler
 					}
 					else
 						echo $line.'Pas de pieces jointes trouvées';
-					
+
 					echo $line.'Message traité et marqué comme sauvegardé !';
 					$message->setFlag('deleted');
 				}
 			}
 			echo $line.'Boîte email vidangée !';
 			$imap->expunge(); //on supprime les emails traités
-		}	
-			
-			
+		}
+
+
 			/*On lit les fichiers txt dans le dossier tmp/csv/ et on importe les données */
 			echo $line.'Traitement des fichiers de données.';
 			$rep = config::get('rep_appli').$tmp_rep;
 			$send_email_info = array();
-			if ($dir = opendir($rep)) 
+			if ($dir = opendir($rep))
 			{
 				$csv = '';
-				while($file = readdir($dir)) 
+				while($file = readdir($dir))
 				{
 					if ($file!='.' && $file!='..')
 					{
@@ -261,22 +261,22 @@ class controler
 							$tmp_id = explode('-',$tmp_id[0]); //on extrait uniquement les nombres pour l'identifiant !
 							$id = $tmp_id[1];
 							$cpt = 1;
-							
-							//On vérifie si on connait l'identifiant dans le fichier de configuration pour le premier import ou dans la BDD 
+
+							//On vérifie si on connait l'identifiant dans le fichier de configuration pour le premier import ou dans la BDD
 							//$rqe = $db->prepare('SELECT count(id) as nb,nom FROM '.config::get('db_prefixe').'tracked_objects where id = ?');
 							//$rqe->execute(array($id));
 							//$results = $rqe->fetchObject();
-							
+
 							if ($id)
 							{
 								//on a l'identifiant on traite le contenu du fichier
-								
+
 								//Récupération du nom
 								//$name = (config::get('csv_nom_tracked_objects',$id)!='')?config::get('csv_nom_tracked_objects',$id):$results->nom;
-								
+
 								echo $line.'Données concordantes trouvées pour l\'objet traqué :'.$id;
 								/*on lit toutes les lignes sauf les 3 premières*/
-								while (($buffer = fgets($fs, 4096)) !== false) 
+								while (($buffer = fgets($fs, 4096)) !== false)
 								{
 									if($cpt > 3)
 									{
@@ -295,10 +295,10 @@ class controler
 							}
 							else
 							{
-								
+
 								if(!isset($send_email_info[$id]) && config::get('csv_email_error'))
 								{
-									
+
 									echo $line.'Envoi email pour informer de la non récupération du non, non concordance des données';
 									//On envoi un email pour informer de l'ajout nécessaire de l'id/nom
 									$corps = "<html><head><meta http-equiv= \"content-type\" content=\"text/html; charset=UTF-8\"></head><body><h3>Notification application Bouquetins</h3>
@@ -322,13 +322,13 @@ class controler
 					}
 				}
 				closedir($dir);
-				
+
 				if ($csv !='')
 				{
 					//On ecrit le fichier tracked_objects.csv dans le rep CSV
 					echo $line."Ecriture du fichier CSV et envoi au traitement d'import csv";
 					file_put_contents(config::get('rep_appli').'csv'.config::get('system_separateur').'tracked_objects.csv',$csv);
-					
+
 					$this->import_csv();
 				}
 				else

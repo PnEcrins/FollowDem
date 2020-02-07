@@ -1,18 +1,18 @@
 <?php
 /**
-*	Classe API 
+*	Classe API
 * 	Classe permettant l'interface l'IHM... renvoi des donn�es pour l'affichage ou le traitement
 *	@author Fabien Selles
 *	@copyright Parc National des �crins
-*	
+*
 */
 
 class api
-{	
-	
-	
+{
+
+
 	public static $smarty;
-	
+
 	/**
 	* 	Smarty - Charge et renvoi l'instance de smarty
 	*
@@ -28,15 +28,15 @@ class api
 			static::$smarty->debugging = config::get('smarty_debugging');
 			static::$smarty->caching = config::get('smarty_caching');
 			static::$smarty->cache_lifetime = config::get('smarty_cache_lifetime');
-			
-			
+
+
 			/*if(config::get('smarty_caching')){static::$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);}
 			static::$smarty->setCacheLifetime(300);	*/
 		}
 		return static::$smarty;
 	}
-	
-	
+
+
 	/**
 	* 	leaflet_ini - Itnitialisation de leaflet_1
 	*
@@ -47,16 +47,16 @@ class api
 	public static function leaflet_ini($objets)
 	{
 		$leaflet_ini = '<script type="text/javascript">';
-		
+
 		$tmp_control_map = array();
-		
+
 		if(config::get('leaflet_gmap'))
 		{
 			$leaflet_ini .='var GoogleLayer = new L.Google();';
 			$tmp_control_map[traduction::t('Google Satellite',1)] = 'GoogleLayer';
 		}
 		$leaflet_ini .='latlng = new L.LatLng('.config::get('leaflet_centrage_initiale',0).','.config::get('leaflet_centrage_initiale',1).');';
-		
+
 		/* Gestion des pictogrammes utilis�s */
 		foreach(config::get('leaflet_pictos') as $nomvar=>$params)
 		{
@@ -68,38 +68,38 @@ class api
 				else
 					$leaflet_ini .= $nom.':\''.$value.'\',';
 			}
-				
+
 			$leaflet_ini .= '});';
 		}
-		
+
 		/*Gestion des fonds de carte disponibles*/
 		foreach(config::get('leaflet_fonds_carte') as $nom=>$param)
 		{
 			$leaflet_ini .= 'var '.$nom.' = new L.TileLayer(\''.$param['url'].'\', {maxZoom: '.$param['maxZoom'].', attribution: \''.$param['attribution'].'\', subdomains: '.json_encode($param['subdomains']).'});';
 			$tmp_control_map[$param['name']] = $nom;
 		}
-		
+
 		$leaflet_ini .='var map = new L.Map(\'map\', {zoomControl: false, center: latlng, maxZoom:'.config::get('leaflet_zoom_max').', zoom: '.config::get('leaflet_zoom_initial').', layers: ['.config::get('leaflet_fonds_carte_defaut').']});';
 		$leaflet_ini .='map.addControl(L.control.zoom({position: \''.config::get('leaflet_position_zoom').'\'}) );';
 		$leaflet_ini .='map.addControl(L.control.scale({position: \'bottomright\'}));';
-		
+
 		/*$leaflet_ini .='var circle = L.circle([44.762038,6.187642], 42, {
 								color: \'red\',
 								fillColor: \'#f03\',
 								fillOpacity: 0.5
 							}).addTo(map);';*/
-		
-		
+
+
 		/* Style par defaut pour les trac�s */
 		$leaflet_ini .= 'var styleTrace = '.json_encode(config::get('lefleat_style_trace')).';';
-		
-		
+
+
 		/*Cr�ation d'un layer pour les direction (fl�ches) sur le Layer Ligne */
-		
+
 		$leaflet_ini .='var geojsonLayerLineGroup = new L.layerGroup();
 		geojsonLayerLineGroup.addTo(map);
 		';
-		
+
 		/*Cr�ation d'un Layer pour les donn�es GeoJson Line */
 		$leaflet_ini .='
 		var geojsonLayerLine = new L.GeoJSON(null, {
@@ -125,10 +125,10 @@ class api
 					var long = feature.geometry["coordinates"][k][1];
 					latlong[k] = [long,lat];
 				}
-				
+
 				/*Initialisation du groupe de layers*/
 				geojsonLayerLineGroup.clearLayers();
-				
+
 				/*Il peut arriver que le Geojson soit vide ou ne contienne que une coordonn�e*/
 				if(latlong.length > 1)
 				{
@@ -139,14 +139,14 @@ class api
 					}).addTo(map);
 					geojsonLayerLineGroup.addLayer(fleche);
 				}
-				
+
 				geojsonLayerLineGroup.addLayer(geojsonLayerLine);
 
 			}
 
 		});
 		/*map.addLayer(geojsonLayerLine);*/';
-		
+
 		/*Cr�ation d'un Layer pour les donn�es GeoJson Points */
 		$leaflet_ini .='var geojsonLayerPoint = new L.GeoJSON(null, {
 			style:styleTrace,
@@ -172,39 +172,39 @@ class api
 			}
 		});
 		map.addLayer(geojsonLayerPoint);';
-		
-		
+
+
 		/*Cr�ation d'un Layer pour les donn�es GeoJson Point Derniers emplacement */
 		$leaflet_ini .='var geojsonLayerPointLast = new L.GeoJSON(null);
 		map.addLayer(geojsonLayerPointLast);
 		geojsonLayerPointLast.bringToFront();';
-		
+
 		/*Affichage du choix des layers disponibles - Fond de carte et layer des donn�es*/
 		$leaflet_ini .='map.addControl(new L.Control.Layers({';
 		foreach($tmp_control_map as $nom=>$value)
 			$leaflet_ini .= '\''.$nom.'\':'.$value.',';
 		$leaflet_ini .='},{\''.traduction::t('Derniers points',1).' \':geojsonLayerPointLast,\''.traduction::t('Traces',1).' \':geojsonLayerLineGroup,\''.traduction::t('Points',1).' \':geojsonLayerPoint}));';
-		
-		
-		
-		
+
+
+
+
 		/* Traitement des objets - markers � afficher */
 		if(count($objets) > 0) {
 			$leaflet_ini .='var markers = {};';
 			foreach($objets as $tracked_objects)
 			{
 				/*On d�fini les styles pour le point de la derni�re position (cercle)*/
-				
-				
+
+
 
 				if (count(config::get('lefleat_style_point_surcharge')) > 0 && $tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')))
 				{
 					$tmp_style = 'var style'.$tracked_objects->getId(). '='.json_encode(config::get('lefleat_style_point_surcharge')).';';
-					
+
 					$tmp_style = str_replace(config::get('lefleat_style_point_surcharge','color'),$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')),$tmp_style);
 					$tmp_style = str_replace(config::get('lefleat_style_point_surcharge','fillColor'),$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','fillColor')),$tmp_style);
 					$leaflet_ini .= $tmp_style;
-					
+
 					/*'var style'.$tracked_objects->get_id(). '= {
 						color: \''.$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')).'\',
 						fillColor: \''.$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','fillColor')).'\',';
@@ -213,28 +213,26 @@ class api
 							if ($clef !='color' && $clef !='fillColor')
 								$leaflet_ini .= $clef.':\''.$valeur.'\',';
 						}
-						
+
 					$leaflet_ini .=	'};';*/
 				}
 				else
 				{
 					$leaflet_ini .= 'var style'.$tracked_objects->getId(). '='.json_encode(config::get('lefleat_style_point_defaut')).';';
 				}
-				//print_r(count($tracked_objects->getAnalysis()));
-				if(count($tracked_objects->getAnalysis()) > 0)
+				if(count($tracked_objects->getGPSDATA()) > 0)
 				{
 
-					
-					foreach($tracked_objects->getAnalysis() as $gps_data)
+
+					foreach($tracked_objects->getGPSDATA() as $gps_data)
 					{
-					    //print_r($gps_data);
 						//$leaflet_ini .= 'new L.LatLng('.$gps_data->get_latitude().','.$gps_data->get_longitude().');';
-						$leaflet_ini .= 'markers['.$tracked_objects->getId().'] = L.circleMarker(['.$gps_data->getLatitude().','.$gps_data->getLongitude().'], style'.$tracked_objects->getId().').addTo(geojsonLayerPointLast);';
+ 						$leaflet_ini .= 'markers['.$tracked_objects->getId().'] = L.circleMarker(['.$gps_data->getLatitude().','.$gps_data->getLongitude().'], style'.$tracked_objects->getId().').addTo(geojsonLayerPointLast);';
 						$leaflet_ini .= 'markers['.$tracked_objects->getId().'].bindPopup("<p><strong>'.$tracked_objects->getName().'</strong><br />'.$gps_data->getGpsDate().'<br /><a id=\"voirparcours'.$tracked_objects->getId().'\" href=\"#\" onClick=\"active_parcours(false);\"><i class=\"glyphicon glyphicon-map-marker\"></i> Voir le parcours</a></p>");';
 						$leaflet_ini .= 'markers['.$tracked_objects->getId().'].on(\'click\', function (d) {
 							  active_tracked_objects('.$tracked_objects->getId().');
 						});';
-						
+
 						/*
 						$leaflet_ini .= 'var marker'.$gps_data->get_id().' = L.Marker(['.$gps_data->get_latitude().','.$gps_data->get_longitude().'],{icon: position}).addTo(map);';
 						$leaflet_ini .= 'map.addLayer(marker'.$gps_data->get_id().');';
@@ -243,22 +241,22 @@ class api
 				}
 			}
 		}
-		
+
 		//$leaflet_ini .='var markekettest = L.marker(['.config::get('leaflet_centrage_initiale',0).','.config::get('leaflet_centrage_initiale',1).'],{icon:position}).addTo(map);';
 		//$leaflet_ini .='markekettest.bindPopup("<p>TEST</p>");';
 		$leaflet_ini .='</script>';
 		return $leaflet_ini;
-		
+
 		/*
 		var marker = new L.Marker(latlng,{icon: myIcon});
 		map.addLayer(marker);
-		
-	
+
+
 		marker.bindPopup("<p>Parc National des �crins</p>");*/
-	
+
 	}
-	
-	
+
+
 	/**
 	* 	send_mail - envoi d'un email en smtp
 	*
@@ -289,5 +287,5 @@ class api
 			return true;
 		}
 	}
-	
+
 }

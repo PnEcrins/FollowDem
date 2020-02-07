@@ -1,9 +1,9 @@
 {strip}{literal}{"type": "FeatureCollection",
-    "features": 
+    "features":
 	[
 	{/literal}
 		{assign var=cpt value=1}
-		{assign var=gps_data value=$animal->getAnalysis()}
+		{assign var=gps_data value=$animal->getGPSDATA()}
 		{assign var=first value=1}
         {foreach $gps_data as $data}
 {literal} {
@@ -19,7 +19,7 @@
 				"{traduction::t('Date')}": "{$data->getGpsDate()}",
 				"{traduction::t('Altitude')}": "{$data->getAltitude()}",
 				"{traduction::t('Temperature')}": "{$data->getTemperature()}"
-{literal}           
+{literal}
 			}
         }{/literal}{if $cpt < count($gps_data)},{/if}{assign var=cpt value=$cpt+1}
 		{/foreach}

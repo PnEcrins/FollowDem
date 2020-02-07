@@ -20,7 +20,7 @@ class Animal
     protected 	$updated_at;
     protected 	$attributes 	= array();
     protected 	$devices	= array();
-    protected 	$analysis		= array();// gps data
+    protected 	$gpsdata		= array();// gps data
 
 
     public function __construct($id=null,$load_all=true)
@@ -63,10 +63,10 @@ class Animal
 
 
     }
-    public function setAnalysis($analysis='')
+    public function setGPSDATA($gpsdata='')
     {
 
-        $this->analysis = $analysis;
+        $this->gpsdata = $gpsdata;
 
     }
 
@@ -136,9 +136,9 @@ class Animal
     {
         $this->death_date = $death_date;
     }
-    public function getAnalysis()
+    public function getGPSDATA()
     {
-        return $this->analysis;
+        return $this->gpsdata;
     }
 
     /**
@@ -201,8 +201,8 @@ class Animal
 
             $this->setAttributes(AnimalAttribute::load_all($this->getId()));
             if($load_gps_data==true) {
-                $data = Analysis::load_all_by_date($this->getId());
-                $this->setAnalysis($data);
+                $data = GPSDATA::load_all_by_date($this->getId());
+                $this->setGPSDATA($data);
             }
         }
         else
@@ -243,7 +243,7 @@ class Animal
         if($date_deb !== null)
         {
             if($date_fin === null){$date_fin = date('Y-m-d H:m:i',time());}
-            $this->setAnalysis(Analysis::load_all_by_date($this->getId(),$date_deb,$date_fin,false));
+            $this->setGPSDATA(GPSDATA::load_all_by_date($this->getId(),$date_deb,$date_fin,false));
         }
     }
     /**
