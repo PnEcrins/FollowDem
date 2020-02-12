@@ -258,7 +258,7 @@ $config = array();
 	$config['db_port'] 		= 	'5432';
 	$config['db_user'] 		= 	'dbuser';
 	$config['db_password'] 	= 	'monpassachanger';
-	$config['db_prefixe'] 	= 	'';
+	$config['db_prefixe'] 	= 	'monschema.';
 	$config['db_type'] 		= 	'pgsql';
 	$config['db_encodage']  = 	'UTF8';
 
