@@ -8,38 +8,34 @@
  */
 class AnimalAttribute
 {
-    protected 	$id;
-    protected 	$animal_id;
-    protected 	$attribute_id;
+    protected 	$id_cor_an_att;
+    protected 	$id_animal;
+    protected 	$id_attribute;
     protected 	$value;
-    protected 	$created_at;
-    protected 	$updated_at;
     protected   $attribute;
 
     /**
      * AnimalAttribute constructor.
      */
-    public function __construct($id)
+    public function __construct($id_cor_an_att)
     {
-        if($id) {
-            $this->setId($id);
+        if($id_cor_an_att) {
+            $this->setIdCorAnAtt($id_cor_an_att);
             $this->load();
         }
     }
     private function load()
     {
         $db=db::get();
-        $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'animal_attributes where id = ?');
-        $rqs->execute(array($this->getId()));
+        $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'cor_animal_attributes where id_cor_an_att = ?');
+        $rqs->execute(array($this->getIdCorAnAtt()));
 
         if($results = $rqs->fetchObject())
         {
-            $this->setAnimalId($results->animal_id);
-            $this->setAttributeId($results->attribute_id);
+            $this->setAnimalId($results->id_animal);
+            $this->setAttributeId($results->id_attribute);
             $this->setValue($results->value);
-            $this->setCreatedAt($results->created_at);
-            $this->setUpdatedAt($results->updated_at);
-            $this->setAttribute(new Attribute($results->attribute_id));
+            $this->setAttribute(new Attribute($results->id_attribute));
         }
         else
         {
@@ -52,26 +48,26 @@ class AnimalAttribute
      *	Attention si $id_tracked_objects = 0 - Chargements et requêtes peuvent être longs !
      * 	@access  static
      * 	@return  array
-     * 	@param	id_tracked_objects, order
+     * 	@param	id_animal, order
      */
 
-    static function load_all($animal_id=0)
+    static function load_all($id_animal=0)
     {
         $db=db::get();
         $tmp_animals_attribute_data = array();
 
-        if($animal_id===0)
+        if($id_animal===0)
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'animal_attributes');
+            $rqs = $db->prepare('SELECT id_cor_an_att FROM '.config::get('db_prefixe').'cor_animal_attributes');
             $rqs->execute();
         }
         else
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'animal_attributes where animal_id = ?');
-            $rqs->execute(array($animal_id));
+            $rqs = $db->prepare('SELECT id_cor_an_att FROM '.config::get('db_prefixe').'cor_animal_attributes where id_animal = ?');
+            $rqs->execute(array($id_animal));
         }
         while($result = $rqs->fetchObject())
-            $tmp_animals_attribute_data[] = new AnimalAttribute($result->id);
+            $tmp_animals_attribute_data[] = new AnimalAttribute($result->id_cor_an_att);
 
         return $tmp_animals_attribute_data;
     }
@@ -93,7 +89,7 @@ class AnimalAttribute
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdCorAnAtt()
     {
         return $this->id;
     }
@@ -101,7 +97,7 @@ class AnimalAttribute
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setIdCorAnAtt($id)
     {
         $this->id = $id;
     }
@@ -111,15 +107,15 @@ class AnimalAttribute
      */
     public function getAnimalId()
     {
-        return $this->animal_id;
+        return $this->id_animal;
     }
 
     /**
-     * @param mixed $animal_id
+     * @param mixed $id_animal
      */
-    public function setAnimalId($animal_id)
+    public function setAnimalId($id_animal)
     {
-        $this->animal_id = $animal_id;
+        $this->id_animal = $id_animal;
     }
 
     /**
@@ -152,38 +148,6 @@ class AnimalAttribute
     public function setValue($value)
     {
         $this->value = $value;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at)
-    {
-        $this->created_at = $created_at;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
-    /**
-     * @param mixed $updated_at
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        $this->updated_at = $updated_at;
     }
 
 }

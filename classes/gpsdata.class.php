@@ -8,33 +8,27 @@
  */
 class GPSDATA
 {
-    protected 	$id;
-    protected 	$device_id;
+    protected 	$id_gps_data;
+    protected 	$id_device;
     protected 	$gps_date;
     protected 	$ttf;
-    protected 	$x;
-    protected 	$y;
     protected 	$temperature;
     protected 	$sat_number;
-    protected 	$hadop;
+    protected 	$hdop;
     protected 	$latitude;
     protected 	$longitude;
     protected 	$altitude;
-    protected 	$geom_mp;
     protected 	$accurate;
     protected 	$dimension;
-    protected 	$animale_device_id;
-    protected 	$created_at;
-    protected 	$updated_at;
 
     /**
      * GPSDATA constructor.
      */
-    public function __construct($id=0)
+    public function __construct($id_gps_data=0)
     {
-        if ($id !== 0)
+        if ($id_gps_data !== 0)
         {
-            $this->setId($id);
+            $this->setIdGpsData($id_gps_data);
             $this->load();
         }
     }
@@ -42,17 +36,17 @@ class GPSDATA
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdGpsData()
     {
-        return $this->id;
+        return $this->id_gps_data;
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $id_gps_data
      */
-    public function setId($id)
+    public function setIdGpsData($id_gps_data)
     {
-        $this->id = $id;
+        $this->id_gps_data = $id_gps_data;
     }
 
     /**
@@ -60,15 +54,15 @@ class GPSDATA
      */
     public function getDeviceId()
     {
-        return $this->device_id;
+        return $this->id_device;
     }
 
     /**
-     * @param mixed $device_id
+     * @param mixed $id_device
      */
-    public function setDeviceId($device_id)
+    public function setDeviceId($id_device)
     {
-        $this->device_id = $device_id;
+        $this->id_device = $id_device;
     }
 
     /**
@@ -103,37 +97,6 @@ class GPSDATA
         $this->ttf = $ttf;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getX()
-    {
-        return $this->x;
-    }
-
-    /**
-     * @param mixed $x
-     */
-    public function setX($x)
-    {
-        $this->x = $x;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getY()
-    {
-        return $this->y;
-    }
-
-    /**
-     * @param mixed $y
-     */
-    public function setY($y)
-    {
-        $this->y = $y;
-    }
 
     /**
      * @return mixed
@@ -170,17 +133,17 @@ class GPSDATA
     /**
      * @return mixed
      */
-    public function getHadop()
+    public function getHdop()
     {
-        return $this->hadop;
+        return $this->hdop;
     }
 
     /**
-     * @param mixed $hadop
+     * @param mixed $hdop
      */
-    public function setHadop($hadop)
+    public function setHdop($hdop)
     {
-        $this->hadop = $hadop;
+        $this->hdop = $hdop;
     }
 
     /**
@@ -234,22 +197,6 @@ class GPSDATA
     /**
      * @return mixed
      */
-    public function getGeomMp()
-    {
-        return $this->geom_mp;
-    }
-
-    /**
-     * @param mixed $geom_mp
-     */
-    public function setGeomMp($geom_mp)
-    {
-        $this->geom_mp = $geom_mp;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getAccurate()
     {
         return $this->accurate;
@@ -263,65 +210,8 @@ class GPSDATA
         $this->accurate = $accurate;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAnimaleDeviceId()
-    {
-        if($this->device_id) {
-            $db=db::get();
-            $rql = $db->prepare('SELECT ad.id FROM '.config::get('db_prefixe').'animal_devices AS ad
-                JOIN '.config::get('db_prefixe').'devices AS d ON d.id=ad.device_id
-                JOIN '.config::get('db_prefixe').'animals AS a ON a.id=ad.animal_id
-                where d.id = ? AND a.death_date IS NULL' );
-            $rql->execute(array($this->device_id));
-            if($result = $rql->fetchObject()) {
-                return $this->animale_device_id = $result->id;
-            }
-        }
 
-        return $this->animale_device_id;
-    }
 
-    /**
-     * @param mixed $animale_device_id
-     */
-    public function setAnimaleDeviceId($animale_device_id)
-    {
-        $this->animale_device_id = $animale_device_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at)
-    {
-        $this->created_at = $created_at;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
-    /**
-     * @param mixed $updated_at
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        $this->updated_at = $updated_at;
-    }
     /**
      * 	Charge une propriété
      *
@@ -332,12 +222,12 @@ class GPSDATA
     private function load()
     {
         $db=db::get();
-        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'gps_data where id = ?');
-        $rql->execute(array($this->getId()));
+        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_gps_data where id_gps_data = ?');
+        $rql->execute(array($this->getIdGpsData()));
         if($result = $rql->fetchObject())
         {
-            $this->setId($result->id);
-            $this->setAnimaleDeviceId($result->animale_device_id);
+            $this->setIdGpsData($result->id_gps_data);
+            $this->setDeviceId($result->id_device);
             $this->setGpsDate($result->gps_date);
             $this->setLatitude($result->latitude);
             $this->setLongitude($result->longitude);
@@ -358,7 +248,7 @@ class GPSDATA
     private function exist($update=false)
     {
         $db=db::get();
-        $rqe = $db->prepare('SELECT count(id) as nb,device_id,dateheure FROM '.config::get('db_prefixe').'gpsdata where device_id = ? AND gps_date = ?');
+        $rqe = $db->prepare('SELECT count(id_gps_data) as nb,id_device,gps_date FROM '.config::get('db_prefixe').'t_gps_data where id_device = ? AND gps_date = ?');
         $rqe->execute(array($this->getDeviceId(), $this->getGpsDate()));
 
         $results = $rqe->fetchObject();
@@ -378,28 +268,27 @@ class GPSDATA
     public function insert()
     {
         $db=db::get();
-        $rq = 'INSERT INTO '.config::get('db_prefixe').'gps_data';
+        $rq = 'INSERT INTO '.config::get('db_prefixe').'t_gps_data';
         $rq .= ' (
-                  gps_date,
-                  ttf,
-                  latitude,
-                  longitude,
-                  sat_number,
-                  dimension,
-                  altitude,
-                  hadop,
-                  temperature,
-                  x,
-                  y,
-                  accurate,
-                  animale_device_id
-                  )
-                  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                    id_device,
+                    gps_date,
+                    ttf,
+                    latitude,
+                    longitude,
+                    sat_number,
+                    dimension,
+                    altitude,
+                    hdop,
+                    temperature,
+                    accurate
+                    )
+                    VALUES(?,?,?,?,?,?,?,?,?,?,?)';
         try
         {
         $rqi = $db->prepare($rq);
         $rqi->execute(
             array(
+                $this->getDeviceId(),
                 $this->getGpsDate(),
                 $this->getTtf(),
                 $this->getLatitude(),
@@ -407,14 +296,12 @@ class GPSDATA
                 $this->getSatNumber(),
                 $this->getDimension(),
                 $this->getAltitude(),
-                $this->getHadop(),
+                $this->getHdop(),
                 $this->getTemperature(),
-                $this->getX(),
-                $this->getY(),
                 $this->getAccurate(),
-                $this->getAnimaleDeviceId()
                 )
         );
+        print_r($this);
         }
         catch(PDOException $e)
         {
@@ -423,11 +310,11 @@ class GPSDATA
         }
         if ($rqi->rowCount() === 0)
         {
-            trace::add("ERREUR ajout gps_data id=".$this->getId().' - id_device :'.$this->getDeviceId());
+            trace::add("ERREUR ajout gps_data id_gps_data=".$this->getIdGpsData().' - id_device :'.$this->getDeviceId());
         }
         else
         {
-            trace::add("Ajout gps_data id=".$this->getId().' - id_device :'.$this->getDeviceId());
+            trace::add("Ajout gps_data id_gps_data=".$this->getIdGpsData().' - id_device :'.$this->getDeviceId());
         }
 
 
@@ -458,7 +345,7 @@ class GPSDATA
     private function update()
     {
         $db=db::get();
-        $rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'gpsdata SET device_id=?,gps_date=?,latitude=?,longitude=?,temperature=?,number_sat=?,altitude=? WHERE id=?');
+        $rqu = $db->prepare('UPDATE '.config::get('db_prefixe').'t_gps_data SET id_device=?,gps_date=?,latitude=?,longitude=?,temperature=?,number_sat=?,altitude=? WHERE id_gps_data=?');
         $rqu->execute(array(
             $this->getDeviceId(),
             $this->getGpsDate(),
@@ -470,10 +357,10 @@ class GPSDATA
             $this->getId()));
 
         if ($rqu->rowCount() === 0){
-            trace::add("ERREUR update gps_data id=".$this->get_id().'--'.$this->get_device_id());
+            trace::add("ERREUR update t_gps_data id_gps_data=".$this->getIdGpsData().'--'.$this->get_id_device());
         }
         else {
-            trace::add("update gps_data id=".$this->get_id().'--'.$this->get_device_id());
+            trace::add("update t_gps_data id_gps_data=".$this->getIdGpsData().'--'.$this->get_id_device());
         }
     }
     /**
@@ -485,16 +372,24 @@ class GPSDATA
     private function delete()
     {
         $db=db::get();
-        $rqd = $db->prepare('DELETE FROM '.config::get('db_prefixe').'gpsdata WHERE id=?');
-        $rqd->execute(array($this->getId()));
+        $rqd = $db->prepare('DELETE FROM '.config::get('db_prefixe').'t_gps_data WHERE id_gps_data=?');
+        $rqd->execute(array($this->getIdGpsData()));
         if ($rqd->rowCount() === 0){
-            trace::add("ERREUR Suppression gps_data id=".$this->getId().'--'.$this->getDeviceId());
+            trace::add("ERREUR Suppression t_gps_data id_gps_data=".$this->getIdGpsData().'--'.$this->getDeviceId());
         }
         else {
-            trace::add("Suppression gps_data id=".$this->getId().'--'.$this->getDeviceId());
+            trace::add("Suppression t_gps_data id_gps_data=".$this->getIdGpsData().'--'.$this->getDeviceId());
         }
     }
 
+
+    /**
+     * 	Charge toutes les données de l'objet si $id_device retourne un tableau d'objets et de propriétés
+     *	Attention si $id_device = 0 - Chargements et requêtes peuvent être longs !
+     * 	@access  static
+     * 	@return  array
+     * 	@param	id_device, order
+     */
 
     /**
      * 	Charge toutes les données de l'objet si $device_id retourne un tableau d'objets et de propriétés
@@ -511,22 +406,22 @@ class GPSDATA
 
         if($animal_id===0)
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data');
+            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data');
             $rqs->execute();
         }
         else
         {
-            $rqs = $db->prepare('SELECT id FROM '.config::get('db_prefixe').'gps_data where animale_device_id in (select device_id from '.config::get('db_prefixe').'animal_devices where animal_id = ?)');
+            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data where id_device in (select id_device from cor_animal_devices where id_animal = ?)');
             $rqs->execute(array($animal_id));
             //$rqs->debugDumpParams();
         }
         while($result = $rqs->fetchObject())
-            $tmp_gps_data[] = new GPSDATA($result->id);
+            $tmp_gps_data[] = new GPSDATA($result->id_gps_data);
 
         return $tmp_gps_data;
     }
 
-    /**
+       /**
      * 	Charge toutes les données entre 2 dates ou la dernière date
      *	Attention si $device_id = 0 - Chargements et requêtes peuvent être longs !
      * 	@access  static
@@ -534,7 +429,7 @@ class GPSDATA
      * 	@param	device_id, date_deb, date_fin, last_gps_data (dernières données seulement), order, $count_only(compte seulement si des données existent)
      */
 
-     static function load_all_by_date($animal_id=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='gps_date')
+    static function load_all_by_date($animal_id=0,$date_deb=null,$date_fin=null,$last_gps_data=true,$count_only=false, $order='gps_date')
     {
         $db=db::get();
         $tmp_gps_data = array();
@@ -543,7 +438,7 @@ class GPSDATA
         $next = '';
         if($animal_id!==0)
         {
-            $where.=' animale_device_id in ( select device_id from '.config::get('db_prefixe').'animal_devices where animal_id = ?) ';
+            $where.=' id_device in ( select id_device from cor_animal_devices where id_animal = ?) ';
             $prepare[]=$animal_id;
             $next = ' AND ';
         }
@@ -564,16 +459,16 @@ class GPSDATA
         }
         else
         {
-            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'gps_data WHERE'.$where.')';
+            $where.= $next.'gps_date IN (SELECT max(gps_date) FROM '.config::get('db_prefixe').'t_gps_data WHERE'.$where.' )';
             $prepare = array_merge($prepare,$prepare);
         }
 
 
 
         if($count_only === true)
-            $rqs = $db->prepare('SELECT count(id) as NB FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT count(id_gps_data) as NB FROM '.config::get('db_prefixe').'t_gps_data where '.$where.' ORDER BY '.$order);
         else
-            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'gps_data where '.$where.' ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_gps_data where '.$where.' ORDER BY '.$order);
 
         $rqs->execute($prepare);
 
@@ -587,16 +482,16 @@ class GPSDATA
         else
         {
             while($result = $rqs->fetchObject()){
-                $gpsdata = new GPSDATA();
-                $gpsdata->setId($result->id);
-                //$gpsdata->setDeviceId($result->device_id); // Join with animalDevice ?
-                $gpsdata->setGpsDate($result->gps_date);
-                $gpsdata->setLatitude($result->latitude);
-                $gpsdata->setLongitude($result->longitude);
-                $gpsdata->setTemperature($result->temperature);
-                $gpsdata->setSatNumber($result->sat_number);
-                $gpsdata->setAltitude($result->altitude);
-                $tmp_gps_data[] = $gpsdata;
+                $analysis = new GPSDATA();
+                $analysis->setIdGpsData($result->id_gps_data);
+                $analysis->setDeviceId($result->id_device);
+                $analysis->setGpsDate($result->gps_date);
+                $analysis->setLatitude($result->latitude);
+                $analysis->setLongitude($result->longitude);
+                $analysis->setTemperature($result->temperature);
+                $analysis->setSatNumber($result->sat_number);
+                $analysis->setAltitude($result->altitude);
+                $tmp_gps_data[] = $analysis;
             }
             /*
             if(count($tmp_gps_data)>0) {

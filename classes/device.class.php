@@ -8,40 +8,33 @@
  */
 class Device
 {
-    protected 	$id;
-    protected 	$reference;
-    protected 	$device_type_id;
+    protected 	$id_device;
+    protected 	$ref_device;
+    protected 	$id_device_type;
     protected 	$comment;
-    protected 	$created_at;
-    protected 	$updated_at;
 
-    public function __construct($id=null,$load_all=true)
+    public function __construct($id_device=null,$load_all=true)
     {
-        if ($id !== null)
+        if ($id_device !== null)
         {
-            $this->setId($id);
-        }
-        else
-        {
-            $this->setCreatedAt(date('Y-m-d H:m:i',time()));
-            $this->setUpdatedAt(date('Y-m-d H:m:i',time()));
+            $this->setIdDevice($id_device);
         }
     }
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdDevice()
     {
-        return $this->id;
+        return $this->id_device;
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $id_device
      */
-    public function setId($id)
+    public function setIdDevice($id_device)
     {
-        $this->id = $id;
+        $this->id_device = $id_device;
     }
 
     /**
@@ -49,15 +42,15 @@ class Device
      */
     public function getReference()
     {
-        return $this->reference;
+        return $this->ref_device;
     }
 
     /**
      * @param mixed $reference
      */
-    public function setReference($reference)
+    public function setReference($ref_device)
     {
-        $this->reference = $reference;
+        $this->ref_device = $ref_device;
     }
 
     /**
@@ -65,15 +58,15 @@ class Device
      */
     public function getDeviceTypeId()
     {
-        return $this->device_type_id;
+        return $this->id_device_type;
     }
 
     /**
-     * @param mixed $device_type_id
+     * @param mixed $id_device_type
      */
-    public function setDeviceTypeId($device_type_id)
+    public function setDeviceTypeId($id_device_type)
     {
-        $this->device_type_id = $device_type_id;
+        $this->id_device_type = $id_device_type;
     }
 
     /**
@@ -92,37 +85,7 @@ class Device
         $this->comment = $comment;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
 
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at)
-    {
-        $this->created_at = $created_at;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
-    /**
-     * @param mixed $updated_at
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        $this->updated_at = $updated_at;
-    }
     /**
      * 	import_csv
      * 	Importe les nouvelles données à partir d'un fichier CSV pour les stocker dans la BDD.
@@ -169,48 +132,50 @@ class Device
                 }
                 eval('$result_cond = ('.$tmp_condition.');');
 
-                echo $line."\t Condition sur les données récupérées : ".$tmp_condition.' -> résultat :'.$result_cond;
+                echo $line."\n Condition sur les données récupérées : ".$tmp_condition.' -> résultat :'.$result_cond;
                 $accurate = 0;
+
+                /*
+                 Insertion des données même si elles ne répondent pas aux conditions définies dans le fichier de configuration.
+                 Si les données ne répondent pas aux conditions, le champ 'accurate' est à 0.
+                 Si les données répondent aux conditions, le champ 'accurate' est à 1.
+                */
                 if($result_cond) {
-                    echo $line.'Données répondant aux conditions';
                     $accurate = 1;
-                }else
+                    echo $line.'Données répondant aux conditions';
+                } else {
+                    $accurate = 0;
                     echo $line.'gps_data ne répondant pas aux conditions';
+                }
 
-                    $device = new Device();
-                    $device->setId($data[config::get('csv_colonne','id')]);
+                $device = new Device();
+                $device->setIdDevice($data[config::get('csv_colonne','id')]);
 
+                /* Gestion des dates */
+                $tmp_date	= $data[config::get('csv_colonne','date')].((config::get('csv_colonne','heure') !=-1)?' '.$data[config::get('csv_colonne','heure')]:'');
+                echo $line."\n Date :".$data[config::get('csv_colonne','date')].' '.$data[config::get('csv_colonne','heure')];
+                $obj_date 	= DateTime::createFromFormat(config::get('csv_date_format').' '.config::get('csv_heure_format'), $tmp_date);
+                /* Fait une mise à jour de la date une fois les données saisies complétement. */
 
-
-
-                    /* Gestion des dates */
-                    $tmp_date	= $data[config::get('csv_colonne','date')].((config::get('csv_colonne','heure') !=-1)?' '.$data[config::get('csv_colonne','heure')]:'');
-                    echo $line.'Date :'.$data[config::get('csv_colonne','date')].' '.$data[config::get('csv_colonne','heure')];
-                    $obj_date 	= DateTime::createFromFormat(config::get('csv_date_format').' '.config::get('csv_heure_format'), $tmp_date);
-
-                    /* Fait une mise à jour de la date une fois les données saisies complétement. */
-
-                    /*Affectation des données*/
-                    $gpsdata 	= new GPSDATA();
-                    $gpsdata->setDeviceId($device->getId());
-                    $gpsdata->setGpsDate($obj_date->format('Y-m-d H:i:s'));
-                    $gpsdata->setTtf($data[config::get('csv_colonne','ttf')]);
-                    $gpsdata->setLatitude($data[config::get('csv_colonne','latitude')]);
-                    $gpsdata->setLongitude($data[config::get('csv_colonne','longitude')]);
-                    $gpsdata->setSatNumber($data[config::get('csv_colonne','nb_satellites')]);
-                    $gpsdata->setDimension($data[config::get('csv_colonne','dimension')]);
-                    $gpsdata->setAltitude($data[config::get('csv_colonne','altitude')]);
-                    $gpsdata->setHadop($data[config::get('csv_colonne','hadop')]);
-                    $gpsdata->setTemperature($data[config::get('csv_colonne','temperature')]);
-                    $gpsdata->setX($data[config::get('csv_colonne','x')]);
-                    $gpsdata->setY($data[config::get('csv_colonne','y')]);
-                    $gpsdata->setAccurate($accurate);
-                    $gpsdata->insert();
+                /*Affectation des données*/
+                $gpsdata 	= new GPSDATA();
+                $gpsdata->setDeviceId($device->getIdDevice());
+                $gpsdata->setGpsDate($obj_date->format('Y-m-d H:i:s'));
+                $gpsdata->setTtf($data[config::get('csv_colonne','ttf')]);
+                $gpsdata->setLatitude($data[config::get('csv_colonne','latitude')]);
+                $gpsdata->setLongitude($data[config::get('csv_colonne','longitude')]);
+                $gpsdata->setSatNumber($data[config::get('csv_colonne','nb_satellites')]);
+                $gpsdata->setDimension($data[config::get('csv_colonne','dimension')]);
+                $gpsdata->setAltitude($data[config::get('csv_colonne','altitude')]);
+                $gpsdata->setHdop($data[config::get('csv_colonne','hadop')]);
+                $gpsdata->setTemperature($data[config::get('csv_colonne','temperature')]);
+                $gpsdata->setAccurate($accurate);
+                $gpsdata->insert();
 
 
 
-                    /*Affectation des propriétés*/
-                    echo $line.'tracked_objects sauvardé :'.print_r($device);
+                /*Affectation des propriétés*/
+                echo $line.'tracked_objects sauvegardé :'.print_r($device);
 
 
             }

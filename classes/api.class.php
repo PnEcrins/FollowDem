@@ -42,7 +42,7 @@ class api
 	*
 	* 	@access  public
 	* 	@return  string
-	* 	@param
+	* 	@param $object = animals
 	*/
 	public static function leaflet_ini($objets)
 	{
@@ -196,10 +196,9 @@ class api
 				/*On d�fini les styles pour le point de la derni�re position (cercle)*/
 
 
-
 				if (count(config::get('lefleat_style_point_surcharge')) > 0 && $tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')))
 				{
-					$tmp_style = 'var style'.$tracked_objects->getId(). '='.json_encode(config::get('lefleat_style_point_surcharge')).';';
+					$tmp_style = 'var style'.$tracked_objects->getIdAnimal(). '='.json_encode(config::get('lefleat_style_point_surcharge')).';';
 
 					$tmp_style = str_replace(config::get('lefleat_style_point_surcharge','color'),$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','color')),$tmp_style);
 					$tmp_style = str_replace(config::get('lefleat_style_point_surcharge','fillColor'),$tracked_objects->get_object_feature(config::get('lefleat_style_point_surcharge','fillColor')),$tmp_style);
@@ -218,19 +217,19 @@ class api
 				}
 				else
 				{
-					$leaflet_ini .= 'var style'.$tracked_objects->getId(). '='.json_encode(config::get('lefleat_style_point_defaut')).';';
+					$leaflet_ini .= 'var style'.$tracked_objects->getIdAnimal(). '='.json_encode(config::get('lefleat_style_point_defaut')).';';
 				}
-				if(count($tracked_objects->getGPSDATA()) > 0)
+				if(count($tracked_objects->getGpsData()) > 0)
 				{
 
 
-					foreach($tracked_objects->getGPSDATA() as $gps_data)
+					foreach($tracked_objects->getGpsData() as $gps_data)
 					{
 						//$leaflet_ini .= 'new L.LatLng('.$gps_data->get_latitude().','.$gps_data->get_longitude().');';
- 						$leaflet_ini .= 'markers['.$tracked_objects->getId().'] = L.circleMarker(['.$gps_data->getLatitude().','.$gps_data->getLongitude().'], style'.$tracked_objects->getId().').addTo(geojsonLayerPointLast);';
-						$leaflet_ini .= 'markers['.$tracked_objects->getId().'].bindPopup("<p><strong>'.$tracked_objects->getName().'</strong><br />'.$gps_data->getGpsDate().'<br /><a id=\"voirparcours'.$tracked_objects->getId().'\" href=\"#\" onClick=\"active_parcours(false);\"><i class=\"glyphicon glyphicon-map-marker\"></i> Voir le parcours</a></p>");';
-						$leaflet_ini .= 'markers['.$tracked_objects->getId().'].on(\'click\', function (d) {
-							  active_tracked_objects('.$tracked_objects->getId().');
+ 						$leaflet_ini .= 'markers['.$tracked_objects->getIdAnimal().'] = L.circleMarker(['.$gps_data->getLatitude().','.$gps_data->getLongitude().'], style'.$tracked_objects->getIdAnimal().').addTo(geojsonLayerPointLast);';
+						$leaflet_ini .= 'markers['.$tracked_objects->getIdAnimal().'].bindPopup("<p><strong>'.$tracked_objects->getName().'</strong><br />'.$gps_data->getGpsDate().'<br /><a id=\"voirparcours'.$tracked_objects->getIdAnimal().'\" href=\"#\" onClick=\"active_parcours(false);\"><i class=\"glyphicon glyphicon-map-marker\"></i> Voir le parcours</a></p>");';
+						$leaflet_ini .= 'markers['.$tracked_objects->getIdAnimal().'].on(\'click\', function (d) {
+							  active_tracked_objects('.$tracked_objects->getIdAnimal().');
 						});';
 
 						/*

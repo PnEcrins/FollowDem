@@ -8,53 +8,51 @@
  */
 class Attribute
 {
-    protected 	$id;
-    protected 	$name;
+    protected 	$id_attribute;
+    protected 	$attribute;
     protected 	$value_list;
     protected 	$attribute_type;
     protected 	$order;
-    protected 	$created_at;
-    protected 	$updated_at;
 
-    public function __construct($id=0)
+    public function __construct($id_attribute=0)
     {
 
-        if ($id !== 0)
-            $this->setId($id);
-        if ($this->getId()!==0)
+        if ($id_attribute !== 0)
+            $this->setIdAttribute($id_attribute);
+        if ($this->getIdAttribute()!==0)
             $this->load();
     }
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdAttribute()
     {
-        return $this->id;
+        return $this->id_attribute;
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $id_attribute
      */
-    public function setId($id)
+    public function setIdAttribute($id_attribute)
     {
-        $this->id = $id;
+        $this->id_attribute = $id_attribute;
     }
 
     /**
      * @return mixed
      */
-    public function getName()
+    public function getAttribute()
     {
-        return $this->name;
+        return $this->attribute;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $attribute
      */
-    public function setName($name)
+    public function setAttribute($attribute)
     {
-        $this->name = $name;
+        $this->attribute = $attribute;
     }
 
     /**
@@ -105,53 +103,20 @@ class Attribute
         $this->order = $order;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
 
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at)
-    {
-        $this->created_at = $created_at;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
-    /**
-     * @param mixed $updated_at
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        $this->updated_at = $updated_at;
-    }
     private function load()
     {
         $db=db::get();
-        $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'attributes where id = ?');
-        $rqs->execute(array($this->id));
+        $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'lib_attributes where id_attribute = ?');
+        $rqs->execute(array($this->id_attribute));
 
         if($results = $rqs->fetchObject())
         {
-            $this->setName($results->name);
-
+            $this->setName($results->attribute);
 
             $this->setAttributeType($results->attribute_type);
 
             $this->setOrder($results->order);
-            $this->setCreatedAt($results->created_at);
-            $this->setUpdatedAt($results->updated_at);
         }
         else
         {

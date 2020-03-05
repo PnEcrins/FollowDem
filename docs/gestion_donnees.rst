@@ -4,16 +4,16 @@ GESTION DES DONNEES
 
 Après avoir installé et configuré l'application, vous devez créer vos objets suivis dans la base de données.
 
-Pour cela vous devez installer l'application d'administration de FollowDem.
+Pour cela vous devez installer l'application d'administration FollowDem-Admin.
+Pour l'installation de l'application d'administration référez-vous à la documentation des dépôts github :
+        - https://github.com/PnEcrins/FollowDem-admin
+        - https://github.com/PnEcrins/FollowDem-admin-front
 
 
 Gestion des données
 ===================
 
-Il est conseillé d'installer l'application FollowDem-Admin (https://github.com/PnEcrins/FollowDem-admin) pour gérer les données.
-
-
-CAS n°1 : Ajouter des données dont l'émetteur GPS n'a jamais été utilisé
+Exemple: Ajouter d'un animal dont l'émetteur GPS n'a jamais été utilisé
 ========================================================================
 
 Sur l'application FollowDem-Admin :
@@ -34,24 +34,3 @@ Sur l'application FollowDem-Admin :
 
 Il ne reste plus qu'à lancer un import des données existantes si des données ont déjà été transmises après la pose de l'émetteur GPS sur l'objet traqué.
 
-Ces données se trouvent dans les fichiers TXT du répertoire ``/tmp/csv``.
-
-Il faut donc exécuter le script http://mon-domaine.com/controler/import_imap_csv. Les données sont intégrées dans la table ``t_gps_data``. Voir rubrique PRINCIPES DE L'APPLICATION dans la documentation CONFIGURATION.
-
-
-
-CAS n°2 : Ajout d'un nouvel objet dont l'émetteur GPS a déjà été utilisé sur un autre objet
-===========================================================================================
-
-Si l'émetteur GPS a déjà été utilisé il convient de supprimer toutes les données antérieures à la nouvelle date de pose de l'émetteur GPS (en remplacant ``id_emetteurGPS`` par la valeur numérique souhaitée).
-
-::
-
-	DELETE FROM `gps_data` WHERE `id_tracked_objects` = 'id_emetteurGPS' AND `dateheure` > 'date_de_pose';
-
-
-Lancer l'import des données existantes si des données ont déjà été transmises après la pose de l'émetteur GPS sur l'objet traqué.
-
-Ces données se trouvent dans les fichiers TXT du répertoire ``/tmp/csv``.
-
-Il faut donc exécuter le script http://mon-domaine.com/controler/import_imap_csv. Les données sont intégrées dans la table ``t_gps_data``. Voir rubrique PRINCIPES DE L'APPLICATION dans la documentation CONFIGURATION.

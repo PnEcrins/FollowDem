@@ -8,7 +8,7 @@
                 "type": "LineString",
                 "coordinates": [{/literal}
 				{assign var=cpt value=1}
-				{assign var=gps_data value=$animal->getGPSDATA()}
+				{assign var=gps_data value=$animal->getGpsData()}
 				{foreach $gps_data as $data}
 					[{$data->getLongitude()},
 					{$data->getLatitude()}]
@@ -22,7 +22,7 @@
                 "nom": "{$animal->getName()}"
 {literal}   },{/literal}
 
-			"id": {$animal->getId()}
+			"id": {$animal->getIdAnimal()}
 {literal}
 		}
 	]

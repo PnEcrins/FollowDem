@@ -10,30 +10,23 @@ class Animal
 {
 
 
-    protected 	$id 			= '';
+    protected 	$id_animal			= '';
     protected 	$name 			= '';
     protected 	$birth_year 	= NULL;
     protected 	$capture_date	 	= NULL;
     protected 	$death_date 		= 0;
     protected 	$comment;
-    protected 	$created_at;
-    protected 	$updated_at;
     protected 	$attributes 	= array();
     protected 	$devices	= array();
     protected 	$gpsdata		= array();// gps data
 
 
-    public function __construct($id=null,$load_all=true)
+    public function __construct($id_animal=null,$load_all=true)
     {
-        if ($id !== null)
+        if ($id_animal !== null)
         {
-            $this->setId($id);
+            $this->setIdAnimal($id_animal);
             $this->load($load_all);
-        }
-        else
-        {
-            $this->setCreated_at(date('Y-m-d H:m:i',time()));
-            $this->setUpdated_at(date('Y-m-d H:m:i',time()));
         }
     }
 
@@ -41,68 +34,32 @@ class Animal
     {
         $this->name = trim($name);
     }
-    public function setId($id='')
-    {
-        $this->id = $id;
-    }
 
-    public function setCreated_at($created_at='')
+    public function setIdAnimal($id_animal='')
     {
-        $this->created_at = $created_at;
-    }
-
-    public function setUpdated_at($updated_at='')
-    {
-        $this->updated_at = $updated_at;
+        $this->id_animal = $id_animal;
     }
 
     public function setAttributes($attributes='')
     {
-
         $this->attributes = $attributes;
-
-
     }
-    public function setGPSDATA($gpsdata='')
+
+    public function setGpsData($gpsdata='')
     {
-
         $this->gpsdata = $gpsdata;
-
     }
 
     public function getName()
     {
         return $this->name;
     }
-    public function getId()
+
+    public function getIdAnimal()
     {
-        return $this->id;
+        return $this->id_animal;
     }
 
-    public function getCreatedAt()
-    {
-        $tz 	= new DateTimeZone(config::get('fuseau'));
-        $date	= new DateTime($this->created_at,$tz);
-        return strftime(config::get('datesortie'), $date->getTimestamp());
-    }
-
-    public function getCreatedAtBdd()
-    {
-        return $this->date_creation;
-    }
-
-    public function getUpdated_at()
-    {
-        $tz 	= new DateTimeZone(config::get('fuseau'));
-        $date	= new DateTime($this->get_date_maj,$tz);
-        return strftime(config::get('datesortie'), $date->getTimestamp());
-    }
-
-
-    public function getUpdatedAtBdd()
-    {
-        return $this->date_maj;
-    }
 
 
     /* Renvoie tableau d'objet et de propriété */
@@ -136,7 +93,8 @@ class Animal
     {
         $this->death_date = $death_date;
     }
-    public function getGPSDATA()
+
+    public function getGpsData()
     {
         return $this->gpsdata;
     }
@@ -187,8 +145,8 @@ class Animal
     {
 
         $db=db::get();
-        $rqs = $db->prepare('SELECT id,name,birth_year,capture_date,death_date, comment, created_at, updated_at FROM '.config::get('db_prefixe').'animals where id = ?');
-        $rqs->execute(array($this->id));
+        $rqs = $db->prepare('SELECT id_animal, name, birth_year, capture_date, death_date, comment FROM '.config::get('db_prefixe').'t_animals where id_animal = ?');
+        $rqs->execute(array($this->id_animal));
 
         if($results = $rqs->fetchObject())
         {
@@ -196,13 +154,11 @@ class Animal
             $this->setBirthYear($results->birth_year);
             $this->setCaptureDate($results->capture_date);
             $this->setDeathDate($results->death_date);
-            $this->setCreated_at($results->created_at);
-            $this->setUpdated_at($results->updated_at);
 
-            $this->setAttributes(AnimalAttribute::load_all($this->getId()));
+            $this->setAttributes(AnimalAttribute::load_all($this->getIdAnimal()));
             if($load_gps_data==true) {
-                $data = GPSDATA::load_all_by_date($this->getId());
-                $this->setGPSDATA($data);
+                $data = GPSDATA::load_all_by_date($this->getIdAnimal());
+                $this->setGpsData($data);
             }
         }
         else
@@ -215,19 +171,17 @@ class Animal
     {
         $db=db::get();
         $tmp_animals = array();
-            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'animals where id in ( select animal_id from '.config::get('db_prefixe').'animal_devices)  ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_animals where id_animal in ( select id_animal from '.config::get('db_prefixe').'cor_animal_devices)  ORDER BY '.$order);
             $rqs->execute();
 
         while($results = $rqs->fetchObject()) {
-            $animal = new Animal($results->id);
+            $animal = new Animal($results->id_animal);
             $animal->setName($results->name);
             $animal->setBirthYear($results->birth_year);
             $animal->setCaptureDate($results->capture_date);
             $animal->setDeathDate($results->death_date);
-            $animal->setCreated_at($results->created_at);
-            $animal->setUpdated_at($results->updated_at);
 
-            $animal->setAttributes(AnimalAttribute::load_all($animal->getId()));
+            $animal->setAttributes(AnimalAttribute::load_all($animal->getIdAnimal()));
             $tmp_animals[] = $animal;
 }
         return $tmp_animals;
@@ -243,7 +197,7 @@ class Animal
         if($date_deb !== null)
         {
             if($date_fin === null){$date_fin = date('Y-m-d H:m:i',time());}
-            $this->setGPSDATA(GPSDATA::load_all_by_date($this->getId(),$date_deb,$date_fin,false));
+            $this->setGpsData(GPSDATA::load_all_by_date($this->getIdAnimal(),$date_deb,$date_fin,false));
         }
     }
     /**
