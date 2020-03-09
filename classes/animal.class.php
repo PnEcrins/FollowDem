@@ -235,7 +235,7 @@ class Animal
     public function get_object_feature($prop='')
     {
         foreach( $this->getAttributes()  as $attribute){
-            if($attribute->getAttribute()->getName() == $prop)
+            if($attribute->getAttribute()->getAttribute() == $prop)
                 return $attribute->getValue();
     }
 
