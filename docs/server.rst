@@ -85,9 +85,9 @@ Installation de PHP et ses librairies
 
 ::
 
-	sudo apt-get install php php7.0-common libapache2-mod-php7.0 php7.0-cli php7.0-dev
-        sudo apt install php7.0-pgsql php-pgsql
-	sudo apt-get install php7.0-imap
+	sudo apt-get install php php7.3-common libapache2-mod-php7.3 php7.3-cli php7.3-dev
+  sudo apt install php7.3-pgsql php-pgsql
+	sudo apt-get install php7.3-imap
 	sudo phpenmod imap
 	sudo service apache2 restart
 
