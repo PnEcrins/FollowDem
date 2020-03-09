@@ -112,7 +112,7 @@ class Attribute
 
         if($results = $rqs->fetchObject())
         {
-            $this->setName($results->attribute);
+            $this->setAttribute($results->attribute);
 
             $this->setAttributeType($results->attribute_type);
 
