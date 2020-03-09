@@ -411,7 +411,7 @@ class GPSDATA
         }
         else
         {
-            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data where id_device in (select id_device from cor_animal_devices where id_animal = ?)');
+            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data where id_device in (select id_device from '.config::get('db_prefixe').'cor_animal_devices where id_animal = ?)');
             $rqs->execute(array($animal_id));
             //$rqs->debugDumpParams();
         }
@@ -438,7 +438,7 @@ class GPSDATA
         $next = '';
         if($animal_id!==0)
         {
-            $where.=' id_device in ( select id_device from cor_animal_devices where id_animal = ?) ';
+            $where.=' id_device in ( select id_device from '.config::get('db_prefixe').'cor_animal_devices where id_animal = ?) ';
             $prepare[]=$animal_id;
             $next = ' AND ';
         }
