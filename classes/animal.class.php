@@ -145,7 +145,7 @@ class Animal
     {
 
         $db=db::get();
-        $rqs = $db->prepare('SELECT id_animal, name, birth_year, capture_date, death_date, comment FROM '.config::get('db_prefixe').'t_animals where id_animal = ?');
+        $rqs = $db->prepare('SELECT id_animal, name, birth_year, capture_date, death_date, comment FROM '.config::get('db_prefixe').'t_animals WHERE display = TRUE AND id_animal = ?');
         $rqs->execute(array($this->id_animal));
 
         if($results = $rqs->fetchObject())
@@ -171,7 +171,7 @@ class Animal
     {
         $db=db::get();
         $tmp_animals = array();
-            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_animals where id_animal in ( select id_animal from '.config::get('db_prefixe').'cor_animal_devices)  ORDER BY '.$order);
+            $rqs = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_animals WHERE display = TRUE AND id_animal in ( select id_animal from '.config::get('db_prefixe').'cor_animal_devices)  ORDER BY '.$order);
             $rqs->execute();
 
         while($results = $rqs->fetchObject()) {
