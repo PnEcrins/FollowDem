@@ -222,7 +222,7 @@ class GPSDATA
     private function load()
     {
         $db=db::get();
-        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_gps_data where id_gps_data = ?');
+        $rql = $db->prepare('SELECT * FROM '.config::get('db_prefixe').'t_gps_data where id_gps_data = ? and accurate = true');
         $rql->execute(array($this->getIdGpsData()));
         if($result = $rql->fetchObject())
         {
@@ -406,12 +406,12 @@ class GPSDATA
 
         if($animal_id===0)
         {
-            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data');
+            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data where accurate = true');
             $rqs->execute();
         }
         else
         {
-            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data where id_device in (select id_device from '.config::get('db_prefixe').'cor_animal_devices where id_animal = ?)');
+            $rqs = $db->prepare('SELECT id_gps_data FROM '.config::get('db_prefixe').'t_gps_data where id_device in (select id_device from '.config::get('db_prefixe').'cor_animal_devices where id_animal = ? and accurate = true)');
             $rqs->execute(array($animal_id));
             //$rqs->debugDumpParams();
         }
@@ -438,7 +438,7 @@ class GPSDATA
         $next = '';
         if($animal_id!==0)
         {
-            $where.=' id_device in ( select id_device from '.config::get('db_prefixe').'cor_animal_devices where id_animal = ?) ';
+            $where.=' id_device in ( select id_device from '.config::get('db_prefixe').'cor_animal_devices where id_animal = ? and accurate = true) ';
             $prepare[]=$animal_id;
             $next = ' AND ';
         }
@@ -447,13 +447,13 @@ class GPSDATA
         {
             if($date_deb!=null)
             {
-                $where.=$next.'gps_date > ?';
+                $where.=$next.'gps_date > ? and accurate = true ';
                 $prepare[]=$date_deb;
                 $next = ' AND ';
             }
             if($date_fin!=null)
             {
-                $where.=$next.'gps_date < ?';
+                $where.=$next.'gps_date < ? and accurate = true';
                 $prepare[]=$date_fin;
             }
         }
