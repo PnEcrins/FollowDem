@@ -8,14 +8,15 @@ This application is used by the Ecrins national Park to follow ibex : `<http://b
 .. image :: docs/img/screenshot-bouquetins-pne.jpg
     :target: http://bouquetins.ecrins-parcnational.fr
 
-    
+Based on Followdem-admin (https://github.com/PnEcrins/FollowDem-admin) to install before to create the PostgreSQL database, manage devices, animals and attributes. It also allows to import massive GPS data.
+
 French version of this presentation : `<https://github.com/PnEcrins/FollowDem/blob/master/README-fr.rst>`_
     
 Technologies
 ------------
 
 - Languages : PHP, HTML, JS, CSS
-- Database : MySQL / PDO
+- Database : PostgreSQL ou MySQL / PDO
 - Server : Debian ou Ubuntu
 - Carto framework : `Leaflet <http://leafletjs.com>`_
 - CSS framework : `Bootstrap <http://getbootstrap.com>`_
@@ -86,11 +87,13 @@ Parc national des Ecrins
 - Gil Deluermoz
 - Camille Monchicourt
 
+Natural Solutions
+
 Licence
 -------
 
 * OpenSource - GPLv3
-* Copyright (c) 2015 - Parc National des Écrins
+* Copyright (c) 2015-2020 - Parc National des Écrins
 
 
 .. image:: http://geonature.fr/img/logo-pne.jpg
