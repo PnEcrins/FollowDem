@@ -133,18 +133,18 @@ class Device
                 eval('$result_cond = ('.$tmp_condition.');');
 
                 echo $line."\n Condition sur les données récupérées : ".$tmp_condition.' -> résultat :'.$result_cond;
-                $accurate = 0;
+                $accurate = false;
 
                 /*
                  Insertion des données même si elles ne répondent pas aux conditions définies dans le fichier de configuration.
-                 Si les données ne répondent pas aux conditions, le champ 'accurate' est à 0.
-                 Si les données répondent aux conditions, le champ 'accurate' est à 1.
+                 Si les données ne répondent pas aux conditions, le champ 'accurate' est à false.
+                 Si les données répondent aux conditions, le champ 'accurate' est à true.
                 */
                 if($result_cond) {
-                    $accurate = 1;
+                    $accurate = true;
                     echo $line.'Données répondant aux conditions';
                 } else {
-                    $accurate = 0;
+                    $accurate = false;
                     echo $line.'gps_data ne répondant pas aux conditions';
                 }
 

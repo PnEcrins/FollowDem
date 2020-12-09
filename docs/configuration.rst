@@ -85,7 +85,7 @@ Dans notre cas, le fichier CSV est constitué des colonnes :
 - Y (pas utilisé)
 
 Les colonnes et leur ordre dans le CSV sont configurables dans le paramètre ``$config['csv_colonne']`` du fichier ``/config/config.php``
-Il est possible de définir des seuils de valeur pour lesquelles on souhaite intégrer les positions dans la BDD en précisant que l'information est peu fiable (Nombre de satellites trop faible, H-DOP trop élevé, latitude, longitude ou altitude incohérentes,...) avec le paramètre ``$config['csv_condition']`` dans le fichier ``/config/config.php``. Ces données sont renseignées avec la propriétés ``accurate`` à 0.
+Il est possible de définir des seuils de valeur pour lesquelles on souhaite intégrer les positions dans la BDD en précisant que l'information est peu fiable (Nombre de satellites trop faible, H-DOP trop élevé, latitude, longitude ou altitude incohérentes,...) avec le paramètre ``$config['csv_condition']`` dans le fichier ``/config/config.php``. Ces données sont renseignées avec la propriétés ``accurate`` à false.
 
 Configurer l'application
 ========================
